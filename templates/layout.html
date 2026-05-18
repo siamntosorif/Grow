@@ -1,19 +1,19 @@
 {% set user = user | default(g.user) %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="theme-color" content="#ffffff">
-    <title>GrowEarn | Professional Earning Platform</title>
+    <title>GrowEarn | Premium Earning Network</title>
     
     <!-- PWA Required Tags -->
     <link rel="manifest" href="/manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/192/3135/3135715.png">
     
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS (Advanced Config) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -23,7 +23,7 @@
                         primary: {
                             50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe',
                             300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6',
-                            600: '#2563eb', /* Brand Blue */
+                            600: '#2563eb', /* Brand Core */
                             700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a',
                         },
                         surface: '#ffffff',
@@ -44,6 +44,9 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
     
+    <!-- ==========================================
+         PREMIUM CUSTOM CSS RULES
+    =========================================== -->
     <style>
         body { 
             font-family: 'Hind Siliguri', 'Inter', sans-serif; 
@@ -60,18 +63,18 @@
             border-radius: 16px !important;
             border: 1px solid theme('colors.primary.400') !important;
             color: white !important;
-            transition: all 0.3s ease !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
         }
         .btn-emerald:hover { transform: translateY(-2px) !important; box-shadow: 0 15px 35px -5px rgba(37, 99, 235, 0.4) !important; }
         .btn-emerald:active { transform: translateY(1px) !important; box-shadow: none !important; }
         .btn-emerald::after { display: none !important; }
 
-        /* --- Premium Cards --- */
         .clean-card, .clean-card-ui, .ai-glass-card {
             background: theme('colors.surface') !important;
-            border: 1px solid theme('colors.slate.200') !important;
+            border: 1px solid theme('colors.slate.100') !important;
             border-radius: 24px !important;
             box-shadow: theme('boxShadow.premium') !important;
+            backdrop-filter: none !important;
             transition: all 0.3s ease !important;
         }
 
@@ -79,8 +82,8 @@
         .top-navbar {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid theme('colors.slate.100');
-            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
         }
 
         .bottom-navbar {
@@ -92,7 +95,8 @@
         
         .tab-item { 
             color: theme('colors.slate.400'); 
-            transition: all 0.3s ease; 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            position: relative;
         }
         .tab-item.active { 
             color: theme('colors.primary.600'); 
@@ -104,7 +108,7 @@
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
-            top: -26px;
+            top: -26px; 
             z-index: 50;
         }
         .center-action-btn {
@@ -115,7 +119,7 @@
             height: 64px; width: 64px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             font-size: 24px;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .center-action-btn:hover { transform: scale(1.05) rotate(5deg); }
         .center-action-btn:active { transform: scale(0.95); box-shadow: none; }
@@ -125,7 +129,8 @@
         .sidebar-open { transform: translateX(0); }
         .sidebar-closed { transform: translateX(-100%); }
 
-        .menu-item { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 16px; color: theme('colors.slate.700'); font-size: 14px; font-weight: 600; transition: all 0.2s ease; margin-bottom: 4px; }
+        .menu-title { font-size: 10px; font-weight: 800; color: theme('colors.slate.400'); text-transform: uppercase; letter-spacing: 0.15em; margin: 24px 0 8px 16px; }
+        .menu-item { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 16px; color: theme('colors.slate.700'); font-size: 14px; font-weight: 600; transition: all 0.2s ease; margin-bottom: 4px;}
         .menu-item:hover { background: theme('colors.primary.50'); color: theme('colors.primary.600'); }
         .menu-item.active { background: theme('colors.primary.50'); color: theme('colors.primary.700'); }
 
@@ -133,54 +138,59 @@
         @keyframes toastIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="flex flex-col min-h-screen">
+<body>
 
     <!-- ================= 1. TOP NAVBAR ================= -->
     <nav class="top-navbar fixed top-0 w-full z-40 h-[70px]">
         <div class="max-w-7xl mx-auto px-4 h-full flex justify-between items-center">
             
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3 md:gap-4">
+                <button onclick="toggleSidebar()" class="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-50 border border-slate-100 hover:bg-blue-50 text-slate-600 hover:text-blue-600 transition shadow-sm">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                </button>
                 <a href="/" class="flex items-center gap-2 group">
                     <div class="bg-gradient-to-br from-blue-500 to-blue-700 text-white h-8 w-8 flex items-center justify-center rounded-[10px] shadow-md group-hover:scale-105 transition">
-                        <i class="fa-solid fa-chart-line text-xs"></i>
+                        <i class="fa-solid fa-arrow-trend-up text-sm"></i>
                     </div>
-                    <span class="text-xl font-black tracking-tight text-slate-900">Grow<span class="text-blue-600">Earn</span></span>
+                    <!-- New Brand Name -->
+                    <span class="text-xl font-black tracking-tight text-slate-900 hidden sm:block">Grow<span class="text-blue-600">Earn</span></span>
                 </a>
             </div>
 
-            <div class="flex items-center gap-3">
-                <!-- App Install Btn -->
-                <button onclick="triggerInstall()" class="hidden md:flex items-center gap-1.5 bg-blue-50 text-blue-700 border border-blue-100 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-blue-600 hover:text-white transition shadow-sm">
-                    <i class="fa-solid fa-download"></i> App
+            <div class="flex items-center gap-2 md:gap-3">
+                <button onclick="triggerInstall()" class="hidden md:flex items-center gap-1.5 bg-blue-50 text-blue-700 border border-blue-100 px-4 py-2 rounded-xl text-xs font-bold hover:bg-blue-600 hover:text-white transition shadow-sm">
+                    <i class="fa-solid fa-download"></i> Install App
                 </button>
                 
-                <!-- Account Profile -->
-                {% if session.get('user_id') %}
-                <a href="/account" class="ml-1 h-9 w-9 bg-slate-100 text-slate-600 rounded-xl flex items-center justify-center text-sm font-bold shadow-sm hover:scale-105 transition border border-slate-200">
-                    <i class="fa-solid fa-user"></i>
+                <a href="/notice" class="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-50 border border-slate-100 hover:bg-slate-100 transition text-slate-500 relative">
+                    <i class="fa-regular fa-bell text-lg"></i>
+                    {% if settings and settings.notice_text %}
+                    <span class="absolute -top-1 -right-1 flex h-3 w-3">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500 border-2 border-white"></span>
+                    </span>
+                    {% endif %}
                 </a>
-                {% endif %}
             </div>
         </div>
     </nav>
 
-    <!-- ================= 2. MASTER SIDEBAR ================= -->
+    <!-- ================= 2. ADVANCED SIDEBAR ================= -->
     <div id="sidebarOverlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
     
     <div id="sidebar" class="fixed top-0 left-0 h-full w-[290px] bg-white z-[60] sidebar-closed flex flex-col shadow-[20px_0_40px_rgba(0,0,0,0.08)]">
         
-        <!-- Sidebar Header -->
         <div class="p-6 bg-gradient-to-br from-slate-900 to-slate-800 text-white relative overflow-hidden">
             <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/20 rounded-full blur-2xl -mr-10 -mt-10"></div>
             
             <div class="flex justify-between items-start relative z-10">
                 {% if session.get('user_id') %}
                     <div>
-                        <div class="h-14 w-14 bg-blue-600 text-white rounded-[18px] flex items-center justify-center text-2xl font-black shadow-lg border border-blue-400/50 mb-3">
+                        <div class="h-14 w-14 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-[18px] flex items-center justify-center text-2xl font-black shadow-lg border border-blue-400/50 mb-3">
                             {{ session.get('email', 'U')[0] | upper }}
                         </div>
                         <h3 class="font-bold text-lg leading-tight truncate w-48">{{ session.get('email', 'User').split('@')[0] }}</h3>
-                        <p class="text-[11px] text-slate-400 mt-0.5 font-mono">ID: {{ user.referral_code }}</p>
+                        <p class="text-[11px] text-slate-400 mt-0.5">{{ session.get('email', '') }}</p>
                     </div>
                 {% else %}
                     <div>
@@ -189,51 +199,59 @@
                         <a href="/login" class="inline-block mt-3 bg-blue-600 text-white px-6 py-2 rounded-xl text-sm font-bold shadow-md">Login Now</a>
                     </div>
                 {% endif %}
-                
                 <button onclick="toggleSidebar()" class="h-8 w-8 bg-white/10 rounded-full flex items-center justify-center text-slate-300 hover:bg-red-500 hover:text-white transition">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
         </div>
 
-        <!-- Scrollable Navigation (Simplified strictly as requested) -->
-        <div class="flex-grow overflow-y-auto p-4 pb-24 mt-2">
+        <!-- NEW STRICT NAVIGATION AS REQUESTED -->
+        <div class="flex-grow overflow-y-auto p-4 pb-24">
+            
+            <p class="menu-title">Main Navigation</p>
             
             <a href="/dashboard" class="menu-item {{ 'active' if request.endpoint == 'dashboard' }}">
-                <i class="fa-solid fa-house w-6 text-center text-blue-500"></i> <span>Dashboard</span>
+                <i class="fa-solid fa-house w-6 text-center text-slate-400"></i> <span>Dashboard</span>
+            </a>
+            
+            <a href="/withdraw" class="menu-item {{ 'active' if request.endpoint == 'withdraw' }}">
+                <i class="fa-solid fa-money-bill-transfer w-6 text-center text-emerald-500"></i> <span>Withdraw</span>
             </a>
             
             <a href="/earn" class="menu-item {{ 'active' if request.endpoint == 'earn' }}">
-                <i class="fa-solid fa-coins w-6 text-center text-amber-500"></i> <span>Earn Hub</span>
-            </a>
-
-            <a href="/withdraw" class="menu-item {{ 'active' if request.endpoint == 'withdraw' }}">
-                <i class="fa-solid fa-building-columns w-6 text-center text-emerald-500"></i> <span>Withdraw</span>
+                <i class="fa-solid fa-bolt w-6 text-center text-amber-500"></i> <span>Earn</span>
             </a>
             
             <a href="/history" class="menu-item {{ 'active' if request.endpoint == 'history' }}">
-                <i class="fa-solid fa-clock-rotate-left w-6 text-center text-slate-500"></i> <span>History Logs</span>
+                <i class="fa-solid fa-clock-rotate-left w-6 text-center text-slate-400"></i> <span>History</span>
+            </a>
+            
+            <a href="/drivepack" class="menu-item {{ 'active' if request.endpoint == 'drivepack' }}">
+                <i class="fa-solid fa-wifi w-6 text-center text-sky-500"></i> <span>Drivepack</span>
+            </a>
+            
+            <a href="/givework" class="menu-item {{ 'active' if request.endpoint == 'givework' }}">
+                <i class="fa-solid fa-briefcase w-6 text-center text-indigo-500"></i> <span>Give Work</span>
+            </a>
+            
+            <a href="/menu" class="menu-item {{ 'active' if request.endpoint == 'menu' }}">
+                <i class="fa-solid fa-bars w-6 text-center text-slate-500"></i> <span>Menu</span>
             </a>
 
-            <a href="/drive" class="menu-item {{ 'active' if request.endpoint == 'drive_store' }}">
-                <i class="fa-solid fa-wifi w-6 text-center text-sky-500"></i> <span>Drive Packs</span>
-            </a>
-
-            <a href="/hire-us" class="menu-item {{ 'active' if request.endpoint == 'hire_us' }}">
-                <i class="fa-solid fa-briefcase w-6 text-center text-indigo-500"></i> <span>Give Work (Hire Us)</span>
-            </a>
-
+            <!-- Admin Area -->
             {% if user and user.role == 'admin' %}
-            <div class="my-4 border-t border-slate-200"></div>
-            <a href="/admin" class="menu-item bg-slate-900 text-white hover:bg-slate-800 mt-2 shadow-md">
+            <div class="my-4 border-t border-slate-100"></div>
+            <p class="menu-title text-red-400">Administration</p>
+            <a href="/admin" class="menu-item bg-slate-900 text-white hover:bg-slate-800 hover:text-white mt-1 shadow-md">
                 <i class="fa-solid fa-shield-halved w-6 text-center text-white"></i> <span>Admin Portal</span>
             </a>
             {% endif %}
 
+            <!-- Logout -->
             {% if session.get('user_id') %}
-            <div class="my-4 border-t border-slate-200"></div>
-            <a href="/logout" class="menu-item text-red-600 hover:bg-red-50">
-                <i class="fa-solid fa-power-off w-6 text-center text-red-500"></i> <span>Logout</span>
+            <div class="my-4 border-t border-slate-100"></div>
+            <a href="/logout" class="menu-item text-red-600 hover:bg-red-50 hover:text-red-700">
+                <i class="fa-solid fa-power-off w-6 text-center"></i> <span>Secure Logout</span>
             </a>
             {% endif %}
         </div>
@@ -249,7 +267,7 @@
                 <div class="h-8 w-8 rounded-full flex items-center justify-center flex-shrink-0 {{ 'bg-red-50 text-red-500' if category == 'error' else 'bg-green-50 text-green-500' }}">
                     <i class="fa-solid {{ 'fa-xmark' if category == 'error' else 'fa-check' }}"></i>
                 </div>
-                <p class="text-sm font-bold text-slate-700 leading-tight">{{ message }}</p>
+                <p class="text-sm font-bold text-slate-700">{{ message }}</p>
               </div>
             {% endfor %}
           {% endif %}
@@ -257,43 +275,55 @@
     </div>
 
     <!-- ================= 4. MAIN CONTENT AREA ================= -->
-    <main class="flex-grow w-full max-w-2xl mx-auto pt-[90px] pb-[120px] px-2 relative z-10">
+    <main class="flex-grow w-full max-w-2xl mx-auto pt-[90px] pb-[120px] px-4 relative z-10">
         {% block content %}{% endblock %}
     </main>
 
-    <!-- ================= 5. NEW BOTTOM NAVIGATION ================= -->
+    <!-- ================= 5. FLOATING LIVE CHAT ================= -->
+    <div class="fixed bottom-[100px] right-4 md:bottom-[100px] md:right-8 z-40 group">
+        <a href="/chat" class="relative block">
+            <div class="absolute right-16 top-3 bg-slate-900 text-white text-[10px] uppercase tracking-wider px-3 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition duration-300 shadow-xl font-bold flex items-center gap-2 whitespace-nowrap">
+                <span>Live Chat</span>
+            </div>
+            <div class="h-14 w-14 bg-blue-600 rounded-full flex items-center justify-center text-white text-2xl shadow-[0_10px_25px_rgba(37,99,235,0.4)] border-2 border-white transition transform hover:scale-110 hover:-rotate-6">
+                <i class="fa-solid fa-message"></i>
+            </div>
+            <div class="absolute bottom-0 right-0 h-4 w-4 bg-green-500 rounded-full border-2 border-white shadow-sm animate-pulse"></div>
+        </a>
+    </div>
+
+    <!-- ================= 6. iOS STYLE BOTTOM NAVIGATION ================= -->
     {% if session.get('user_id') %}
     <div class="bottom-navbar fixed bottom-0 left-0 w-full z-50">
         <div class="max-w-md mx-auto flex justify-between items-center h-[70px] px-6 relative">
             
-            <a href="/dashboard" class="flex flex-col items-center justify-center w-12 tab-item {{ 'active' if request.endpoint == 'dashboard' }}">
+            <a href="/dashboard" class="flex flex-col items-center justify-center w-14 tab-item {{ 'active' if request.endpoint == 'dashboard' }}">
                 <i class="fa-solid fa-house text-xl mb-1"></i>
                 <span class="text-[9px] font-bold">Home</span>
             </a>
 
-            <a href="/history" class="flex flex-col items-center justify-center w-12 tab-item {{ 'active' if request.endpoint == 'history' }}">
+            <a href="/history" class="flex flex-col items-center justify-center w-14 tab-item {{ 'active' if request.endpoint == 'history' }}">
                 <i class="fa-solid fa-clock-rotate-left text-xl mb-1"></i>
-                <span class="text-[9px] font-bold">History</span>
+                <span class="text-[9px] font-bold">Logs</span>
             </a>
 
             <!-- Pop-out Center Action Button (/work) -->
             <div class="center-fab-wrapper">
-                <!-- Links to /work as requested -->
                 <a href="/work" class="center-action-btn">
-                    <i class="fa-solid fa-briefcase"></i>
+                    <i class="fa-solid fa-bolt"></i>
                 </a>
             </div>
 
-            <a href="/withdraw" class="flex flex-col items-center justify-center w-12 tab-item {{ 'active' if request.endpoint == 'withdraw' }}">
+            <a href="/withdraw" class="flex flex-col items-center justify-center w-14 tab-item {{ 'active' if request.endpoint == 'withdraw' }}">
                 <i class="fa-solid fa-wallet text-xl mb-1"></i>
-                <span class="text-[9px] font-bold">Withdraw</span>
+                <span class="text-[9px] font-bold">Cashout</span>
             </a>
 
-            <!-- Menu Button (Opens Sidebar) -->
-            <button onclick="toggleSidebar()" class="flex flex-col items-center justify-center w-12 tab-item cursor-pointer outline-none">
+            <!-- Changed Profile to Menu -->
+            <a href="/menu" class="flex flex-col items-center justify-center w-14 tab-item {{ 'active' if request.endpoint == 'menu' }}">
                 <i class="fa-solid fa-bars text-xl mb-1"></i>
                 <span class="text-[9px] font-bold">Menu</span>
-            </button>
+            </a>
 
         </div>
     </div>
@@ -301,11 +331,12 @@
 
     <!-- ================= SCRIPTS ================= -->
     <script>
-        // App Install
+        // PWA App Install
         let deferredPrompt;
         window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; });
         function triggerInstall() {
-            if (deferredPrompt) { deferredPrompt.prompt(); deferredPrompt.userChoice.then(() => { deferredPrompt = null; }); }
+            if (deferredPrompt) { deferredPrompt.prompt(); deferredPrompt.userChoice.then(() => { deferredPrompt = null; }); } 
+            else { alert("Already installed or not supported."); }
         }
 
         // Sidebar Toggle
@@ -325,7 +356,7 @@
             }
         }
 
-        // Auto Hide Toasts
+        // Auto Hide Flash
         setTimeout(() => {
             document.querySelectorAll('.toast-enter').forEach(alert => {
                 alert.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
@@ -334,6 +365,13 @@
                 setTimeout(() => alert.remove(), 400);
             });
         }, 3500);
+
+        // Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW Reg Error', err));
+            });
+        }
     </script>
 </body>
 </html>
