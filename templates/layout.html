@@ -139,7 +139,7 @@
                     <div class="bg-red-600 text-white h-8 w-8 flex items-center justify-center rounded-[10px] shadow-sm group-hover:scale-105 transition">
                         <i class="fa-solid fa-bolt text-sm"></i>
                     </div>
-                    <span class="text-xl font-black tracking-tight text-slate-900 hidden sm:block">Grow<span class="text-red-600">Earn</span></span>
+                    <span style="color: black; font-size: 23px;">Grow<span class="text-red-600"><b style="color: red;">Earn</b></span></span>
                 </a>
             </div>
 
@@ -216,6 +216,10 @@
                 <i class="fa-solid fa-clock-rotate-left w-6 text-center text-red-400"></i> <span>History</span>
             </a>
             
+            <a href="/vip" class="menu-item {{ 'active' if request.endpoint == 'drive_store' or request.endpoint == 'drivepack' }}">
+                <i class="fab fa-squarespace w-6 text-center text-sky-500"></i> <span>Elite Pass</span> <i class="fa-brands fa-squarespace"></i>
+            </a>
+     
             <a href="/drive" class="menu-item {{ 'active' if request.endpoint == 'drive_store' or request.endpoint == 'drivepack' }}">
                 <i class="fa-solid fa-wifi w-6 text-center text-sky-500"></i> <span>Drivepack</span>
             </a>
@@ -273,7 +277,7 @@
     <div class="fixed bottom-[95px] right-4 md:bottom-[95px] md:right-8 z-40 flex flex-col gap-3 group">
         
         <!-- WhatsApp Action -->
-        <a href="https://wa.me/8801894577178" target="_blank" class="relative block transform transition hover:scale-110 hover:-rotate-6">
+        <a href="https://wa.me/8801894577179" target="_blank" class="relative block transform transition hover:scale-110 hover:-rotate-6">
             <div class="absolute right-16 top-2 bg-slate-900 text-white text-[10px] uppercase tracking-wider px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition duration-300 shadow-xl font-bold flex items-center gap-2 whitespace-nowrap">
                 <span>WhatsApp</span>
             </div>
@@ -298,33 +302,33 @@
 
     <!-- ================= 6. BOTTOM NAVIGATION ================= -->
     {% if session.get('user_id') %}
-    <div class="bottom-navbar fixed bottom-0 left-0 w-full z-50">
+    <div class="bottom-navbar fixed bottom-0 left-0 w-full z-50" style="background: #ffffffd5;">
         <div class="max-w-md mx-auto flex justify-between items-center h-[70px] px-6 relative">
             
             <a href="/dashboard" class="flex flex-col items-center justify-center w-12 tab-item {{ 'active' if request.endpoint == 'dashboard' }}">
-                <i class="fa-solid fa-house text-xl mb-1"></i>
+                <i class="fa-solid fa-house text-xl mb-1" style="color: red;"></i>
                 <span class="text-[9px] font-bold">Home</span>
             </a>
 
             <a href="/history" class="flex flex-col items-center justify-center w-12 tab-item {{ 'active' if request.endpoint == 'history' }}">
-                <i class="fa-solid fa-clock-rotate-left text-xl mb-1"></i>
-                <span class="text-[9px] font-bold">Logs</span>
+                <i class="fa-solid fa-clock-rotate-left text-xl mb-1" style="color: red;"></i>
+                <span class="text-[9px] font-bold">History </span>
             </a>
 
             <!-- CENTER BUTTON FIX -->
-            <div class="center-fab-wrapper">
+            <div class="center-fab-wrapper" style="background-color: red; border-radius: 50%;">
                 <a href="/work" class="center-action-btn">
                     <i class="fa-solid fa-bolt"></i>
                 </a>
             </div>
 
             <a href="/withdraw" class="flex flex-col items-center justify-center w-12 tab-item {{ 'active' if request.endpoint == 'withdraw' }}">
-                <i class="fa-solid fa-wallet text-xl mb-1"></i>
+                <i class="fa-solid fa-wallet text-xl mb-1" style="color: red;"></i>
                 <span class="text-[9px] font-bold">Cashout</span>
             </a>
 
-            <a href="/account" class="flex flex-col items-center justify-center w-12 tab-item {{ 'active' if request.endpoint == 'account' or request.endpoint == 'menu' }}">
-                <i class="fa-solid fa-bars text-xl mb-1"></i>
+            <a href="/menu" class="flex flex-col items-center justify-center w-12 tab-item {{ 'active' if request.endpoint == 'account' or request.endpoint == 'menu' }}">
+                <i class="fa-solid fa-bars text-xl mb-1" style="color: red;"></i>
                 <span class="text-[9px] font-bold">Menu</span>
             </a>
 
