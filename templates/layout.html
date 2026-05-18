@@ -1,17 +1,19 @@
 {% set user = user | default(g.user) %}
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="theme-color" content="#2563eb">
-    <title>Earn Daily | Professional Earning Ecosystem</title>
+    <meta name="theme-color" content="#ffffff">
+    <title>GrowEarn | Professional Earning Platform</title>
     
+    <!-- PWA Required Tags -->
     <link rel="manifest" href="/manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
     
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -21,260 +23,230 @@
                         primary: {
                             50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe',
                             300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6',
-                            600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a',
+                            600: '#2563eb', /* Brand Blue */
+                            700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a',
                         },
-                        accent: '#F59E0B',
                         surface: '#ffffff',
-                        background: '#F1F5F9',
+                        background: '#F8FAFC',
                     },
                     boxShadow: {
-                        'premium': '0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05)',
-                        'float': '0 20px 25px -5px rgba(37, 99, 235, 0.2), 0 8px 10px -6px rgba(37, 99, 235, 0.1)',
-                        'inner-soft': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
+                        'premium': '0 4px 20px -2px rgba(0, 0, 0, 0.04)',
+                        'float': '0 10px 30px -5px rgba(37, 99, 235, 0.25)',
                     }
                 }
             }
         }
     </script>
     
+    <!-- FontAwesome Pro Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         body { 
             font-family: 'Hind Siliguri', 'Inter', sans-serif; 
-            background-color: #F8FAFC;
-            color: #1E293B;
+            background-color: theme('colors.background');
+            color: theme('colors.slate.800');
             -webkit-tap-highlight-color: transparent;
-            user-select: none;
             overflow-x: hidden;
         }
 
-        /* Override Global Buttons for Other Pages */
+        /* --- Global Button Override --- */
         .btn-emerald {
-            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%) !important;
-            box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.3) !important;
+            background: linear-gradient(135deg, theme('colors.primary.500') 0%, theme('colors.primary.700') 100%) !important;
+            box-shadow: theme('boxShadow.float') !important;
             border-radius: 16px !important;
-            border: none !important;
+            border: 1px solid theme('colors.primary.400') !important;
             color: white !important;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            transition: all 0.3s ease !important;
         }
-        .btn-emerald:hover { transform: translateY(-2px) !important; }
-        .btn-emerald:active { transform: scale(0.96) !important; box-shadow: none !important; }
+        .btn-emerald:hover { transform: translateY(-2px) !important; box-shadow: 0 15px 35px -5px rgba(37, 99, 235, 0.4) !important; }
+        .btn-emerald:active { transform: translateY(1px) !important; box-shadow: none !important; }
         .btn-emerald::after { display: none !important; }
 
+        /* --- Premium Cards --- */
         .clean-card, .clean-card-ui, .ai-glass-card {
-            background: var(--surface) !important;
-            border: 1px solid #E2E8F0 !important;
+            background: theme('colors.surface') !important;
+            border: 1px solid theme('colors.slate.200') !important;
             border-radius: 24px !important;
-            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03) !important;
-            backdrop-filter: none !important;
+            box-shadow: theme('boxShadow.premium') !important;
             transition: all 0.3s ease !important;
         }
 
-        /* Animated Mesh Background */
-        .mesh-bg {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: -1; background-color: #F8FAFC; overflow: hidden;
-        }
-        .orb-1 { position: absolute; top: -10%; left: -10%; width: 50vw; height: 50vw; background: #3b82f6; filter: blur(120px); opacity: 0.1; animation: float 20s infinite alternate ease-in-out; }
-        .orb-2 { position: absolute; bottom: -20%; right: -10%; width: 60vw; height: 60vw; background: #14B8A6; filter: blur(130px); opacity: 0.1; animation: float 25s infinite alternate-reverse ease-in-out; }
-        
-        @keyframes float {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(100px, 50px) scale(1.1); }
-        }
-
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.85);
+        /* --- Navbars --- */
+        .top-navbar {
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-bottom: 1px solid theme('colors.slate.100');
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
         }
 
-        /* Bottom Nav Active State */
-        .tab-item { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .nav-active { color: #2563eb; }
-        .nav-active i { transform: translateY(-3px) scale(1.1); text-shadow: 0 5px 10px rgba(37, 99, 235, 0.3); }
+        .bottom-navbar {
+            background: theme('colors.surface');
+            border-top: 1px solid theme('colors.slate.100');
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.03);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        
+        .tab-item { 
+            color: theme('colors.slate.400'); 
+            transition: all 0.3s ease; 
+        }
+        .tab-item.active { 
+            color: theme('colors.primary.600'); 
+            transform: translateY(-3px);
+        }
+        
+        /* --- CENTER FLOATING BUTTON (/work) --- */
+        .center-fab-wrapper {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: -26px;
+            z-index: 50;
+        }
+        .center-action-btn {
+            background: linear-gradient(135deg, theme('colors.primary.500') 0%, theme('colors.primary.700') 100%);
+            color: white;
+            box-shadow: theme('boxShadow.float');
+            border: 5px solid theme('colors.background');
+            height: 64px; width: 64px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+        .center-action-btn:hover { transform: scale(1.05) rotate(5deg); }
+        .center-action-btn:active { transform: scale(0.95); box-shadow: none; }
 
-        /* Sidebar Styling */
-        .sidebar-gradient { background: linear-gradient(180deg, #0F172A 0%, #1E293B 100%); }
-        .menu-link { transition: all 0.2s ease; }
-        .menu-link:hover, .menu-link.active { background: rgba(255,255,255,0.1); color: #fff; }
-        .menu-link.active i { color: #3b82f6; }
+        /* --- Sidebar & Animations --- */
+        #sidebar { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform; }
+        .sidebar-open { transform: translateX(0); }
+        .sidebar-closed { transform: translateX(-100%); }
 
-        /* Custom Scrollbar for Sidebar */
-        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+        .menu-item { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 16px; color: theme('colors.slate.700'); font-size: 14px; font-weight: 600; transition: all 0.2s ease; margin-bottom: 4px; }
+        .menu-item:hover { background: theme('colors.primary.50'); color: theme('colors.primary.600'); }
+        .menu-item.active { background: theme('colors.primary.50'); color: theme('colors.primary.700'); }
 
-        .toast-anim { animation: toastIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        @keyframes toastIn { from { opacity: 0; transform: translateY(-20px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        .toast-enter { animation: toastIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes toastIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
-
-    <div class="mesh-bg"><div class="orb-1"></div><div class="orb-2"></div></div>
+<body class="flex flex-col min-h-screen">
 
     <!-- ================= 1. TOP NAVBAR ================= -->
-    <header class="fixed top-0 w-full z-40 px-4 pt-4 pb-2 transition-all">
-        <div class="max-w-5xl mx-auto glass-effect rounded-[24px] shadow-sm h-[64px] flex items-center justify-between px-4">
+    <nav class="top-navbar fixed top-0 w-full z-40 h-[70px]">
+        <div class="max-w-7xl mx-auto px-4 h-full flex justify-between items-center">
             
             <div class="flex items-center gap-3">
-                <button onclick="toggleSidebar()" class="h-10 w-10 flex items-center justify-center rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition-all active:scale-90 border border-blue-100">
-                    <i class="fa-solid fa-bars-staggered"></i>
-                </button>
-                <a href="/" class="flex flex-col leading-none">
-                    <span class="text-[9px] font-bold text-blue-600 uppercase tracking-widest mb-0.5">Platform</span>
-                    <span class="text-lg font-black text-slate-800">Earn<span class="text-blue-600">Daily</span></span>
+                <a href="/" class="flex items-center gap-2 group">
+                    <div class="bg-gradient-to-br from-blue-500 to-blue-700 text-white h-8 w-8 flex items-center justify-center rounded-[10px] shadow-md group-hover:scale-105 transition">
+                        <i class="fa-solid fa-chart-line text-xs"></i>
+                    </div>
+                    <span class="text-xl font-black tracking-tight text-slate-900">Grow<span class="text-blue-600">Earn</span></span>
                 </a>
             </div>
 
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-3">
+                <!-- App Install Btn -->
+                <button onclick="triggerInstall()" class="hidden md:flex items-center gap-1.5 bg-blue-50 text-blue-700 border border-blue-100 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-blue-600 hover:text-white transition shadow-sm">
+                    <i class="fa-solid fa-download"></i> App
+                </button>
+                
+                <!-- Account Profile -->
                 {% if session.get('user_id') %}
-                <div class="hidden sm:flex items-center bg-white border border-slate-200 rounded-full px-3 py-1.5 mr-2 shadow-sm cursor-pointer" onclick="window.location.href='/income'">
-                    <i class="fa-solid fa-wallet text-blue-500 mr-2 text-sm"></i>
-                    <span class="text-xs font-bold text-slate-700 font-mono">৳ {{ user.balance if user else '0.00' }}</span>
-                </div>
-                {% endif %}
-                <a href="/notice" class="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-50 border border-slate-200 text-slate-500 hover:text-blue-600 transition relative">
-                    <i class="fa-regular fa-bell text-lg"></i>
-                    {% if settings and settings.notice_text %}
-                    <span class="absolute top-2 right-2.5 h-2 w-2 bg-red-500 rounded-full border-2 border-white animate-pulse"></span>
-                    {% endif %}
+                <a href="/account" class="ml-1 h-9 w-9 bg-slate-100 text-slate-600 rounded-xl flex items-center justify-center text-sm font-bold shadow-sm hover:scale-105 transition border border-slate-200">
+                    <i class="fa-solid fa-user"></i>
                 </a>
+                {% endif %}
             </div>
         </div>
-    </header>
+    </nav>
 
     <!-- ================= 2. MASTER SIDEBAR ================= -->
-    <div id="sidebarOverlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-[60] hidden opacity-0 transition-opacity duration-300"></div>
+    <div id="sidebarOverlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
     
-    <aside id="sidebar" class="fixed top-0 left-0 h-full w-[300px] sidebar-gradient z-[70] -translate-x-full transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col shadow-2xl">
+    <div id="sidebar" class="fixed top-0 left-0 h-full w-[290px] bg-white z-[60] sidebar-closed flex flex-col shadow-[20px_0_40px_rgba(0,0,0,0.08)]">
         
-        <!-- Sidebar Profile Header -->
-        <div class="p-8 pb-6 border-b border-white/10 relative overflow-hidden">
+        <!-- Sidebar Header -->
+        <div class="p-6 bg-gradient-to-br from-slate-900 to-slate-800 text-white relative overflow-hidden">
             <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/20 rounded-full blur-2xl -mr-10 -mt-10"></div>
-            <button onclick="toggleSidebar()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition z-10"><i class="fa-solid fa-xmark text-xl"></i></button>
+            
+            <div class="flex justify-between items-start relative z-10">
+                {% if session.get('user_id') %}
+                    <div>
+                        <div class="h-14 w-14 bg-blue-600 text-white rounded-[18px] flex items-center justify-center text-2xl font-black shadow-lg border border-blue-400/50 mb-3">
+                            {{ session.get('email', 'U')[0] | upper }}
+                        </div>
+                        <h3 class="font-bold text-lg leading-tight truncate w-48">{{ session.get('email', 'User').split('@')[0] }}</h3>
+                        <p class="text-[11px] text-slate-400 mt-0.5 font-mono">ID: {{ user.referral_code }}</p>
+                    </div>
+                {% else %}
+                    <div>
+                        <div class="h-14 w-14 bg-slate-800 text-slate-400 rounded-2xl flex items-center justify-center text-2xl mb-4 border border-slate-700"><i class="fa-solid fa-user"></i></div>
+                        <h2 class="text-xl font-bold text-white">Welcome Guest</h2>
+                        <a href="/login" class="inline-block mt-3 bg-blue-600 text-white px-6 py-2 rounded-xl text-sm font-bold shadow-md">Login Now</a>
+                    </div>
+                {% endif %}
+                
+                <button onclick="toggleSidebar()" class="h-8 w-8 bg-white/10 rounded-full flex items-center justify-center text-slate-300 hover:bg-red-500 hover:text-white transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Scrollable Navigation (Simplified strictly as requested) -->
+        <div class="flex-grow overflow-y-auto p-4 pb-24 mt-2">
+            
+            <a href="/dashboard" class="menu-item {{ 'active' if request.endpoint == 'dashboard' }}">
+                <i class="fa-solid fa-house w-6 text-center text-blue-500"></i> <span>Dashboard</span>
+            </a>
+            
+            <a href="/earn" class="menu-item {{ 'active' if request.endpoint == 'earn' }}">
+                <i class="fa-solid fa-coins w-6 text-center text-amber-500"></i> <span>Earn Hub</span>
+            </a>
+
+            <a href="/withdraw" class="menu-item {{ 'active' if request.endpoint == 'withdraw' }}">
+                <i class="fa-solid fa-building-columns w-6 text-center text-emerald-500"></i> <span>Withdraw</span>
+            </a>
+            
+            <a href="/history" class="menu-item {{ 'active' if request.endpoint == 'history' }}">
+                <i class="fa-solid fa-clock-rotate-left w-6 text-center text-slate-500"></i> <span>History Logs</span>
+            </a>
+
+            <a href="/drive" class="menu-item {{ 'active' if request.endpoint == 'drive_store' }}">
+                <i class="fa-solid fa-wifi w-6 text-center text-sky-500"></i> <span>Drive Packs</span>
+            </a>
+
+            <a href="/hire-us" class="menu-item {{ 'active' if request.endpoint == 'hire_us' }}">
+                <i class="fa-solid fa-briefcase w-6 text-center text-indigo-500"></i> <span>Give Work (Hire Us)</span>
+            </a>
+
+            {% if user and user.role == 'admin' %}
+            <div class="my-4 border-t border-slate-200"></div>
+            <a href="/admin" class="menu-item bg-slate-900 text-white hover:bg-slate-800 mt-2 shadow-md">
+                <i class="fa-solid fa-shield-halved w-6 text-center text-white"></i> <span>Admin Portal</span>
+            </a>
+            {% endif %}
 
             {% if session.get('user_id') %}
-                <div class="relative w-16 h-16 mb-4 group z-10">
-                    <div class="absolute inset-0 {{ 'bg-amber-500' if user.current_level > 0 else 'bg-blue-500' }} rounded-[18px] rotate-6 group-hover:rotate-12 transition-transform"></div>
-                    <div class="relative h-full w-full bg-slate-800 rounded-[18px] flex items-center justify-center text-2xl font-black text-white border border-white/20">
-                        {{ session.get('email', 'U')[0] | upper }}
-                    </div>
-                    <div class="absolute -bottom-1 -right-1 h-5 w-5 bg-green-500 rounded-full border-[3px] border-slate-800"></div>
-                </div>
-                
-                <h3 class="text-white font-bold text-lg truncate z-10 relative">{{ session.get('email', 'User').split('@')[0] }}</h3>
-                
-                <!-- DYNAMIC VIP LOGIC -->
-                <div class="relative z-10">
-                    {% if user and user.current_level > 0 %}
-                        <p class="text-amber-400 text-xs mt-1 font-bold flex items-center gap-1.5"><i class="fa-solid fa-crown"></i> Premium Member</p>
-                        <div class="flex items-center gap-2 mt-4">
-                            <div class="bg-amber-500/10 text-amber-400 text-[10px] font-bold px-2.5 py-1 rounded uppercase tracking-wider border border-amber-500/20">VIP Level {{ user.current_level }}</div>
-                            <div class="bg-white/10 text-slate-300 text-[10px] font-bold px-2.5 py-1 rounded font-mono border border-white/10">ID: {{ user.referral_code }}</div>
-                        </div>
-                    {% else %}
-                        <p class="text-slate-400 text-xs mt-1">Free Member • UID: <span class="font-mono text-slate-300">{{ user.referral_code if user else '0000' }}</span></p>
-                        <div class="flex items-center gap-2 mt-4">
-                            <a href="/vip" class="bg-blue-500/10 text-blue-400 text-[10px] font-bold px-3 py-1 rounded uppercase tracking-wider border border-blue-500/20 hover:bg-blue-500 hover:text-white transition shadow-sm"><i class="fa-solid fa-arrow-up mr-1"></i> Upgrade to VIP</a>
-                        </div>
-                    {% endif %}
-                </div>
-            {% else %}
-                <div class="h-16 w-16 bg-slate-800 text-slate-400 rounded-[18px] flex items-center justify-center text-3xl mb-4 border border-slate-700 z-10 relative"><i class="fa-solid fa-user"></i></div>
-                <h2 class="text-xl font-bold text-white z-10 relative">Welcome Guest</h2>
-                <a href="/login" class="inline-block mt-3 bg-blue-600 text-white px-5 py-2 rounded-xl text-sm font-bold shadow-md z-10 relative">Login Now</a>
-            {% endif %}
-        </div>
-
-        <!-- Sidebar Navigation (All Links) -->
-        <div class="flex-grow overflow-y-auto px-4 py-6 custom-scrollbar space-y-1 pb-24">
-            
-            <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-4 mb-2">Earning Zone</p>
-            <a href="/dashboard" class="menu-link flex items-center gap-4 px-4 py-3 rounded-2xl text-slate-300 {{ 'active' if request.endpoint == 'dashboard' }}">
-                <i class="fa-solid fa-grid-2 w-5 text-center"></i> <span class="font-semibold text-sm">Dashboard</span>
-            </a>
-            <a href="/tasks" class="menu-link flex items-center gap-4 px-4 py-3 rounded-2xl text-slate-300 {{ 'active' if request.endpoint == 'tasks' }}">
-                <i class="fa-solid fa-bolt-lightning w-5 text-center text-amber-500"></i> <span class="font-semibold text-sm">Micro Tasks</span>
-            </a>
-            <a href="/gmail-tasks" class="menu-link flex items-center justify-between px-4 py-3 rounded-2xl text-slate-300 {{ 'active' if request.endpoint == 'gmail_tasks' }}">
-                <div class="flex items-center gap-4">
-                    <i class="fa-brands fa-google w-5 text-center text-red-500"></i> <span class="font-semibold text-sm">Gmail Tasks</span>
-                </div>
-                <span class="bg-red-500/20 text-red-400 border border-red-500/30 text-[9px] px-2 py-0.5 rounded uppercase font-bold">Hot</span>
-            </a>
-            <a href="/drive" class="menu-link flex items-center gap-4 px-4 py-3 rounded-2xl text-slate-300 {{ 'active' if request.endpoint == 'drive_store' }}">
-                <i class="fa-solid fa-wifi w-5 text-center text-sky-400"></i> <span class="font-semibold text-sm">Telecom Offers</span>
-            </a>
-            <a href="/spin" class="menu-link flex items-center gap-4 px-4 py-3 rounded-2xl text-slate-300 {{ 'active' if request.endpoint == 'lucky_spin' }}">
-                <i class="fa-solid fa-dharmachakra w-5 text-center text-orange-400"></i> <span class="font-semibold text-sm">Lucky Spin</span>
-            </a>
-            <a href="/vip" class="menu-link flex items-center gap-4 px-4 py-3 rounded-2xl text-slate-300 {{ 'active' if request.endpoint == 'vip_page' }}">
-                <i class="fa-solid fa-crown w-5 text-center text-yellow-500"></i> <span class="font-semibold text-sm">Elite VIP Plans</span>
-            </a>
-
-            <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-4 mb-2 mt-6">Financials</p>
-            <a href="/withdraw" class="menu-link flex items-center gap-4 px-4 py-3 rounded-2xl text-slate-300 {{ 'active' if request.endpoint == 'withdraw' }}">
-                <i class="fa-solid fa-money-bill-transfer w-5 text-center text-emerald-400"></i> <span class="font-semibold text-sm">Withdraw Balance</span>
-            </a>
-            <a href="/history" class="menu-link flex items-center gap-4 px-4 py-3 rounded-2xl text-slate-300 {{ 'active' if request.endpoint == 'history' }}">
-                <i class="fa-solid fa-clock-rotate-left w-5 text-center"></i> <span class="font-semibold text-sm">Transactions</span>
-            </a>
-            <a href="/proofs" class="menu-link flex items-center gap-4 px-4 py-3 rounded-2xl text-slate-300 {{ 'active' if request.endpoint == 'proofs' }}">
-                <i class="fa-solid fa-receipt w-5 text-center text-pink-400"></i> <span class="font-semibold text-sm">Payment Proofs</span>
-            </a>
-
-            <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-4 mb-2 mt-6">Network & Setup</p>
-            <a href="/referrals" class="menu-link flex items-center gap-4 px-4 py-3 rounded-2xl text-slate-300 {{ 'active' if request.endpoint == 'referrals' }}">
-                <i class="fa-solid fa-users w-5 text-center text-indigo-400"></i> <span class="font-semibold text-sm">My Team</span>
-            </a>
-            <a href="/adm" class="menu-link flex items-center gap-4 px-4 py-3 rounded-2xl text-slate-300 {{ 'active' if request.endpoint == 'adm_settings' }}">
-                <i class="fa-solid fa-sliders w-5 text-center text-slate-400"></i> <span class="font-semibold text-sm">Payment Setup</span>
-            </a>
-            <a href="/account" class="menu-link flex items-center gap-4 px-4 py-3 rounded-2xl text-slate-300 {{ 'active' if request.endpoint == 'account' }}">
-                <i class="fa-solid fa-user-gear w-5 text-center text-slate-400"></i> <span class="font-semibold text-sm">Profile Settings</span>
-            </a>
-            <a href="/tutorial" class="menu-link flex items-center gap-4 px-4 py-3 rounded-2xl text-slate-300 {{ 'active' if request.endpoint == 'tutorial' }}">
-                <i class="fa-brands fa-youtube w-5 text-center text-red-500"></i> <span class="font-semibold text-sm">Video Guide</span>
-            </a>
-            <a href="https://t.me/earndailysite" target="_blank" class="menu-link flex items-center gap-4 px-4 py-3 rounded-2xl text-slate-300 hover:bg-sky-500/10 hover:text-sky-400">
-                <i class="fa-brands fa-telegram w-5 text-center text-sky-400"></i> <span class="font-semibold text-sm">Live Support</span>
-            </a>
-
-            <!-- Admin Area -->
-            {% if user and user.role == 'admin' %}
-            <div class="my-4 border-t border-white/10"></div>
-            <p class="text-[10px] font-bold text-red-400 uppercase tracking-widest ml-4 mb-2">Administration</p>
-            <a href="/admin" class="menu-link flex items-center gap-4 px-4 py-3 rounded-2xl bg-slate-800 text-white hover:bg-slate-700 shadow-md">
-                <i class="fa-solid fa-shield-halved w-5 text-center text-white"></i> <span class="font-semibold text-sm">Admin Portal</span>
-            </a>
-            {% endif %}
-
-            {% if user and (user.role == 'admin' or user.email == 'fatemaaktersamiya2@gmail.com') %}
-            <a href="/aw/newbie-check" class="menu-link flex items-center gap-4 px-4 py-3 rounded-2xl bg-orange-500/10 text-orange-400 border border-orange-500/20 hover:bg-orange-500/20 mt-2">
-                <i class="fa-solid fa-user-graduate w-5 text-center text-orange-400"></i> <span class="font-semibold text-sm">Newbie Check</span>
+            <div class="my-4 border-t border-slate-200"></div>
+            <a href="/logout" class="menu-item text-red-600 hover:bg-red-50">
+                <i class="fa-solid fa-power-off w-6 text-center text-red-500"></i> <span>Logout</span>
             </a>
             {% endif %}
         </div>
-
-        {% if session.get('user_id') %}
-        <div class="p-6 border-t border-white/10 bg-black/20">
-            <a href="/logout" class="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl bg-red-500/10 text-red-400 border border-red-500/20 font-bold text-sm hover:bg-red-500 hover:text-white transition-all shadow-sm">
-                <i class="fa-solid fa-power-off"></i> Secure Logout
-            </a>
-        </div>
-        {% endif %}
-    </aside>
+    </div>
 
     <!-- ================= 3. TOAST NOTIFICATIONS ================= -->
-    <div class="fixed top-24 left-1/2 -translate-x-1/2 z-[110] w-[90%] max-w-sm flex flex-col gap-3 pointer-events-none" id="toastContainer">
+    <div class="fixed top-[80px] left-1/2 transform -translate-x-1/2 z-50 w-full max-w-sm px-4 flex flex-col gap-2 pointer-events-none" id="toastContainer">
         {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}
             {% for category, message in messages %}
-              <div class="glass-effect p-3.5 rounded-2xl shadow-premium border-l-4 {{ 'border-red-500' if category == 'error' else 'border-green-500' }} toast-anim pointer-events-auto flex items-center gap-3">
-                <div class="h-8 w-8 rounded-full {{ 'bg-red-100 text-red-600' if category == 'error' else 'bg-green-100 text-green-600' }} flex items-center justify-center flex-shrink-0">
+              <div class="bg-white p-4 rounded-2xl shadow-xl border border-slate-100 toast-enter flex items-center gap-3 pointer-events-auto relative overflow-hidden">
+                <div class="absolute left-0 top-0 bottom-0 w-1.5 {{ 'bg-red-500' if category == 'error' else 'bg-green-500' }}"></div>
+                <div class="h-8 w-8 rounded-full flex items-center justify-center flex-shrink-0 {{ 'bg-red-50 text-red-500' if category == 'error' else 'bg-green-50 text-green-500' }}">
                     <i class="fa-solid {{ 'fa-xmark' if category == 'error' else 'fa-check' }}"></i>
                 </div>
                 <p class="text-sm font-bold text-slate-700 leading-tight">{{ message }}</p>
@@ -285,105 +257,83 @@
     </div>
 
     <!-- ================= 4. MAIN CONTENT AREA ================= -->
-    <!-- pt-[100px] to stay below top nav, pb-[120px] to clear the floating bottom nav -->
-    <main class="flex-grow pt-[100px] pb-[120px] px-4 w-full max-w-3xl mx-auto relative z-10">
+    <main class="flex-grow w-full max-w-2xl mx-auto pt-[90px] pb-[120px] px-2 relative z-10">
         {% block content %}{% endblock %}
     </main>
 
-    <!-- ================= 5. TELEGRAM FLOATING BTN ================= -->
-    
-    <div class="fixed bottom-[180px] right-4 z-40 group">
-        <a href="https://t.me/earndailysite" target="_blank" class="block">
-            <div class="h-14 w-14 bg-[#2AABEE] rounded-full flex items-center justify-center text-white text-3xl shadow-float border-2 border-white transition transform hover:scale-110 hover:-rotate-12">
-                <i class="fa-brands fa-telegram pr-1"></i>
-            </div>
-        </a>
-    </div>
-    
-    <div class="fixed bottom-[110px] right-4 z-40 group">
-        <a href="/chat" target="_blank" class="block">
-            <div class="h-14 w-14 bg-[#2AABEE] rounded-full flex items-center justify-center text-white text-3xl shadow-float border-2 border-white transition transform hover:scale-110 hover:-rotate-12">
-                <i class="fa-regular fa-comments"></i> </i>
-            </div>
-        </a>
-    </div>
-
-    <!-- ================= 6. PREMIUM BOTTOM NAVIGATION ================= -->
+    <!-- ================= 5. NEW BOTTOM NAVIGATION ================= -->
     {% if session.get('user_id') %}
-    <nav class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[92%] max-w-md z-[100]">
-        <!-- Floating Pill Design -->
-        <div class="glass-effect rounded-full shadow-float border border-white/60 h-[70px] flex items-center justify-between px-3">
+    <div class="bottom-navbar fixed bottom-0 left-0 w-full z-50">
+        <div class="max-w-md mx-auto flex justify-between items-center h-[70px] px-6 relative">
             
-            <a href="/dashboard" class="flex flex-col items-center justify-center w-full tab-item {{ 'nav-active' if request.endpoint == 'dashboard' else 'text-slate-400' }}">
-                <i class="fa-solid fa-house-chimney text-xl mb-1"></i>
-                <span class="text-[9px] font-black uppercase tracking-tighter">Home</span>
+            <a href="/dashboard" class="flex flex-col items-center justify-center w-12 tab-item {{ 'active' if request.endpoint == 'dashboard' }}">
+                <i class="fa-solid fa-house text-xl mb-1"></i>
+                <span class="text-[9px] font-bold">Home</span>
             </a>
 
-            <a href="/history" class="flex flex-col items-center justify-center w-full tab-item {{ 'nav-active' if request.endpoint == 'history' else 'text-slate-400' }}">
-                <i class="fa-solid fa-chart-line text-xl mb-1"></i>
-                <span class="text-[9px] font-black uppercase tracking-tighter">Logs</span>
+            <a href="/history" class="flex flex-col items-center justify-center w-12 tab-item {{ 'active' if request.endpoint == 'history' }}">
+                <i class="fa-solid fa-clock-rotate-left text-xl mb-1"></i>
+                <span class="text-[9px] font-bold">History</span>
             </a>
 
-            <!-- Pop-out Center Action Button -->
-            <div class="relative w-full flex justify-center -top-6">
-                <a href="/tasks" class="h-16 w-16 bg-gradient-to-tr from-blue-600 to-blue-400 rounded-full flex items-center justify-center text-white text-2xl shadow-float border-[4px] border-[#F8FAFC] transition transform active:scale-95 hover:scale-105">
-                    <i class="fa-solid fa-bolt"></i>
+            <!-- Pop-out Center Action Button (/work) -->
+            <div class="center-fab-wrapper">
+                <!-- Links to /work as requested -->
+                <a href="/work" class="center-action-btn">
+                    <i class="fa-solid fa-briefcase"></i>
                 </a>
             </div>
 
-            <a href="/withdraw" class="flex flex-col items-center justify-center w-full tab-item {{ 'nav-active' if request.endpoint == 'withdraw' else 'text-slate-400' }}">
-                <i class="fa-solid fa-sack-dollar text-xl mb-1"></i>
-                <span class="text-[9px] font-black uppercase tracking-tighter">Cash</span>
+            <a href="/withdraw" class="flex flex-col items-center justify-center w-12 tab-item {{ 'active' if request.endpoint == 'withdraw' }}">
+                <i class="fa-solid fa-wallet text-xl mb-1"></i>
+                <span class="text-[9px] font-bold">Withdraw</span>
             </a>
 
-            <a href="/account" class="flex flex-col items-center justify-center w-full tab-item {{ 'nav-active' if request.endpoint == 'account' else 'text-slate-400' }}">
-                <i class="fa-solid fa-circle-user text-xl mb-1"></i>
-                <span class="text-[9px] font-bold uppercase tracking-tighter">Profile</span>
-            </a>
+            <!-- Menu Button (Opens Sidebar) -->
+            <button onclick="toggleSidebar()" class="flex flex-col items-center justify-center w-12 tab-item cursor-pointer outline-none">
+                <i class="fa-solid fa-bars text-xl mb-1"></i>
+                <span class="text-[9px] font-bold">Menu</span>
+            </button>
 
         </div>
-    </nav>
+    </div>
     {% endif %}
 
     <!-- ================= SCRIPTS ================= -->
     <script>
-        // Sidebar Toggle Logic
+        // App Install
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; });
+        function triggerInstall() {
+            if (deferredPrompt) { deferredPrompt.prompt(); deferredPrompt.userChoice.then(() => { deferredPrompt = null; }); }
+        }
+
+        // Sidebar Toggle
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('sidebarOverlay');
-        
         function toggleSidebar() {
-            const isOpen = sidebar.classList.contains('translate-x-0');
-            if (isOpen) {
-                sidebar.classList.remove('translate-x-0');
-                sidebar.classList.add('-translate-x-full');
+            if (sidebar.classList.contains('sidebar-closed')) {
+                sidebar.classList.remove('sidebar-closed');
+                sidebar.classList.add('sidebar-open');
+                overlay.classList.remove('hidden');
+                requestAnimationFrame(() => overlay.classList.remove('opacity-0'));
+            } else {
+                sidebar.classList.remove('sidebar-open');
+                sidebar.classList.add('sidebar-closed');
                 overlay.classList.add('opacity-0');
                 setTimeout(() => overlay.classList.add('hidden'), 300);
-            } else {
-                overlay.classList.remove('hidden');
-                requestAnimationFrame(() => {
-                    overlay.classList.remove('opacity-0');
-                    sidebar.classList.remove('-translate-x-full');
-                    sidebar.classList.add('translate-x-0');
-                });
             }
         }
 
-        // Auto Hide Flash Messages
+        // Auto Hide Toasts
         setTimeout(() => {
-            document.querySelectorAll('.toast-anim').forEach(alert => {
+            document.querySelectorAll('.toast-enter').forEach(alert => {
                 alert.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
                 alert.style.opacity = '0';
                 alert.style.transform = 'translateY(-20px) scale(0.95)';
                 setTimeout(() => alert.remove(), 400);
             });
         }, 3500);
-
-        // Service Worker Reg
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW Registration Failed', err));
-            });
-        }
     </script>
 </body>
 </html>
