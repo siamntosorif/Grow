@@ -1,0 +1,106 @@
+{% extends "layout.html" %}
+{% block content %}
+<style>
+    .fade-in-up { animation: fadeInUp 0.5s forwards; opacity: 0; transform: translateY(15px); }
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+    .premium-input { background: #F8FAFC; border: 1.5px solid #E2E8F0; transition: all 0.3s; }
+    .premium-input:focus { background: #FFFFFF; border-color: #2563EB; box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); outline: none; }
+</style>
+
+<div class="max-w-xl mx-auto space-y-6 fade-in-up pb-10 px-1 pt-2">
+
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-blue-700 to-[#1e3a8a] rounded-[24px] p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
+        <i class="fa-brands fa-facebook absolute right-0 top-1/2 transform -translate-y-1/2 -mr-6 text-9xl opacity-[0.04]"></i>
+        
+        <div class="relative z-10">
+            <span class="bg-blue-500/20 text-blue-200 px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border border-blue-400/30 mb-3 inline-block shadow-sm backdrop-blur-sm">
+                High Paying Zone
+            </span>
+            <h2 class="text-2xl font-black tracking-tight mb-1">FB Account Farming</h2>
+            <p class="text-xs text-blue-200 font-medium mb-5">নতুন ফেসবুক একাউন্ট খুলে ডাটা জমা দিন</p>
+            
+            <div class="bg-white/10 p-4 rounded-xl border border-white/10 backdrop-blur-sm">
+                <p class="text-[10px] font-bold text-amber-300 uppercase tracking-widest mb-1.5"><i class="fa-solid fa-triangle-exclamation"></i> নিয়মাবলী:</p>
+                <ul class="text-[11px] text-white/90 space-y-1 ml-1 list-disc list-inside font-medium">
+                    <li>আইডিতে অবশ্যই 2FA (Two-Factor Authentication) অন থাকতে হবে।</li>
+                    <li>ফেক ইনফো বা ভুল 2FA দিলে একাউন্ট চিরতরে ব্যান করা হবে।</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Submission Form -->
+    <form method="POST" class="bg-white p-6 rounded-[24px] shadow-sm border border-slate-100" onsubmit="showLoading(this)">
+        <div class="flex items-center justify-between mb-6 border-b border-slate-50 pb-4">
+            <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2"><i class="fa-solid fa-cloud-arrow-up text-blue-600"></i> Submit Account Data</h3>
+            <span class="bg-emerald-50 text-emerald-600 px-3 py-1 rounded-lg text-[10px] font-black uppercase border border-emerald-100">+৳{{ reward }} / ID</span>
+        </div>
+
+        <div class="space-y-4">
+            <div>
+                <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">Facebook Profile Link</label>
+                <input type="url" name="fb_link" required placeholder="https://facebook.com/profile.php?id=..." class="premium-input w-full p-4 rounded-xl text-xs font-medium text-slate-800">
+            </div>
+            <div>
+                <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">Email / Number Used</label>
+                <input type="text" name="email" required placeholder="Email or Phone Number" class="premium-input w-full p-4 rounded-xl text-xs font-medium text-slate-800">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">Password</label>
+                    <input type="text" name="password" required placeholder="FB Password" class="premium-input w-full p-4 rounded-xl text-xs font-mono font-bold text-slate-800">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">2FA Recovery Key</label>
+                    <input type="text" name="two_fa" required placeholder="32-digit code" class="premium-input w-full p-4 rounded-xl text-xs font-mono font-bold text-slate-800">
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" id="submitBtn" class="w-full mt-6 bg-blue-600 text-white py-4 rounded-xl font-black text-xs uppercase tracking-widest shadow-lg hover:bg-blue-700 active:scale-95 transition flex items-center justify-center gap-2">
+            Submit Data <i class="fa-solid fa-paper-plane"></i>
+        </button>
+    </form>
+
+    <!-- Submission History -->
+    {% if my_subs %}
+    <div class="mt-8">
+        <h3 class="font-bold text-slate-800 text-xs uppercase tracking-widest mb-3 px-1"><i class="fa-solid fa-clock-rotate-left text-slate-400 mr-1"></i> Your Submissions</h3>
+        <div class="space-y-3">
+            {% for sub in my_subs %}
+            <div class="bg-white p-4 rounded-[16px] shadow-sm border border-slate-100 flex items-center justify-between">
+                <div class="flex items-center gap-3 overflow-hidden">
+                    <div class="h-10 w-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-lg flex-shrink-0"><i class="fa-brands fa-facebook-f"></i></div>
+                    <div class="min-w-0 pr-2">
+                        <p class="text-xs font-bold text-slate-800 truncate">{{ sub.email }}</p>
+                        <p class="text-[9px] text-slate-400 font-mono mt-0.5">{{ sub.created_at[:10] }}</p>
+                    </div>
+                </div>
+                <div class="flex-shrink-0 text-right">
+                    {% if sub.status == 'approved' %}
+                        <span class="text-[9px] font-black bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded border border-emerald-100 uppercase">Paid</span>
+                    {% elif sub.status == 'rejected' %}
+                        <span class="text-[9px] font-black bg-red-50 text-red-600 px-2 py-0.5 rounded border border-red-100 uppercase">Rejected</span>
+                    {% else %}
+                        <span class="text-[9px] font-black bg-slate-100 text-slate-500 px-2 py-0.5 rounded border border-slate-200 uppercase">Pending</span>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+
+<script>
+    function showLoading(form) {
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Processing...';
+        btn.classList.add('opacity-80', 'cursor-not-allowed');
+        return true;
+    }
+</script>
+{% endblock %}
