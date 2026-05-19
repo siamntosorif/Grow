@@ -1,0 +1,102 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+    .copy-row {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 10px 14px; background: #F8FAFC; border-radius: 12px;
+        border: 1px solid #F1F5F9; margin-bottom: 8px; transition: background 0.2s;
+    }
+    .copy-row:hover { background: #FFFFFF; border-color: #FBCFE8; }
+</style>
+
+<div class="max-w-4xl mx-auto space-y-6 pt-4 pb-20 px-1">
+    
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-slate-900 to-slate-800 p-6 rounded-[24px] text-white shadow-xl flex items-center justify-between relative overflow-hidden">
+        <div class="absolute right-0 top-0 w-32 h-32 bg-pink-500/20 rounded-full blur-2xl"></div>
+        <div class="relative z-10">
+            <h2 class="text-2xl font-black mb-1 flex items-center gap-2"><i class="fa-brands fa-instagram text-pink-500"></i> IG Review Queue</h2>
+            <p class="text-xs text-slate-400">Check and collect submitted accounts</p>
+        </div>
+        <div class="relative z-10 bg-white/10 px-4 py-2 rounded-xl border border-white/20 text-center backdrop-blur-sm">
+            <p class="text-[9px] font-bold text-slate-300 uppercase tracking-widest mb-0.5">Pending</p>
+            <p class="text-xl font-black font-mono leading-none">{{ accounts|length }}</p>
+        </div>
+    </div>
+
+    <!-- Account Cards -->
+    <div class="grid md:grid-cols-2 gap-5">
+        {% for acc in accounts %}
+        <div class="bg-white rounded-[24px] border border-slate-200 shadow-sm p-5 flex flex-col justify-between hover:border-pink-300 transition">
+            
+            <div class="flex justify-between items-start mb-4">
+                <div class="flex items-center gap-2.5">
+                    <div class="h-8 w-8 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center font-bold text-xs">{{ acc.profiles.email[0] | upper }}</div>
+                    <div>
+                        <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-0.5">Submitted By</p>
+                        <span class="text-xs font-bold text-slate-700 font-mono">{{ acc.profiles.email }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Rows (Copy Enabled) -->
+            <div class="mb-5 flex-grow">
+                <div class="copy-row group border-pink-100 bg-pink-50/50">
+                    <div class="overflow-hidden pr-2">
+                        <p class="text-[9px] text-pink-500 font-bold uppercase tracking-widest mb-0.5">IG Username</p>
+                        <p class="text-sm font-black text-pink-700 font-mono truncate w-full" id="un_{{ acc.id }}">{{ acc.username }}</p>
+                    </div>
+                    <button onclick="copyData('un_{{ acc.id }}', this)" class="h-8 w-8 bg-pink-600 border border-pink-700 rounded-lg text-white hover:bg-pink-700 shadow-sm transition active:scale-90 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-copy text-xs"></i></button>
+                </div>
+                
+                <div class="copy-row group">
+                    <div class="overflow-hidden pr-2">
+                        <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest mb-0.5">Password</p>
+                        <p class="text-sm font-bold text-slate-800 font-mono truncate w-full" id="pw_{{ acc.id }}">{{ acc.password }}</p>
+                    </div>
+                    <button onclick="copyData('pw_{{ acc.id }}', this)" class="h-8 w-8 bg-white border border-slate-200 rounded-lg text-slate-400 hover:text-pink-600 transition active:scale-90 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-copy text-xs"></i></button>
+                </div>
+
+                <div class="copy-row group">
+                    <div class="overflow-hidden pr-2">
+                        <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest mb-0.5">2FA Key</p>
+                        <p class="text-[10px] font-bold text-slate-600 font-mono truncate w-full" id="fa_{{ acc.id }}">{{ acc.two_fa_key }}</p>
+                    </div>
+                    <button onclick="copyData('fa_{{ acc.id }}', this)" class="h-8 w-8 bg-white border border-slate-200 rounded-lg text-slate-400 hover:text-pink-600 transition active:scale-90 flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-copy text-xs"></i></button>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex gap-2 border-t border-slate-100 pt-4">
+                <a href="/admin/ig-action/reject/{{ acc.id }}" class="flex-1 bg-white border border-red-200 text-red-600 py-3 rounded-[14px] text-[11px] font-bold text-center hover:bg-red-50 transition"><i class="fa-solid fa-xmark mr-1"></i> Reject</a>
+                <a href="/admin/ig-action/approve/{{ acc.id }}" class="flex-1 bg-gradient-to-r from-pink-600 to-rose-600 text-white py-3 rounded-[14px] text-[11px] font-bold text-center shadow-md hover:from-pink-700 transition"><i class="fa-solid fa-check-double mr-1"></i> Approve</a>
+            </div>
+
+        </div>
+        {% else %}
+        <div class="col-span-full text-center py-20 bg-white rounded-[32px] border border-dashed border-slate-300 shadow-sm mt-4">
+            <i class="fa-brands fa-instagram text-4xl text-slate-300 mb-3"></i>
+            <h3 class="text-sm font-bold text-slate-800">Queue is Clear!</h3>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    function copyData(elementId, btn) {
+        const text = document.getElementById(elementId).innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-check text-white text-xs"></i>';
+            btn.className = "h-8 w-8 bg-green-500 border border-green-600 rounded-lg flex items-center justify-center flex-shrink-0 transition";
+            
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+                if(elementId.includes('un_')) btn.className = "h-8 w-8 bg-pink-600 border border-pink-700 rounded-lg text-white hover:bg-pink-700 transition active:scale-90 flex items-center justify-center flex-shrink-0";
+                else btn.className = "h-8 w-8 bg-white border border-slate-200 rounded-lg text-slate-400 hover:text-pink-600 transition active:scale-90 flex items-center justify-center flex-shrink-0";
+            }, 1000);
+        });
+    }
+</script>
+{% endblock %}
