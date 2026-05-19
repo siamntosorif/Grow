@@ -32,13 +32,13 @@ except Exception as e:
 
 # test
 
-TELEGRAM_BOT_TOKEN = "8585667379:AAFeoPjAyK7X2X9_PBCgo_Hgx_48w9XypTE"
-TELEGRAM_CHANNEL_ID = "@pay_easy_earn"
+TELEGRAM_BOT_TOKEN = "8861243663:AAFUEVpqLqGC8reEvuohu_IetngHpKETlgM"
+TELEGRAM_CHANNEL_ID = "@growearnch"
 
 def send_to_telegram_channel(title, content, image_url=None):
     try:
         # টেলিগ্রাম মেসেজ ফরম্যাট (HTML)
-        tg_msg = f"📢 <b>{title}</b>\n\n{content}\n\n🌐 <i>আমাদের ওয়েবসাইটে ভিজিট করুন: earn-daily.site</i>"
+        tg_msg = f"✨ <b>{title}</b>\n\n{content}\n\n🌐 <i>  growearn.site</i>"
         
         if image_url:
             url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendPhoto"
@@ -56,10 +56,10 @@ def send_to_telegram_channel(title, content, image_url=None):
 # ==========================================
         
 SPECIAL_TASK_INFO = {
-    'title': '🔥 Airdrop Transfer & Registration',
+    'title': '🔥 Special Task ',
     'reward': 50.00,
-    'link': 'https://t.me/TelasterBot?start=23212', 
-    'tutorial': 'https://payr.site/st', 
+    'link': 'https://game.keepad.xyz/package/offer2/new/#/offer-earn-apk/download?proxy_num=12028813&area=16&token=45c25912ee16dfb870463fcc8054c516&channel=OfferEarnApk', 
+    'tutorial': 'https://growearn.site/st', 
     'description': 'ভিডিও দেখে নিয়ম মেনে Bot Start করে, রেফারেল লিংক কপি করুন এবং এয়ারড্রপ ট্রান্সফার করে প্রুফ দিন।'
 }
 
@@ -76,11 +76,11 @@ AD_LINKS = [
 
 # --- VIP LEVEL CONFIGURATION ---
 VIP_PLANS = {
-    1: {'name': 'Starter', 'price': 100, 'daily_profit': 10, 'days': 14, 'min_withdraw': 200},
-    2: {'name': 'Basic', 'price': 200, 'daily_profit': 20, 'days': 17, 'min_withdraw': 200},
-    3: {'name': 'Standard', 'price': 500, 'daily_profit': 30, 'days': 45, 'min_withdraw': 200},
-    4: {'name': 'Pro', 'price': 1000, 'daily_profit': 60, 'days': 60, 'min_withdraw': 200},
-    5: {'name': 'Elite', 'price': 5000, 'daily_profit': 350, 'days': 90, 'min_withdraw': 200}
+    1: {'name': 'Grow Pass', 'price': 100, 'daily_profit': 15, 'days': 15, 'min_withdraw': 200},
+    2: {'name': 'Fast Pass', 'price': 200, 'daily_profit': 25, 'days': 19, 'min_withdraw': 200},
+    3: {'name': 'Elite Pass', 'price': 500, 'daily_profit': 40, 'days': 50, 'min_withdraw': 200},
+    4: {'name': 'Pro Pass', 'price': 1000, 'daily_profit': 70, 'days': 60, 'min_withdraw': 200},
+    5: {'name': 'Agency Pass', 'price': 5000, 'daily_profit': 370, 'days': 100, 'min_withdraw': 200}
 }
 # -------------------------------------------------------------------
 # 3. HELPER DECORATORS
@@ -3395,6 +3395,8 @@ def admin_activations():
     return render_template('activations.html', requests=final_data)
 
 # --- USER: INCOME SUMMARY PAGE ---
+
+
 @app.route('/income')
 @login_required
 def income_summary():
@@ -3491,14 +3493,14 @@ def admin_panel():
 @app.route('/manifest.json')
 def manifest():
     return jsonify({
-        "name": " Earning App",
-        "short_name": "X",
+        "name": "Earning App",
+        "short_name": "Grow Earn",
         "start_url": "/",
         "display": "standalone",
         "background_color": "#F3F4F6",
         "theme_color": "#4F46E5",
         "icons":[{
-            "src": "https://i.ibb.co.com/yFKtMkgg/images.png", # Default App Icon
+            "src": "https://i.ibb.co.com/99bW9mW4/1779162852275.png", # Default App Icon
             "sizes": "512x512",
             "type": "image/png"
         }]
