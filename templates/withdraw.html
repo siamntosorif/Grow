@@ -3,7 +3,7 @@
 
 <style>
     /* Premium Entry Animations */
-    .fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(15px); }
+    .fade-in-up { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
     /* Custom Radio Button Wrapper (Pill Switcher) */
@@ -71,12 +71,12 @@
          1. MODERN HEADER
     ========================================== -->
     <div class="flex items-center justify-between mb-4 mt-2 px-2">
-        <a href="/dashboard" class="h-10 w-10 bg-white rounded-full flex items-center justify-center text-slate-500 shadow-sm border border-slate-200 hover:text-red-600 hover:bg-red-50 transition-colors">
+        <a href="/dashboard" class="h-10 w-10 bg-white rounded-[14px] flex items-center justify-center text-slate-500 shadow-[0_2px_8px_rgba(0,0,0,0.04)] border border-slate-100 hover:text-red-600 hover:bg-red-50 transition-colors active:scale-95">
             <i class="fa-solid fa-arrow-left"></i>
         </a>
         <div class="text-right">
-            <h2 class="text-xl font-black text-slate-800 tracking-tight leading-none">Cashout</h2>
-            <p class="text-[9px] font-black uppercase tracking-[0.2em] text-slate-400 mt-1">Withdraw Funds</p>
+            <h2 class="text-2xl font-black text-slate-800 tracking-tight leading-none">Cashout</h2>
+            <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mt-1">Withdraw Funds</p>
         </div>
     </div>
 
@@ -129,7 +129,7 @@
                     </div>
                 </div>
             </div>
-            <a href="/menu" class="h-8 w-8 bg-white rounded-full flex items-center justify-center text-slate-400 hover:text-red-600 shadow-sm border border-slate-200 transition" title="Change Method">
+            <a href="/menu" class="h-8 w-8 bg-white rounded-full flex items-center justify-center text-slate-400 hover:text-red-600 shadow-sm border border-slate-200 transition active:scale-90" title="Change Method">
                 <i class="fa-solid fa-pen text-[10px]"></i>
             </a>
         </div>
@@ -158,22 +158,27 @@
         {% set can_withdraw_free = (ref_count >= 3 and account_days >= 1) %}
         {% set is_vip = (user.current_level > 0) %}
         
-        {% if is_vip %}
-            <!-- ELITE USER BANNER -->
-            <div class="bg-slate-900 text-white p-5 rounded-[20px] mb-8 relative overflow-hidden shadow-lg border border-slate-800">
-                <div class="absolute right-0 top-0 w-24 h-24 bg-amber-500/10 rounded-bl-full blur-xl pointer-events-none"></div>
-                <div class="flex items-start gap-4 relative z-10">
-                    <div class="h-10 w-10 bg-amber-500 text-slate-900 rounded-xl flex items-center justify-center text-xl shadow-md flex-shrink-0"><i class="fa-solid fa-bolt"></i></div>
-                    <div>
-                        <h4 class="font-black text-amber-400 text-xs mb-1.5 uppercase tracking-widest">Elite Privilege</h4>
-                        <p class="text-[10px] font-medium leading-relaxed text-slate-300">আপনাকে ১ দিন অপেক্ষা করতে হবে না এবং কোনো রেফার লাগবে না। মিনিমাম মাত্র <b>৫০ টাকা</b> হলেই ইনস্ট্যান্ট উইথড্র করতে পারবেন!</p>
+        <!-- 🔥 ELITE BANNER (VISIBLE TO ALL AS BAIT) -->
+        <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white p-5 rounded-[20px] mb-5 relative overflow-hidden shadow-lg border border-slate-700">
+            <div class="absolute right-0 top-0 w-24 h-24 bg-amber-500/10 rounded-bl-full blur-xl pointer-events-none"></div>
+            <div class="flex items-start gap-4 relative z-10">
+                <div class="h-10 w-10 bg-gradient-to-br from-amber-400 to-amber-600 text-slate-900 rounded-xl flex items-center justify-center text-xl shadow-md flex-shrink-0"><i class="fa-solid fa-bolt"></i></div>
+                <div class="flex-grow">
+                    <div class="flex justify-between items-center mb-1.5">
+                        <h4 class="font-black text-amber-400 text-[11px] uppercase tracking-widest">Elite Privilege</h4>
+                        {% if not is_vip %}
+                        <a href="/vip" class="text-[9px] bg-white/10 px-2 py-1 rounded hover:bg-white/20 transition font-bold uppercase">Upgrade</a>
+                        {% endif %}
                     </div>
+                    <p class="text-[10px] font-medium leading-relaxed text-slate-300">কোনো রেফার বা ওয়েটিং টাইম লাগবে না। মিনিমাম মাত্র <b>৫০ টাকা</b> হলেই ইনস্ট্যান্ট উইথড্র করতে পারবেন!</p>
                 </div>
             </div>
-        {% else %}
-            <!-- FREE USER BANNER & PROGRESS -->
-            <div class="bg-red-50/50 border border-red-100 p-5 rounded-[20px] mb-8">
-                <h4 class="text-[9px] font-black text-red-600 uppercase tracking-widest mb-4 flex items-center gap-1.5"><i class="fa-solid fa-lock text-[10px]"></i> Free Tier Requirements</h4>
+        </div>
+
+        {% if not is_vip %}
+            <!-- FREE USER PROGRESS TRACKER -->
+            <div class="bg-slate-50 border border-slate-200 p-5 rounded-[20px] mb-8">
+                <h4 class="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-4 flex items-center gap-1.5"><i class="fa-solid fa-lock text-slate-400"></i> Free Tier Limits</h4>
                 
                 <div class="space-y-4">
                     <!-- Referrals -->
@@ -190,27 +195,27 @@
                             <span class="text-[10px] font-bold text-slate-600">Account Age (1 Day)</span>
                             <span class="font-bold text-[10px] text-slate-500">{{ account_days }}d</span>
                         </div>
-                        <div class="w-full bg-slate-200 rounded-full h-1"><div class="bg-indigo-500 h-full rounded-full transition-all" style="width: {{ '100' if account_days >= 1 else '50' }}%"></div></div>
+                        <div class="w-full bg-slate-200 rounded-full h-1"><div class="bg-blue-500 h-full rounded-full transition-all" style="width: {{ '100' if account_days >= 1 else '50' }}%"></div></div>
                     </div>
 
-                    <!-- 🚀 BALANCE PROGRESS BAR (Target 280 TK) -->
+                    <!-- BALANCE PROGRESS BAR (Target 280 TK) -->
                     {% set current_bal = user.balance | float %}
                     {% set target_bal = 280.0 %}
                     {% set percent = (current_bal / target_bal) * 100 %}
                     {% set percent_capped = percent if percent < 100 else 100 %}
                     
-                    <div class="pt-2 border-t border-red-100/50 mt-2">
+                    <div class="pt-3 border-t border-slate-200 mt-2">
                         <div class="flex justify-between items-center mb-1.5">
                             <span class="text-[10px] font-bold text-slate-600">Minimum Balance (280৳)</span>
                             <span class="font-bold text-[10px] text-blue-600 font-mono">{{ "%.1f"|format(percent_capped) }}%</span>
                         </div>
-                        <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
+                        <div class="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
                             <div class="bg-blue-600 h-full rounded-full transition-all duration-1000 ease-out {{ 'target-glow' if percent_capped < 100 }}" style="width: {{ percent_capped }}%"></div>
                         </div>
                         {% if percent_capped < 100 %}
-                        <p class="text-[8px] text-slate-400 mt-1.5 text-right font-medium">আর মাত্র ৳{{ "%.2f"|format(target_bal - current_bal) }} প্রয়োজন</p>
+                        <p class="text-[9px] text-slate-500 mt-2 font-medium">আর মাত্র <b class="text-red-500 font-mono">৳{{ "%.2f"|format(target_bal - current_bal) }}</b> প্রয়োজন</p>
                         {% else %}
-                        <p class="text-[8px] text-emerald-500 mt-1.5 text-right font-bold"><i class="fa-solid fa-check"></i> Target Reached!</p>
+                        <p class="text-[9px] text-emerald-500 mt-2 font-bold flex items-center gap-1"><i class="fa-solid fa-check"></i> Target Reached!</p>
                         {% endif %}
                     </div>
                 </div>
@@ -228,7 +233,7 @@
             </button>
         {% endif %}
 
-        <p class="text-center text-[9px] text-slate-400 font-bold uppercase tracking-widest mt-5"><i class="fa-solid fa-shield-check text-green-500 mr-1"></i> Secured by Earn Daily</p>
+        <p class="text-center text-[9px] text-slate-400 font-bold uppercase tracking-widest mt-5"><i class="fa-solid fa-shield-check text-green-500 mr-1"></i> Secured by GrowEarn</p>
     </form>
 
 </div>
