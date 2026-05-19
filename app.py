@@ -277,6 +277,18 @@ def fatema_admin_required(f):
 # --- MIDDLEWARE (UPDATED FOR BAN SYSTEM) ---
 @app.before_request
 def before_request_checks():
+
+if request.host == 'earn-daily.site' or request.host == 'www.earn-daily.site':
+        return redirect('https://google.com/', code=301)
+        
+    # Run the penalty bot
+    check_gmail_timeouts()
+    
+    # ১. সেটিংস লোড
+    try:
+        response = supabase.table('site_settings').select('*').eq('id', 1).single().execute()
+        g.settings = response.data
+    except:
     
 # Run the penalty bot
     check_gmail_timeouts()
