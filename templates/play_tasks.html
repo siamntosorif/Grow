@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+    .fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(15px); }
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+    
+    .play-card {
+        background: #ffffff; border: 1px solid #E2E8F0; border-radius: 20px;
+        padding: 16px; transition: all 0.3s ease; position: relative; overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    }
+    .play-card:hover { border-color: #10B981; box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.15); transform: translateY(-3px); }
+</style>
+
+<div class="max-w-2xl mx-auto space-y-6 fade-in-up pb-8 px-1">
+
+    <!-- HERO BANNER -->
+    <div class="bg-gradient-to-br from-emerald-600 to-teal-700 rounded-[28px] p-6 sm:p-8 text-white shadow-lg relative overflow-hidden">
+        <i class="fa-brands fa-google-play absolute right-4 top-1/2 transform -translate-y-1/2 text-8xl opacity-10 -rotate-12"></i>
+        
+        <div class="relative z-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+                <span class="bg-white/20 text-white px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border border-white/30 shadow-sm backdrop-blur-sm mb-3 inline-block">App Review Zone</span>
+                <h2 class="text-2xl sm:text-3xl font-black tracking-tight leading-tight">Install & Review Apps</h2>
+                <p class="text-[11px] text-emerald-100 mt-1.5 font-medium max-w-sm leading-relaxed">
+                    অ্যাপ ডাউনলোড করুন, ৫-স্টার রেটিং দিন এবং সুন্দর একটি রিভিউ লিখে স্ক্রিনশট জমা দিন।
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TASK LIST -->
+    <div class="space-y-4">
+        {% for task in tasks %}
+        <div class="play-card group {{ 'border-red-200 bg-red-50/50' if task.is_rejected else '' }}">
+            
+            {% if task.is_rejected %}
+            <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-red-500"></div>
+            {% endif %}
+
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <div class="h-12 w-12 rounded-[14px] bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl shadow-sm border border-emerald-100 flex-shrink-0 group-hover:scale-110 transition">
+                        <i class="fa-brands fa-google-play"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-800 text-sm leading-tight flex items-center gap-2">
+                            {{ task.title }}
+                            {% if task.is_rejected %}<i class="fa-solid fa-circle-exclamation text-red-500 text-[10px] animate-pulse" title="Rejected"></i>{% endif %}
+                        </h3>
+                        <p class="text-[10px] text-slate-500 mt-1 line-clamp-1 font-medium">{{ task.description }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
+                <div class="flex flex-col">
+                    <span class="text-[9px] font-bold uppercase tracking-widest text-slate-400 mb-0.5">Reward</span>
+                    <span class="text-lg font-black text-emerald-600 font-mono leading-none">৳{{ task.reward }}</span>
+                </div>
+                
+                <!-- Directing to existing upload system -->
+                <a href="/task/submit/{{ task.id }}" class="px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest shadow-md transition-all 
+                    {{ 'bg-red-600 text-white hover:bg-red-700' if task.is_rejected else 'bg-slate-900 text-white hover:bg-emerald-600' }}">
+                    {{ 'Retry Task' if task.is_rejected else 'Start Task' }}
+                </a>
+            </div>
+        </div>
+
+        {% else %}
+        <!-- Empty State -->
+        <div class="text-center py-20 bg-white rounded-[24px] border border-slate-100 shadow-sm">
+            <div class="h-16 w-16 bg-emerald-50 rounded-[16px] flex items-center justify-center mx-auto mb-3 text-3xl text-emerald-400 border border-emerald-100">
+                <i class="fa-solid fa-mobile-screen"></i>
+            </div>
+            <h3 class="text-sm font-bold text-slate-800">No App Tasks Available</h3>
+            <p class="text-[10px] text-slate-500 mt-1">Please check back later.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}
