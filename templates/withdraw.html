@@ -8,25 +8,16 @@
 
     /* Custom Radio Button Wrapper (Pill Switcher) */
     .wallet-switcher {
-        display: flex;
-        background: #F1F5F9;
-        border-radius: 20px;
-        padding: 6px;
-        position: relative;
+        display: flex; background: #F1F5F9; border-radius: 20px; padding: 6px; position: relative;
     }
     .wallet-switcher label {
-        flex: 1; text-align: center; cursor: pointer;
-        padding: 14px 0; border-radius: 14px;
+        flex: 1; text-align: center; cursor: pointer; padding: 14px 0; border-radius: 14px;
         font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
         color: #64748B; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; gap: 4px;
     }
-    .wallet-switcher input[type="radio"]:checked + label {
-        color: #ffffff;
-    }
-    .wallet-switcher input[type="radio"]:disabled + label {
-        opacity: 0.4; cursor: not-allowed;
-    }
+    .wallet-switcher input[type="radio"]:checked + label { color: #ffffff; }
+    .wallet-switcher input[type="radio"]:disabled + label { opacity: 0.4; cursor: not-allowed; }
     
     /* Sliding Background Indicator */
     .switch-indicator {
@@ -36,25 +27,21 @@
         box-shadow: 0 4px 15px rgba(225, 29, 72, 0.3); z-index: 1;
     }
     #wallet_vip:checked ~ .switch-indicator {
-        transform: translateX(100%);
-        background: linear-gradient(135deg, #1E293B, #0F172A);
+        transform: translateX(100%); background: linear-gradient(135deg, #1E293B, #0F172A);
         box-shadow: 0 4px 15px rgba(15, 23, 42, 0.3);
     }
 
     /* Big Amount Input Style */
     .amount-wrapper {
-        position: relative;
-        display: flex; align-items: center; justify-content: center;
-        padding: 20px 0; border-bottom: 2px solid #E2E8F0;
-        transition: border-color 0.3s;
+        position: relative; display: flex; align-items: center; justify-content: center;
+        padding: 20px 0; border-bottom: 2px solid #E2E8F0; transition: border-color 0.3s;
     }
     .amount-wrapper:focus-within { border-color: #E11D48; }
     
     .amount-input {
         background: transparent; border: none; outline: none;
         font-size: 48px; font-weight: 900; font-family: 'Inter', monospace;
-        color: #0F172A; text-align: center; width: 100%;
-        letter-spacing: -1px;
+        color: #0F172A; text-align: center; width: 100%; letter-spacing: -1px;
     }
     .amount-input::placeholder { color: #CBD5E1; }
     
@@ -64,9 +51,18 @@
         padding: 8px 16px; border-radius: 12px; font-size: 11px; font-weight: 800; font-family: monospace;
         cursor: pointer; transition: all 0.2s; white-space: nowrap;
     }
-    .quick-amount:hover, .quick-amount:active {
-        background: #FFF1F2; color: #E11D48; border-color: #FECDD3;
+    .quick-amount:hover, .quick-amount:active { background: #FFF1F2; color: #E11D48; border-color: #FECDD3; }
+
+    /* Target Bar Glow */
+    .target-glow {
+        position: relative; overflow: hidden;
     }
+    .target-glow::after {
+        content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+        animation: progressShine 2s infinite;
+    }
+    @keyframes progressShine { 100% { left: 200%; } }
 </style>
 
 <div class="max-w-md mx-auto space-y-8 fade-in-up pb-8 px-1">
@@ -103,7 +99,6 @@
                 <span>Elite Bal</span>
             </label>
             
-            <!-- The sliding background -->
             <div class="switch-indicator"></div>
         </div>
 
@@ -129,9 +124,7 @@
                     <div class="flex items-center gap-2">
                         <h3 class="text-sm font-black text-slate-800 font-mono tracking-widest">{{ user.wallet_number or 'Not Set' }}</h3>
                         {% if user.wallet_method %}
-                            <span class="text-[8px] font-black uppercase tracking-widest text-white bg-slate-800 px-1.5 py-0.5 rounded">
-                                {{ user.wallet_method }}
-                            </span>
+                            <span class="text-[8px] font-black uppercase tracking-widest text-white bg-slate-800 px-1.5 py-0.5 rounded">{{ user.wallet_method }}</span>
                         {% endif %}
                     </div>
                 </div>
@@ -152,52 +145,80 @@
 
         <!-- Quick Amount Pills -->
         <div class="flex items-center justify-center gap-2 overflow-x-auto hide-scroll pb-2 mb-8">
-            <button type="button" class="quick-amount" onclick="setAmount(300)">৳ 300</button>
+            <button type="button" class="quick-amount" onclick="setAmount(280)">৳ 280</button>
             <button type="button" class="quick-amount" onclick="setAmount(500)">৳ 500</button>
             <button type="button" class="quick-amount" onclick="setAmount(1000)">৳ 1,000</button>
-            <button type="button" class="quick-amount" onclick="setAmount(2000)">৳ 2,000</button>
         </div>
 
-        <!-- Hidden input to pass wallet type to backend -->
         <input type="hidden" name="wallet_type" id="hiddenWalletType" value="main">
 
-        <!-- Requirements Checklist (Only for Free Users) -->
-        {% if user.current_level == 0 %}
-        <div class="bg-red-50/50 border border-red-100 p-4 rounded-[16px] mb-8">
-            <h4 class="text-[9px] font-black text-red-600 uppercase tracking-widest mb-3 flex items-center gap-1.5"><i class="fa-solid fa-lock text-[10px]"></i> Free Tier Requirements</h4>
-            
-            <div class="space-y-3">
-                <!-- Referrals -->
-                <div>
-                    <div class="flex justify-between items-center mb-1.5">
-                        <span class="text-[10px] font-bold text-slate-600">Active Referrals (3 Req)</span>
-                        <span class="font-bold text-[10px] text-slate-500">{{ ref_count }}/3</span>
-                    </div>
-                    <div class="w-full bg-slate-200 rounded-full h-1"><div class="bg-red-500 h-full rounded-full transition-all" style="width: {{ (ref_count / 3) * 100 if ref_count < 3 else 100 }}%"></div></div>
-                </div>
-                <!-- Account Age -->
-                <div>
-                    <div class="flex justify-between items-center mb-1.5">
-                        <span class="text-[10px] font-bold text-slate-600">Account Age (1 Day)</span>
-                        <span class="font-bold text-[10px] text-slate-500">{{ account_days }}d</span>
-                    </div>
-                    <div class="w-full bg-slate-200 rounded-full h-1"><div class="bg-indigo-500 h-full rounded-full transition-all" style="width: {{ '100' if account_days >= 1 else '50' }}%"></div></div>
-                </div>
-            </div>
-        </div>
-        {% else %}
-        <!-- VIP User Success Note -->
-        <div class="bg-slate-900 text-white p-4 rounded-[16px] mb-8 flex items-center gap-3 shadow-md">
-            <div class="h-8 w-8 bg-amber-500 text-white rounded-full flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-bolt"></i></div>
-            <p class="text-[10px] font-medium leading-relaxed"><b>Elite Member:</b> No referral requirements. Enjoy fast and restriction-free cashouts.</p>
-        </div>
-        {% endif %}
-
-        <!-- Submit Button -->
+        <!-- ==========================================
+             CONDITIONS & REQUIREMENTS
+        ========================================== -->
         {% set can_withdraw_free = (ref_count >= 3 and account_days >= 1) %}
         {% set is_vip = (user.current_level > 0) %}
         
-        {% if is_vip or can_withdraw_free %}
+        {% if is_vip %}
+            <!-- ELITE USER BANNER -->
+            <div class="bg-slate-900 text-white p-5 rounded-[20px] mb-8 relative overflow-hidden shadow-lg border border-slate-800">
+                <div class="absolute right-0 top-0 w-24 h-24 bg-amber-500/10 rounded-bl-full blur-xl pointer-events-none"></div>
+                <div class="flex items-start gap-4 relative z-10">
+                    <div class="h-10 w-10 bg-amber-500 text-slate-900 rounded-xl flex items-center justify-center text-xl shadow-md flex-shrink-0"><i class="fa-solid fa-bolt"></i></div>
+                    <div>
+                        <h4 class="font-black text-amber-400 text-xs mb-1.5 uppercase tracking-widest">Elite Privilege</h4>
+                        <p class="text-[10px] font-medium leading-relaxed text-slate-300">আপনাকে ১ দিন অপেক্ষা করতে হবে না এবং কোনো রেফার লাগবে না। মিনিমাম মাত্র <b>৫০ টাকা</b> হলেই ইনস্ট্যান্ট উইথড্র করতে পারবেন!</p>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <!-- FREE USER BANNER & PROGRESS -->
+            <div class="bg-red-50/50 border border-red-100 p-5 rounded-[20px] mb-8">
+                <h4 class="text-[9px] font-black text-red-600 uppercase tracking-widest mb-4 flex items-center gap-1.5"><i class="fa-solid fa-lock text-[10px]"></i> Free Tier Requirements</h4>
+                
+                <div class="space-y-4">
+                    <!-- Referrals -->
+                    <div>
+                        <div class="flex justify-between items-center mb-1.5">
+                            <span class="text-[10px] font-bold text-slate-600">Active Referrals (3 Req)</span>
+                            <span class="font-bold text-[10px] text-slate-500">{{ ref_count }}/3</span>
+                        </div>
+                        <div class="w-full bg-slate-200 rounded-full h-1"><div class="bg-red-500 h-full rounded-full transition-all" style="width: {{ (ref_count / 3) * 100 if ref_count < 3 else 100 }}%"></div></div>
+                    </div>
+                    <!-- Account Age -->
+                    <div>
+                        <div class="flex justify-between items-center mb-1.5">
+                            <span class="text-[10px] font-bold text-slate-600">Account Age (1 Day)</span>
+                            <span class="font-bold text-[10px] text-slate-500">{{ account_days }}d</span>
+                        </div>
+                        <div class="w-full bg-slate-200 rounded-full h-1"><div class="bg-indigo-500 h-full rounded-full transition-all" style="width: {{ '100' if account_days >= 1 else '50' }}%"></div></div>
+                    </div>
+
+                    <!-- 🚀 BALANCE PROGRESS BAR (Target 280 TK) -->
+                    {% set current_bal = user.balance | float %}
+                    {% set target_bal = 280.0 %}
+                    {% set percent = (current_bal / target_bal) * 100 %}
+                    {% set percent_capped = percent if percent < 100 else 100 %}
+                    
+                    <div class="pt-2 border-t border-red-100/50 mt-2">
+                        <div class="flex justify-between items-center mb-1.5">
+                            <span class="text-[10px] font-bold text-slate-600">Minimum Balance (280৳)</span>
+                            <span class="font-bold text-[10px] text-blue-600 font-mono">{{ "%.1f"|format(percent_capped) }}%</span>
+                        </div>
+                        <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
+                            <div class="bg-blue-600 h-full rounded-full transition-all duration-1000 ease-out {{ 'target-glow' if percent_capped < 100 }}" style="width: {{ percent_capped }}%"></div>
+                        </div>
+                        {% if percent_capped < 100 %}
+                        <p class="text-[8px] text-slate-400 mt-1.5 text-right font-medium">আর মাত্র ৳{{ "%.2f"|format(target_bal - current_bal) }} প্রয়োজন</p>
+                        {% else %}
+                        <p class="text-[8px] text-emerald-500 mt-1.5 text-right font-bold"><i class="fa-solid fa-check"></i> Target Reached!</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- Submit Button -->
+        {% if is_vip or (can_withdraw_free and current_bal >= 280) %}
             <button type="submit" id="submitBtn" class="w-full bg-red-600 text-white py-4.5 py-4 rounded-[16px] font-black text-sm uppercase tracking-widest shadow-[0_8px_20px_rgba(225,29,72,0.25)] hover:bg-red-700 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
                 <span>Confirm Cashout</span> <i class="fa-solid fa-arrow-right"></i>
             </button>
@@ -217,7 +238,7 @@
     const mainBal = "{{ user.balance }}";
     const vipBal = "{{ user.vip_balance or 0 }}";
 
-    // Update Balance Hint & Hidden Input based on selected radio
+    // Update Balance Hint & Hidden Input
     function updateBalanceHint() {
         const isMain = document.getElementById('wallet_main').checked;
         const display = document.getElementById('activeBalanceDisplay');
@@ -237,7 +258,6 @@
     // Quick Amount Pills Logic
     function setAmount(val) {
         document.getElementById('amountInput').value = val;
-        // Small visual feedback animation
         document.getElementById('amountInput').style.transform = 'scale(1.05)';
         setTimeout(() => document.getElementById('amountInput').style.transform = 'scale(1)', 150);
     }
