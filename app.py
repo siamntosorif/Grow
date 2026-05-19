@@ -374,7 +374,12 @@ def premium_tasks():
     random.seed() # Random reset
     
     return render_template('premium_tasks.html', tasks=dummy_tasks)
-    
+
+@app.route('/menu')
+@login_required
+def menu_page():
+    return render_template('menu.html', user=g.user)
+
 # ==========================================
 # 🧩 CAPTCHA ENTRY SYSTEM (Daily 10)
 # ==========================================
