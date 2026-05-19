@@ -6,20 +6,18 @@
        HERO ANIMATIONS & PREMIUM UI
     ========================================== */
     .reveal-hero { animation: revealIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }
-    @keyframes revealIn { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes revealIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
     .glow-bg {
-        position: fixed; top: 0; left: 0;
-        width: 100vw; height: 100vh;
-        background: radial-gradient(circle at 50% 0%, rgba(225, 29, 72, 0.05) 0%, transparent 70%);
+        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+        background: radial-gradient(circle at 50% 0%, rgba(225, 29, 72, 0.05) 0%, transparent 80%);
         z-index: -1; pointer-events: none;
     }
 
     /* Gradient Text */
     .text-gradient-red {
         background: linear-gradient(135deg, #BE123C 0%, #F43F5E 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
 
     /* Floating Animation for App Mockup */
@@ -28,6 +26,18 @@
         0%, 100% { transform: translateY(0px); }
         50% { transform: translateY(-15px); }
     }
+
+    /* Bento Feature Cards */
+    .feature-card {
+        background: #ffffff; border: 1px solid #E2E8F0; border-radius: 24px;
+        padding: 24px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative; overflow: hidden;
+    }
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px -5px rgba(225, 29, 72, 0.1);
+        border-color: #FECDD3; /* Red-200 */
+    }
 </style>
 
 <div class="glow-bg"></div>
@@ -35,7 +45,7 @@
 <!-- ==========================================
      1. HERO SECTION (Main Banner)
 ========================================== -->
-<section class="relative pt-6 pb-20 md:pt-16 md:pb-32 px-4">
+<section class="relative pt-8 pb-20 md:pt-16 md:pb-32 px-4">
     
     <!-- Ambient Red Glows -->
     <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-red-500/10 rounded-full blur-[100px] pointer-events-none"></div>
@@ -49,16 +59,16 @@
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                 <span class="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
             </span>
-            <span class="text-[10px] font-black text-red-700 tracking-[0.15em] uppercase">Bangladesh's #1 Earning Network</span>
+            <span class="text-[10px] font-black text-red-700 tracking-[0.15em] uppercase">Bangladesh's #1 Earning App</span>
         </div>
 
         <h1 class="text-4xl md:text-6xl lg:text-7xl font-black text-slate-900 leading-[1.1] mb-6 tracking-tight">
-            সহজ টাস্ক কমপ্লিট করে <br>
-            <span class="text-gradient-red">প্রতিদিন আয় করুন</span>
+            স্মার্টফোন দিয়ে ঘরে বসেই <br>
+            <span class="text-gradient-red">নিশ্চিত আয় করুন</span>
         </h1>
 
         <p class="text-slate-500 text-sm md:text-base mb-10 max-w-2xl mx-auto leading-relaxed font-medium">
-            GrowEarn-এর প্রফেশনাল নেটওয়ার্কের সাথে যুক্ত হোন। ভিডিও দেখা, সার্ভে, অ্যাপ ইন্সটল এবং জিমেইল টাস্কের মাধ্যমে ঘরে বসেই নিশ্চিত স্মার্ট উপার্জন শুরু করুন।
+            GrowEarn-এর প্রফেশনাল নেটওয়ার্কের সাথে যুক্ত হোন। ভিডিও দেখা, অ্যাপ ইন্সটল, জিমেইল তৈরি এবং স্পিন গেমের মাধ্যমে আপনার অবসর সময়কে ইনকামে রূপান্তর করুন।
         </p>
 
         <!-- CTA Buttons -->
@@ -79,7 +89,7 @@
             <div class="relative bg-white rounded-[40px] p-2 border-[6px] border-slate-100 shadow-[0_20px_60px_rgba(0,0,0,0.08)] overflow-hidden">
                 
                 <!-- Screen Simulation -->
-                <div class="bg-[#F8FAFC] h-[400px] w-full rounded-[30px] overflow-hidden p-6 relative flex flex-col">
+                <div class="bg-[#F8FAFC] h-[420px] w-full rounded-[30px] overflow-hidden p-6 relative flex flex-col">
                     
                     <!-- Mockup Header -->
                     <div class="flex justify-between items-center mb-6 opacity-60">
@@ -88,16 +98,17 @@
                     </div>
                     
                     <!-- Mockup Balance Card -->
-                    <div class="bg-gradient-to-r from-red-600 to-rose-600 h-32 rounded-2xl w-full mb-6 flex flex-col items-center justify-center shadow-lg">
+                    <div class="bg-gradient-to-br from-red-600 to-rose-700 h-32 rounded-2xl w-full mb-6 flex flex-col items-center justify-center shadow-lg border border-red-500">
                         <p class="text-[8px] uppercase tracking-widest text-red-200 mb-1">Total Balance</p>
-                        <p class="text-2xl font-black text-white font-mono">৳2,450.00</p>
+                        <p class="text-3xl font-black text-white font-mono">৳2,450.00</p>
                     </div>
                     
                     <!-- Mockup Grids -->
-                    <div class="grid grid-cols-3 gap-3">
-                        <div class="h-16 bg-white rounded-xl border border-slate-100 shadow-sm"></div>
-                        <div class="h-16 bg-white rounded-xl border border-slate-100 shadow-sm"></div>
-                        <div class="h-16 bg-white rounded-xl border border-slate-100 shadow-sm"></div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="h-16 bg-white rounded-xl border border-slate-100 shadow-sm flex items-center p-3 gap-3"><div class="h-8 w-8 bg-blue-50 rounded-lg"></div></div>
+                        <div class="h-16 bg-white rounded-xl border border-slate-100 shadow-sm flex items-center p-3 gap-3"><div class="h-8 w-8 bg-emerald-50 rounded-lg"></div></div>
+                        <div class="h-16 bg-white rounded-xl border border-slate-100 shadow-sm flex items-center p-3 gap-3"><div class="h-8 w-8 bg-amber-50 rounded-lg"></div></div>
+                        <div class="h-16 bg-white rounded-xl border border-slate-100 shadow-sm flex items-center p-3 gap-3"><div class="h-8 w-8 bg-purple-50 rounded-lg"></div></div>
                     </div>
                 </div>
             </div>
@@ -121,19 +132,19 @@
 <!-- ==========================================
      2. ANALYTICS / STATS BANNER
 ========================================== -->
-<section class="bg-white border-y border-slate-100 py-10">
+<section class="bg-white border-y border-slate-100 py-10 mb-10">
     <div class="max-w-4xl mx-auto px-4">
         <div class="grid grid-cols-3 gap-4 text-center divide-x divide-slate-100">
             <div>
-                <h3 class="text-xl sm:text-3xl font-black text-red-600 tracking-tight">10K<span class="text-slate-300">+</span></h3>
+                <h3 class="text-xl sm:text-3xl font-black text-slate-800 tracking-tight">10K<span class="text-red-500">+</span></h3>
                 <p class="text-[9px] sm:text-[10px] text-slate-500 mt-1 font-bold uppercase tracking-widest">Active Users</p>
             </div>
             <div>
-                <h3 class="text-xl sm:text-3xl font-black text-red-600 tracking-tight">24<span class="text-slate-300">/</span>7</h3>
+                <h3 class="text-xl sm:text-3xl font-black text-slate-800 tracking-tight">24<span class="text-red-500">/</span>7</h3>
                 <p class="text-[9px] sm:text-[10px] text-slate-500 mt-1 font-bold uppercase tracking-widest">Live Support</p>
             </div>
             <div>
-                <h3 class="text-xl sm:text-3xl font-black text-red-600 tracking-tight">100<span class="text-slate-300">%</span></h3>
+                <h3 class="text-xl sm:text-3xl font-black text-slate-800 tracking-tight">100<span class="text-red-500">%</span></h3>
                 <p class="text-[9px] sm:text-[10px] text-slate-500 mt-1 font-bold uppercase tracking-widest">Secure Payout</p>
             </div>
         </div>
@@ -141,71 +152,92 @@
 </section>
 
 <!-- ==========================================
-     3. WORKFLOW PROTOCOL (How it works)
+     3. WHY CHOOSE US (Features Bento Grid)
 ========================================== -->
-<section class="py-20 px-4">
+<section class="py-16 px-4">
     <div class="max-w-5xl mx-auto">
-        <div class="text-center mb-16">
-            <span class="text-red-500 font-black text-[10px] tracking-[0.2em] uppercase bg-red-50 px-3 py-1 rounded-full border border-red-100">Protocol</span>
-            <h2 class="text-2xl sm:text-4xl font-black text-slate-800 mt-4">কিভাবে কাজ শুরু করবেন?</h2>
+        <div class="text-center mb-12">
+            <span class="text-red-500 font-black text-[10px] tracking-[0.2em] uppercase bg-red-50 px-3 py-1 rounded-full border border-red-100">Features</span>
+            <h2 class="text-2xl sm:text-4xl font-black text-slate-800 mt-4">GrowEarn-এ কেন কাজ করবেন?</h2>
         </div>
 
-        <div class="grid sm:grid-cols-3 gap-6">
-            <!-- Step 1 -->
-            <div class="bg-white border border-slate-100 rounded-3xl p-8 text-center group hover:border-red-300 hover:shadow-xl transition-all duration-300 shadow-sm">
-                <div class="h-16 w-16 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-6 group-hover:scale-110 transition-transform border border-red-100">
-                    <i class="fa-solid fa-user-gear"></i>
-                </div>
-                <h3 class="text-lg font-bold text-slate-800 mb-3">1. Account Setup</h3>
-                <p class="text-xs text-slate-500 font-medium leading-relaxed">খুব সহজেই ইমেইল এবং মোবাইল নাম্বার দিয়ে একাউন্ট রেজিস্টার করে আপনার প্রোফাইলটি সেটআপ করুন।</p>
+        <div class="grid md:grid-cols-3 gap-5">
+            <div class="feature-card border-t-4 border-t-blue-500">
+                <div class="h-14 w-14 bg-blue-50 text-blue-600 rounded-[16px] flex items-center justify-center text-2xl mb-5"><i class="fa-solid fa-list-check"></i></div>
+                <h3 class="text-lg font-bold text-slate-800 mb-2">সহজ ও ভেরিফাইড টাস্ক</h3>
+                <p class="text-xs text-slate-500 font-medium leading-relaxed">আমাদের প্ল্যাটফর্মে কোনো ফেক কাজ নেই। ইউটিউব সাবস্ক্রাইব, জিমেইল তৈরি বা অ্যাপ রিভিউ করে আনলিমিটেড আয় করুন।</p>
             </div>
 
-            <!-- Step 2 -->
-            <div class="bg-white border border-slate-100 rounded-3xl p-8 text-center group hover:border-red-300 hover:shadow-xl transition-all duration-300 shadow-sm">
-                <div class="h-16 w-16 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-6 group-hover:scale-110 transition-transform border border-red-100">
-                    <i class="fa-solid fa-bolt"></i>
-                </div>
-                <h3 class="text-lg font-bold text-slate-800 mb-3">2. Complete Tasks</h3>
-                <p class="text-xs text-slate-500 font-medium leading-relaxed">জিমেইল ক্রিয়েট, সার্ভে পূরণ এবং সোশ্যাল মিডিয়া টাস্কগুলো সঠিকভাবে সম্পন্ন করে প্রুফ জমা দিন।</p>
+            <div class="feature-card border-t-4 border-t-emerald-500">
+                <div class="h-14 w-14 bg-emerald-50 text-emerald-600 rounded-[16px] flex items-center justify-center text-2xl mb-5"><i class="fa-solid fa-bolt"></i></div>
+                <h3 class="text-lg font-bold text-slate-800 mb-2">ফাস্ট পেমেন্ট সিস্টেম</h3>
+                <p class="text-xs text-slate-500 font-medium leading-relaxed">আপনার ইনকামের টাকা তুলতে মাসের পর মাস অপেক্ষা করতে হবে না। বিকাশ ও নগদের মাধ্যমে দ্রুত উইথড্র করে নিন।</p>
             </div>
 
-            <!-- Step 3 -->
-            <div class="bg-white border border-slate-100 rounded-3xl p-8 text-center group hover:border-red-300 hover:shadow-xl transition-all duration-300 shadow-sm">
-                <div class="h-16 w-16 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-6 group-hover:scale-110 transition-transform border border-red-100">
-                    <i class="fa-solid fa-wallet"></i>
-                </div>
-                <h3 class="text-lg font-bold text-slate-800 mb-3">3. Instant Payout</h3>
-                <p class="text-xs text-slate-500 font-medium leading-relaxed">আপনার উপার্জিত অর্থ মিনিমাম ব্যালেন্স হওয়া মাত্রই বিকাশ, নগদ বা রকেটের মাধ্যমে তুলে নিন।</p>
+            <div class="feature-card border-t-4 border-t-amber-500">
+                <div class="h-14 w-14 bg-amber-50 text-amber-500 rounded-[16px] flex items-center justify-center text-2xl mb-5"><i class="fa-solid fa-users"></i></div>
+                <h3 class="text-lg font-bold text-slate-800 mb-2">লাইফটাইম রেফারেল বোনাস</h3>
+                <p class="text-xs text-slate-500 font-medium leading-relaxed">আপনার রেফার করা প্রতিটি বন্ধু যখনই কোনো কাজ করবে, আপনি আজীবন তার একটি নির্দিষ্ট পার্সেন্টেজ কমিশন পাবেন।</p>
             </div>
         </div>
     </div>
 </section>
 
 <!-- ==========================================
-     4. FINAL CTA
+     4. WORKFLOW PROTOCOL (Steps)
 ========================================== -->
-<section class="py-20 px-4 text-center">
-    <div class="max-w-3xl mx-auto bg-gradient-to-r from-red-600 to-rose-600 rounded-[32px] p-10 text-white shadow-[0_15px_40px_rgba(225,29,72,0.3)] relative overflow-hidden">
-        <div class="absolute right-0 top-0 w-48 h-48 bg-white opacity-10 rounded-bl-full pointer-events-none"></div>
+<section class="py-16 px-4 bg-slate-900 rounded-[40px] my-10 max-w-5xl mx-auto shadow-2xl relative overflow-hidden">
+    <div class="absolute right-0 top-0 w-64 h-64 bg-red-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute left-0 bottom-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    
+    <div class="text-center mb-12 relative z-10">
+        <h2 class="text-2xl sm:text-3xl font-black text-white mt-4">কাজ শুরুর সহজ ৩টি ধাপ</h2>
+    </div>
+
+    <div class="grid sm:grid-cols-3 gap-6 relative z-10 px-4 md:px-10">
+        <div class="text-center">
+            <div class="h-16 w-16 bg-red-600 text-white rounded-full flex items-center justify-center text-2xl mx-auto mb-4 border-4 border-slate-800">1</div>
+            <h3 class="text-base font-bold text-white mb-2">একাউন্ট খুলুন</h3>
+            <p class="text-xs text-slate-400 font-medium">সঠিক তথ্য দিয়ে একাউন্ট তৈরি করুন।</p>
+        </div>
+        <div class="text-center">
+            <div class="h-16 w-16 bg-red-600 text-white rounded-full flex items-center justify-center text-2xl mx-auto mb-4 border-4 border-slate-800">2</div>
+            <h3 class="text-base font-bold text-white mb-2">টাস্ক সম্পন্ন করুন</h3>
+            <p class="text-xs text-slate-400 font-medium">নিয়ম মেনে কাজ করে প্রুফ জমা দিন।</p>
+        </div>
+        <div class="text-center">
+            <div class="h-16 w-16 bg-red-600 text-white rounded-full flex items-center justify-center text-2xl mx-auto mb-4 border-4 border-slate-800">3</div>
+            <h3 class="text-base font-bold text-white mb-2">পেমেন্ট বুঝে নিন</h3>
+            <p class="text-xs text-slate-400 font-medium">বিকাশ/নগদের মাধ্যমে টাকা তুলে নিন।</p>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================
+     5. FINAL CTA
+========================================== -->
+<section class="py-16 px-4 text-center">
+    <div class="max-w-2xl mx-auto">
+        <h2 class="text-2xl sm:text-4xl font-black text-slate-800 mb-4 tracking-tight">আপনার ক্যারিয়ার শুরু করুন আজই!</h2>
+        <p class="text-slate-500 mb-8 text-sm font-medium">হাজার হাজার মেম্বার প্রতিদিন আয় করছে। আপনি কেন পিছিয়ে থাকবেন?</p>
         
-        <h2 class="text-2xl sm:text-4xl font-black mb-4 relative z-10">Start Earning Today</h2>
-        <p class="text-red-100 mb-8 text-sm font-medium relative z-10 leading-relaxed max-w-lg mx-auto">Join Bangladesh's most reliable and professional micro-tasking network.</p>
-        
-        <a href="/register" class="inline-flex items-center justify-center gap-3 bg-slate-900 text-white px-10 py-4 rounded-xl font-black text-sm uppercase tracking-widest hover:bg-slate-800 transition-all active:scale-95 shadow-md relative z-10">
-            Create Free Account <i class="fa-solid fa-arrow-right"></i>
+        <a href="/register" class="inline-flex items-center justify-center gap-3 bg-red-600 text-white px-10 py-4 rounded-xl font-black text-sm uppercase tracking-widest shadow-[0_10px_25px_rgba(225,29,72,0.3)] hover:bg-red-700 active:scale-95 transition-all">
+            Join For Free <i class="fa-solid fa-arrow-right"></i>
         </a>
     </div>
 </section>
 
 <!-- ==========================================
-     5. CORPORATE FOOTER
+     6. CORPORATE FOOTER
 ========================================== -->
-<footer class="bg-white border-t border-slate-100 py-10 text-center pb-24">
-    <div class="flex justify-center gap-6 mb-6">
-        <a href="https://t.me/earndailysite" target="_blank" class="h-12 w-12 bg-slate-50 text-slate-400 rounded-full flex items-center justify-center hover:bg-sky-50 hover:text-sky-500 transition shadow-sm border border-slate-100 text-xl"><i class="fa-brands fa-telegram"></i></a>
-        <a href="#" class="h-12 w-12 bg-slate-50 text-slate-400 rounded-full flex items-center justify-center hover:bg-red-50 hover:text-red-500 transition shadow-sm border border-slate-100 text-xl"><i class="fa-brands fa-youtube"></i></a>
+<footer class="bg-white border-t border-slate-200 py-10 text-center pb-24 mt-10">
+    <div class="flex justify-center gap-4 mb-6">
+        <a href="https://t.me/earndailysite" target="_blank" class="h-12 w-12 bg-slate-50 text-sky-500 rounded-xl flex items-center justify-center hover:bg-sky-500 hover:text-white transition shadow-sm border border-slate-100 text-xl"><i class="fa-brands fa-telegram"></i></a>
+        <a href="#" class="h-12 w-12 bg-slate-50 text-red-500 rounded-xl flex items-center justify-center hover:bg-red-500 hover:text-white transition shadow-sm border border-slate-100 text-xl"><i class="fa-brands fa-youtube"></i></a>
+        <a href="#" class="h-12 w-12 bg-slate-50 text-blue-600 rounded-xl flex items-center justify-center hover:bg-blue-600 hover:text-white transition shadow-sm border border-slate-100 text-xl"><i class="fa-brands fa-facebook-f"></i></a>
     </div>
-    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em]">© 2025 GROWEARN • PROFESSIONAL NETWORK</p>
+    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em] mb-2">© 2025 GrowEarn Network</p>
+    <p class="text-[9px] text-slate-300 font-medium">Built for Freelancers & Marketers</p>
 </footer>
 
 {% endblock %}
