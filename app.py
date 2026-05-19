@@ -651,7 +651,85 @@ def user_chat():
     messages = supabase.table('chat_messages').select('*').eq('thread_id', user_id).order('created_at', desc=False).execute().data
     return render_template('chat.html', messages=messages, user=g.user)
 
+# ==========================================
+# 📱 PLAY STORE TASKS (App Install & Review)
+# ==========================================
 
+# --- ADMIN ROUTE: Add Play Store Tasks ---
+@app.route('/adtask/play', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def add_playstore_task():
+    if request.method == 'POST':
+        title = request.form.get('title')
+        description = request.form.get('description')
+        link = request.form.get('link')
+        try:
+            reward = float(request.form.get('reward', 10.0))
+        except:
+            reward = 10.0
+
+        try:
+            # Saving in the main 'tasks' table but with 'PlayStore' category
+            supabase.table('tasks').insert({
+                'title': title,
+                'description': description,
+                'link': link,
+                'reward': reward,
+                'category': 'PlayStore',
+                'task_type': 'screenshot', # Requires Image Proof
+                'is_active': True
+            }).execute()
+            flash("✅ Play Store Task Successfully Added!", "success")
+        except Exception as e:
+            print(f"Play Task Error: {e}")
+            flash(f"❌ Error: {str(e)}", "error")
+            
+        return redirect(url_for('add_playstore_task'))
+
+    # Fetch existing PlayStore tasks
+    try:
+        tasks = supabase.table('tasks').select('*').eq('category', 'PlayStore').order('id', desc=True).execute().data
+    except:
+        tasks = []
+        
+    return render_template('admin_play_task.html', tasks=tasks)
+
+# --- USER ROUTE: View Play Store Tasks ---
+@app.route('/play')
+@login_required
+def playstore_tasks():
+    try:
+        # 1. Fetch active PlayStore tasks
+        all_tasks = supabase.table('tasks').select('*').eq('category', 'PlayStore').eq('is_active', True).order('id', desc=True).execute().data
+        
+        # 2. Check user's submissions to hide completed ones
+        subs = supabase.table('submissions').select('task_id, status').eq('user_id', session['user_id']).execute().data
+        
+        task_status_map = {}
+        for s in subs:
+            tid = s['task_id']
+            st = s['status']
+            if tid not in task_status_map or st in ['pending', 'approved']:
+                task_status_map[tid] = st
+
+        available_tasks = []
+        for t in all_tasks:
+            tid = t['id']
+            status = task_status_map.get(tid)
+            
+            if status in ['pending', 'approved']:
+                continue # Hide completed
+            
+            t['is_rejected'] = (status == 'rejected')
+            available_tasks.append(t)
+
+    except Exception as e:
+        print(f"Play Route Error: {e}")
+        available_tasks = []
+
+    return render_template('play_tasks.html', tasks=available_tasks)
+    
 @app.route('/admin/inbox', methods=['GET', 'POST'])
 @login_required
 @admin_required
