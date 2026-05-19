@@ -12,7 +12,7 @@
         background: #ffffff;
         border: 1px solid #E2E8F0;
         border-radius: 32px;
-        box-shadow: 0 10px 40px -10px rgba(37, 99, 235, 0.08);
+        box-shadow: 0 10px 40px -10px rgba(225, 29, 72, 0.08);
         position: relative;
         overflow: hidden;
     }
@@ -25,25 +25,25 @@
     }
     .auth-input:focus {
         background: #FFFFFF;
-        border-color: #2563EB;
-        box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        border-color: #E11D48; /* Crimson Red */
+        box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.1);
         outline: none;
     }
 </style>
 
-<div class="flex items-center justify-center min-h-[80vh] py-6 fade-up">
+<div class="flex items-center justify-center min-h-[80vh] py-6 fade-up px-2">
     
     <div class="premium-auth-card w-full max-w-sm p-8 sm:p-10">
         
         <!-- Subtle Top Border Accent -->
-        <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-600 to-sky-400"></div>
+        <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-red-600 to-rose-400"></div>
         
         <!-- Abstract Background Shape -->
-        <div class="absolute -right-10 -top-10 w-32 h-32 bg-blue-50 rounded-full blur-2xl pointer-events-none"></div>
+        <div class="absolute -right-10 -top-10 w-32 h-32 bg-red-50 rounded-full blur-2xl pointer-events-none"></div>
 
         <!-- 1. Header -->
         <div class="text-center mb-8 relative z-10">
-            <div class="h-16 w-16 bg-blue-600 text-white rounded-[20px] flex items-center justify-center text-3xl mx-auto mb-5 shadow-[0_8px_20px_rgba(37,99,235,0.3)] transform -rotate-3">
+            <div class="h-16 w-16 bg-red-50 text-red-600 rounded-[20px] flex items-center justify-center text-3xl mx-auto mb-5 shadow-[0_8px_20px_rgba(225,29,72,0.15)] transform -rotate-3 border border-red-100">
                 <i class="fa-solid fa-right-to-bracket"></i>
             </div>
             <h2 class="text-2xl font-black text-slate-800 tracking-tight leading-none mb-1">Welcome Back</h2>
@@ -51,14 +51,14 @@
         </div>
 
         <!-- 2. Login Form -->
-        <form method="POST" action="/login" class="space-y-5 relative z-10" id="loginForm" onsubmit="showLoading()">
+        <form method="POST" action="/login" class="space-y-5 relative z-10" id="loginForm" onsubmit="return showLoading()">
             
             <!-- Email Input -->
             <div>
                 <label class="block text-[10px] font-black text-slate-500 mb-1.5 ml-1 uppercase tracking-widest">Email Address</label>
                 <div class="relative group">
                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <i class="fa-regular fa-envelope text-slate-400 group-focus-within:text-blue-600 transition-colors"></i>
+                        <i class="fa-regular fa-envelope text-slate-400 group-focus-within:text-red-600 transition-colors"></i>
                     </div>
                     <input type="email" name="email" required 
                            class="auth-input w-full pl-11 pr-4 py-3.5 rounded-[16px] text-sm font-semibold text-slate-800 placeholder-slate-400" 
@@ -71,14 +71,14 @@
                 <label class="block text-[10px] font-black text-slate-500 mb-1.5 ml-1 uppercase tracking-widest">Password</label>
                 <div class="relative group">
                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <i class="fa-solid fa-lock text-slate-400 group-focus-within:text-blue-600 transition-colors"></i>
+                        <i class="fa-solid fa-lock text-slate-400 group-focus-within:text-red-600 transition-colors"></i>
                     </div>
                     <input type="password" name="password" id="passwordInput" required 
                            class="auth-input w-full pl-11 pr-12 py-3.5 rounded-[16px] text-sm font-bold text-slate-800 tracking-wider placeholder-slate-400" 
                            placeholder="••••••••">
                     
                     <!-- Eye Icon (Toggle) -->
-                    <div class="absolute inset-y-0 right-0 pr-4 flex items-center cursor-pointer text-slate-400 hover:text-blue-600 transition" onclick="togglePassword()">
+                    <div class="absolute inset-y-0 right-0 pr-4 flex items-center cursor-pointer text-slate-400 hover:text-red-600 transition" onclick="togglePassword()">
                         <i id="eyeIcon" class="fa-regular fa-eye-slash"></i>
                     </div>
                 </div>
@@ -86,15 +86,15 @@
                 <!-- Forgot Password Link -->
                 <div class="flex justify-between items-center mt-3 px-1">
                     <div class="flex items-center gap-1.5">
-                        <input type="checkbox" id="remember" class="accent-blue-600 h-3 w-3 cursor-pointer">
+                        <input type="checkbox" id="remember" class="accent-red-600 h-3 w-3 cursor-pointer">
                         <label for="remember" class="text-[10px] font-bold text-slate-500 cursor-pointer select-none">Remember me</label>
                     </div>
-                    <a href="https://t.me/payrsrp" target="_blank" class="text-[10px] font-bold text-blue-600 hover:underline transition">Forgot Password?</a>
+                    <a href="https://t.me/earndailysite" target="_blank" class="text-[10px] font-bold text-red-600 hover:underline transition">Forgot Password?</a>
                 </div>
             </div>
 
             <!-- Submit Button -->
-            <button type="submit" id="submitBtn" class="w-full bg-blue-600 text-white py-4 rounded-[16px] font-black text-sm uppercase tracking-widest shadow-[0_8px_20px_rgba(37,99,235,0.25)] hover:bg-blue-700 active:scale-[0.98] transition-all flex items-center justify-center gap-2 mt-4">
+            <button type="submit" id="submitBtn" class="w-full bg-red-600 text-white py-4 rounded-[16px] font-black text-sm uppercase tracking-widest shadow-[0_8px_20px_rgba(225,29,72,0.25)] hover:bg-red-700 active:scale-[0.98] transition-all flex items-center justify-center gap-2 mt-4 border border-red-700">
                 <span>Sign In</span>
                 <i class="fa-solid fa-arrow-right-to-bracket"></i>
             </button>
@@ -104,7 +104,7 @@
         <div class="mt-8 pt-6 border-t border-slate-100 text-center relative z-10">
             <p class="text-xs font-semibold text-slate-500">
                 Don't have an account? 
-                <a href="/register" class="text-blue-600 font-black hover:underline ml-1">
+                <a href="/register" class="text-red-600 font-black hover:underline ml-1">
                     Create Now
                 </a>
             </p>
@@ -123,10 +123,10 @@
         if (input.type === "password") {
             input.type = "text";
             icon.classList.remove('fa-eye-slash');
-            icon.classList.add('fa-eye', 'text-blue-600');
+            icon.classList.add('fa-eye', 'text-red-600');
         } else {
             input.type = "password";
-            icon.classList.remove('fa-eye', 'text-blue-600');
+            icon.classList.remove('fa-eye', 'text-red-600');
             icon.classList.add('fa-eye-slash');
         }
     }
