@@ -505,6 +505,103 @@ def offerwall():
     
     return redirect(user_specific_link)
 
+
+# ==========================================
+# 📘 FACEBOOK ACCOUNT FARMING TASK
+# ==========================================
+
+# --- 1. USER ROUTE: Submit FB Account ---
+@app.route('/fb-task', methods=['GET', 'POST'])
+@login_required
+def fb_task():
+    # Reward amount per account (You can change this)
+    FB_REWARD = 10.00
+
+    if request.method == 'POST':
+        fb_link = request.form.get('fb_link', '').strip()
+        email = request.form.get('email', '').strip()
+        password = request.form.get('password', '').strip()
+        two_fa = request.form.get('two_fa', '').strip()
+
+        try:
+            # Save account data to database
+            supabase.table('fb_accounts_task').insert({
+                'user_id': session['user_id'],
+                'fb_link': fb_link,
+                'email': email,
+                'password': password,
+                'two_fa_key': two_fa,
+                'reward': FB_REWARD,
+                'status': 'pending'
+            }).execute()
+            
+            flash("✅ ফেসবুক আইডি সফলভাবে জমা হয়েছে! অ্যাডমিন যাচাই করে আপনার ব্যালেন্সে টাকা যোগ করে দেবে।", "success")
+        except Exception as e:
+            print(f"FB Task Submit Error: {e}")
+            flash("❌ ডাটা জমা দিতে সমস্যা হয়েছে। আবার চেষ্টা করুন।", "error")
+            
+        return redirect(url_for('fb_task'))
+
+    # Fetch user's submitted accounts history
+    try:
+        my_subs = supabase.table('fb_accounts_task').select('*').eq('user_id', session['user_id']).order('created_at', desc=True).execute().data
+    except:
+        my_subs = []
+
+    return render_template('fb_task.html', reward=FB_REWARD, my_subs=my_subs)
+
+
+# --- 2. ADMIN ROUTE: Review FB Accounts ---
+@app.route('/admin/fb-accounts')
+@login_required
+@admin_required
+def admin_fb_accounts():
+    try:
+        # Fetch pending FB accounts with user emails
+        pending_accs = supabase.table('fb_accounts_task').select('*, profiles(email)').eq('status', 'pending').order('created_at', desc=False).execute().data
+    except Exception as e:
+        print(f"Admin FB Fetch Error: {e}")
+        pending_accs = []
+        
+    return render_template('admin_fb_accounts.html', accounts=pending_accs)
+
+
+# --- 3. ADMIN ROUTE: Action (Approve/Reject) ---
+@app.route('/admin/fb-action/<action>/<int:acc_id>')
+@login_required
+@admin_required
+def admin_fb_action(action, acc_id):
+    try:
+        acc_data = supabase.table('fb_accounts_task').select('*').eq('id', acc_id).single().execute().data
+        
+        if not acc_data or acc_data['status'] == 'approved':
+            flash("❌ অ্যাকাউন্ট পাওয়া যায়নি বা আগেই অ্যাপ্রুভ করা হয়েছে!", "error")
+            return redirect(url_for('admin_fb_accounts'))
+
+        if action == 'approve':
+            # Add reward to user's balance
+            reward = float(acc_data['reward'])
+            user_id = acc_data['user_id']
+            
+            user_info = supabase.table('profiles').select('balance').eq('id', user_id).single().execute().data
+            if user_info:
+                new_bal = float(user_info['balance']) + reward
+                supabase.table('profiles').update({'balance': new_bal}).eq('id', user_id).execute()
+                
+            # Mark as approved
+            supabase.table('fb_accounts_task').update({'status': 'approved'}).eq('id', acc_id).execute()
+            flash(f"✅ অ্যাকাউন্ট অ্যাপ্রুভ হয়েছে এবং ইউজার ৳{reward} পেয়েছে।", "success")
+
+        elif action == 'reject':
+            supabase.table('fb_accounts_task').update({'status': 'rejected'}).eq('id', acc_id).execute()
+            flash("❌ অ্যাকাউন্টটি বাতিল করা হয়েছে।", "warning")
+
+    except Exception as e:
+        print(f"FB Action Error: {e}")
+        flash("❌ সিস্টেম এরর!", "error")
+
+    return redirect(url_for('admin_fb_accounts'))
+
 # ==========================================
 # 💸 CPALEAD POSTBACK (AUTO PAYMENT SYSTEM)
 # ==========================================
