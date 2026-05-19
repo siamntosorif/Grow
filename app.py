@@ -1115,7 +1115,94 @@ def leader_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
+# ==========================================
+# 📸 INSTAGRAM ACCOUNT FARMING TASK
+# ==========================================
 
+# --- 1. USER ROUTE: Submit IG Account ---
+@app.route('/ig-task', methods=['GET', 'POST'])
+@login_required
+def ig_task():
+    IG_REWARD = 10.00
+
+    if request.method == 'POST':
+        username = request.form.get('username', '').strip()
+        password = request.form.get('password', '').strip()
+        two_fa = request.form.get('two_fa', '').strip()
+
+        try:
+            supabase.table('ig_accounts_task').insert({
+                'user_id': session['user_id'],
+                'username': username,
+                'password': password,
+                'two_fa_key': two_fa,
+                'reward': IG_REWARD,
+                'status': 'pending'
+            }).execute()
+            
+            flash("✅ ইনস্টাগ্রাম আইডি সফলভাবে জমা হয়েছে!", "success")
+        except Exception as e:
+            print(f"IG Task Submit Error: {e}")
+            flash("❌ ডাটা জমা দিতে সমস্যা হয়েছে। আবার চেষ্টা করুন।", "error")
+            
+        return redirect(url_for('ig_task'))
+
+    try:
+        my_subs = supabase.table('ig_accounts_task').select('*').eq('user_id', session['user_id']).order('created_at', desc=True).execute().data
+    except:
+        my_subs = []
+
+    return render_template('ig_task.html', reward=IG_REWARD, my_subs=my_subs)
+
+
+# --- 2. ADMIN ROUTE: Review IG Accounts ---
+@app.route('/admin/ig-accounts')
+@login_required
+@admin_required
+def admin_ig_accounts():
+    try:
+        pending_accs = supabase.table('ig_accounts_task').select('*, profiles(email)').eq('status', 'pending').order('created_at', desc=False).execute().data
+    except Exception as e:
+        print(f"Admin IG Fetch Error: {e}")
+        pending_accs = []
+        
+    return render_template('admin_ig_accounts.html', accounts=pending_accs)
+
+
+# --- 3. ADMIN ROUTE: Action (Approve/Reject) ---
+@app.route('/admin/ig-action/<action>/<int:acc_id>')
+@login_required
+@admin_required
+def admin_ig_action(action, acc_id):
+    try:
+        acc_data = supabase.table('ig_accounts_task').select('*').eq('id', acc_id).single().execute().data
+        
+        if not acc_data or acc_data['status'] == 'approved':
+            flash("❌ অ্যাকাউন্ট পাওয়া যায়নি বা আগেই অ্যাপ্রুভ করা হয়েছে!", "error")
+            return redirect(url_for('admin_ig_accounts'))
+
+        if action == 'approve':
+            reward = float(acc_data['reward'])
+            user_id = acc_data['user_id']
+            
+            user_info = supabase.table('profiles').select('balance').eq('id', user_id).single().execute().data
+            if user_info:
+                new_bal = float(user_info['balance']) + reward
+                supabase.table('profiles').update({'balance': new_bal}).eq('id', user_id).execute()
+                
+            supabase.table('ig_accounts_task').update({'status': 'approved'}).eq('id', acc_id).execute()
+            flash(f"✅ অ্যাকাউন্ট অ্যাপ্রুভ হয়েছে এবং ইউজার ৳{reward} পেয়েছে।", "success")
+
+        elif action == 'reject':
+            supabase.table('ig_accounts_task').update({'status': 'rejected'}).eq('id', acc_id).execute()
+            flash("❌ অ্যাকাউন্টটি বাতিল করা হয়েছে।", "warning")
+
+    except Exception as e:
+        print(f"IG Action Error: {e}")
+        flash("❌ সিস্টেম এরর!", "error")
+
+    return redirect(url_for('admin_ig_accounts'))
+    
 # --- 2. Leadership Application Form ---
 @app.route('/apply-leader', methods=['GET', 'POST'])
 @login_required
