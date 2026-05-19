@@ -1073,6 +1073,11 @@ def admin_gmails():
     # পেন্ডিং কাজগুলো দেখা
     pending_tasks = supabase.table('gmail_tasks').select('*, profiles(email)').eq('status', 'submitted').execute().data
     return render_template('admin_gmails.html', pending_tasks=pending_tasks)
+@app.route('/work')
+@login_required
+def work_station():
+    return render_template('work_station.html', user=g.user)
+    
 
 @app.route('/admin/gmails/action/<action>/<int:task_id>')
 @login_required
