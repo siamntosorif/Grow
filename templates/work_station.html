@@ -2,340 +2,221 @@
 {% block content %}
 
 <style>
-    /* Premium Entry Animations */
+    /* Smooth Entry Animation */
     .fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(15px); }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-    /* Custom Modern List Items */
-    .menu-list-card {
+    /* Custom Modern Cards */
+    .hub-card {
         background: #ffffff;
-        border-radius: 24px;
         border: 1px solid #E2E8F0;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+        border-radius: 20px;
+        padding: 16px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        flex-direction: column;
+        position: relative;
         overflow: hidden;
     }
-    .menu-item-row {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 16px 20px;
-        transition: all 0.2s ease;
+    .hub-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.1);
+        border-color: #BFDBFE;
     }
-    .menu-item-row:hover { background-color: #F8FAFC; padding-left: 24px; }
-    .menu-item-row:active { background-color: #EFF6FF; }
-    .menu-item-row:not(:last-child) { border-bottom: 1px solid #F1F5F9; }
 
-    /* Custom Search Bar */
-    .search-nav {
-        background: #F1F5F9;
-        border: 1px solid #E2E8F0;
-        transition: all 0.3s ease;
+    /* Shimmer Effect for Premium Cards */
+    .shimmer-bg { position: relative; overflow: hidden; }
+    .shimmer-bg::after {
+        content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+        background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
+        transform: skewX(-20deg); animation: shimmerFast 3s infinite; pointer-events: none;
     }
-    .search-nav:focus-within {
-        background: #ffffff;
-        border-color: #3B82F6;
-        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
-    }
+    @keyframes shimmerFast { 100% { left: 200%; } }
 </style>
 
 <div class="max-w-2xl mx-auto space-y-6 fade-in-up pb-8 px-1">
 
     <!-- ==========================================
-         1. SEARCH NAV BAR (New Feature)
+         1. PAGE HEADER (Corporate Minimalist)
     ========================================== -->
-    <div class="search-nav rounded-[20px] p-3 flex items-center gap-3 relative mt-2">
-        <i class="fa-solid fa-search text-slate-400 pl-2"></i>
-        <input type="text" id="menuSearch" onkeyup="filterMenu()" placeholder="Search menu, tasks, settings..." 
-               class="w-full bg-transparent border-none outline-none text-sm font-medium text-slate-800 placeholder-slate-400">
+    <div class="flex items-center gap-3 mb-2 pt-2 px-1">
+        <div class="h-12 w-12 bg-blue-50 text-blue-600 rounded-[16px] flex items-center justify-center text-xl shadow-sm border border-blue-100 flex-shrink-0">
+            <i class="fa-solid fa-briefcase"></i>
+        </div>
+        <div>
+            <h2 class="text-2xl font-black text-slate-800 tracking-tight leading-none">ওয়ার্ক স্টেশন</h2>
+            <p class="text-[10px] text-blue-500 font-bold uppercase tracking-widest mt-1">সব ধরনের কাজ এখানে</p>
+        </div>
     </div>
 
     <!-- ==========================================
-         2. PROFILE CARD (Redesigned & Premium)
+         2. HIGHLIGHTED SECTION (Elite & Premium)
     ========================================== -->
-    <div class="bg-white rounded-[32px] p-6 shadow-sm border border-slate-100 relative overflow-hidden group">
-        <!-- Decor Blur -->
-        <div class="absolute right-0 top-0 w-32 h-32 bg-blue-50 rounded-bl-full opacity-60 pointer-events-none group-hover:scale-110 transition-transform duration-500"></div>
+    <div class="grid grid-cols-2 gap-3 mt-4">
+        <!-- Elite Plans -->
+        <a href="/vip" class="bg-gradient-to-br from-slate-900 to-[#1E293B] p-5 rounded-[24px] shadow-[0_10px_30px_rgba(0,0,0,0.1)] flex flex-col items-start gap-3 relative overflow-hidden group border border-slate-700 shimmer-bg hover:-translate-y-1 transition duration-300">
+            <i class="fa-solid fa-crown absolute -right-4 -bottom-4 text-7xl text-amber-500/10 group-hover:scale-110 transition duration-500"></i>
+            <div class="h-12 w-12 bg-gradient-to-br from-amber-400 to-amber-600 text-white rounded-xl flex items-center justify-center text-xl shadow-md border border-amber-300 relative z-10"><i class="fa-solid fa-gem"></i></div>
+            <div class="relative z-10 mt-auto pt-2">
+                <span class="text-[8px] bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded font-black uppercase tracking-widest mb-1.5 inline-block">Best ROI</span>
+                <h4 class="font-black text-white text-base leading-tight">এলিট মেম্বারশিপ</h4>
+                <p class="text-[9px] text-slate-400 mt-1 font-medium">অটোমেটিক ডেইলি প্রফিট</p>
+            </div>
+        </a>
+
+        <!-- Premium Work -->
+        <a href="/premium-tasks" class="bg-gradient-to-br from-[#E11D48] to-[#BE123C] p-5 rounded-[24px] shadow-[0_10px_30px_rgba(225,29,72,0.2)] flex flex-col items-start gap-3 relative overflow-hidden group border border-[#9F1239] shimmer-bg hover:-translate-y-1 transition duration-300">
+            <div class="absolute right-0 top-0 w-32 h-32 bg-white opacity-10 rounded-bl-full pointer-events-none group-hover:scale-110 transition duration-500"></div>
+            <div class="h-12 w-12 bg-white text-rose-600 rounded-xl flex items-center justify-center text-xl shadow-md border border-rose-100 relative z-10"><i class="fa-solid fa-lock"></i></div>
+            <div class="relative z-10 mt-auto pt-2">
+                <span class="text-[8px] bg-white/20 text-white px-2 py-0.5 rounded font-black uppercase tracking-widest mb-1.5 inline-block">Exclusive</span>
+                <h4 class="font-black text-white text-base leading-tight">প্রিমিয়াম ওয়ার্ক</h4>
+                <p class="text-[9px] text-rose-200 mt-1 font-medium">লক করা স্পেশাল কাজ</p>
+            </div>
+        </a>
+    </div>
+
+    <!-- ==========================================
+         3. MAIN TASKS (Top Priority)
+    ========================================== -->
+    <div>
+        <h3 class="font-bold text-slate-800 text-xs uppercase tracking-widest mb-3 px-1 mt-6 flex items-center gap-1.5">
+            <i class="fa-solid fa-list-check text-blue-500"></i> রেগুলার টাস্ক
+        </h3>
         
-        <div class="flex items-center gap-5 relative z-10">
-            <!-- User Avatar -->
-            <div class="relative">
-                <div class="h-16 w-16 bg-gradient-to-br from-blue-600 to-indigo-700 text-white rounded-[20px] flex items-center justify-center text-3xl font-black shadow-lg border-2 border-white transform -rotate-3 group-hover:rotate-0 transition-transform">
-                    {{ user.email[0] | upper }}
+        <!-- Micro Tasks (Most Important) -->
+        <a href="/tasks" class="bg-white p-5 rounded-[24px] shadow-[0_4px_15px_rgba(0,0,0,0.02)] border border-slate-100 flex items-center justify-between group hover:border-blue-300 transition hover:-translate-y-1">
+            <div class="flex items-center gap-4">
+                <div class="h-14 w-14 bg-blue-50 text-blue-600 rounded-[16px] flex items-center justify-center text-2xl shadow-sm border border-blue-100 group-hover:scale-110 transition"><i class="fa-solid fa-layer-group"></i></div>
+                <div>
+                    <h4 class="font-black text-slate-800 text-base">মাইক্রো টাস্ক (Micro Tasks)</h4>
+                    <p class="text-[10px] text-slate-500 mt-0.5 font-medium">ইউটিউব, ফেসবুক ও লিংক ভিজিটের সহজ কাজ</p>
                 </div>
-                {% if user.is_active or user.current_level > 0 %}
-                <div class="absolute -bottom-1 -right-1 h-5 w-5 bg-emerald-500 border-2 border-white rounded-full flex items-center justify-center shadow-sm">
-                    <i class="fa-solid fa-check text-[8px] text-white"></i>
-                </div>
-                {% endif %}
             </div>
+            <div class="h-8 w-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-blue-600 group-hover:text-white transition shadow-sm">
+                <i class="fa-solid fa-chevron-right text-xs"></i>
+            </div>
+        </a>
+    </div>
+
+    <!-- ==========================================
+         4. HIGH PAYING FARMING (Accounts)
+    ========================================== -->
+    <div>
+        <h3 class="font-bold text-slate-800 text-xs uppercase tracking-widest mb-3 px-1 mt-6 flex items-center gap-1.5">
+            <i class="fa-solid fa-fire text-red-500"></i> একাউন্ট ফার্মিং (বেশি আয়)
+        </h3>
+        <div class="grid grid-cols-2 gap-3">
+            <!-- Gmail Task -->
+            <a href="/gmail-tasks" class="hub-card group border-l-4 border-l-red-500">
+                <span class="absolute top-0 right-0 bg-red-500 text-white text-[8px] font-black px-2 py-0.5 rounded-bl-lg uppercase tracking-widest">Hot</span>
+                <div class="h-12 w-12 bg-red-50 text-red-500 rounded-[14px] flex items-center justify-center text-xl mb-3 shadow-sm border border-red-100 group-hover:scale-110 transition"><i class="fa-brands fa-google"></i></div>
+                <div>
+                    <h4 class="font-black text-slate-800 text-sm">জিমেইল ক্রিয়েশন</h4>
+                    <p class="text-[10px] text-slate-500 mt-1 font-medium bg-slate-50 px-2 py-0.5 rounded border border-slate-100 inline-block">৳৫ - ৳১০০</p>
+                </div>
+            </a>
             
-            <!-- User Info -->
-            <div class="flex-grow">
-                <h2 class="text-xl font-black tracking-tight text-slate-800 leading-tight mb-1">{{ user.full_name or user.email.split('@')[0] | title }}</h2>
-                <p class="text-[11px] text-slate-500 font-medium font-mono mb-2">{{ user.email }}</p>
-                
-                <!-- ID Badge -->
-                <div class="inline-flex items-center gap-2 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-xl text-[10px] font-bold text-slate-600 shadow-sm cursor-copy hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 transition" onclick="navigator.clipboard.writeText('{{ user.referral_code }}'); alert('ID Copied!');">
-                    UID: <span class="font-mono text-slate-800">{{ user.referral_code }}</span> <i class="fa-regular fa-copy opacity-70"></i>
+            <!-- Facebook Task -->
+            <a href="/fb-task" class="hub-card group border-l-4 border-l-blue-600">
+                <div class="h-12 w-12 bg-blue-50 text-blue-600 rounded-[14px] flex items-center justify-center text-xl mb-3 shadow-sm border border-blue-100 group-hover:scale-110 transition"><i class="fa-brands fa-facebook-f"></i></div>
+                <div>
+                    <h4 class="font-black text-slate-800 text-sm">ফেসবুক ফার্মিং</h4>
+                    <p class="text-[10px] text-slate-500 mt-1 font-medium bg-slate-50 px-2 py-0.5 rounded border border-slate-100 inline-block">High Payout</p>
                 </div>
-            </div>
+            </a>
+            
+            <!-- Instagram Task -->
+            <a href="/ig-task" class="hub-card group border-l-4 border-l-pink-500">
+                <div class="h-12 w-12 bg-pink-50 text-pink-600 rounded-[14px] flex items-center justify-center text-xl mb-3 shadow-sm border border-pink-100 group-hover:scale-110 transition"><i class="fa-brands fa-instagram"></i></div>
+                <div>
+                    <h4 class="font-black text-slate-800 text-sm">ইন্সটাগ্রাম ফার্মিং</h4>
+                    <p class="text-[10px] text-slate-500 mt-1 font-medium bg-slate-50 px-2 py-0.5 rounded border border-slate-100 inline-block">High Payout</p>
+                </div>
+            </a>
+
+            <!-- App Reviews -->
+            <a href="/play" class="hub-card group border-l-4 border-l-emerald-500">
+                <div class="h-12 w-12 bg-emerald-50 text-emerald-600 rounded-[14px] flex items-center justify-center text-xl mb-3 shadow-sm border border-emerald-100 group-hover:scale-110 transition"><i class="fa-brands fa-google-play"></i></div>
+                <div>
+                    <h4 class="font-black text-slate-800 text-sm">অ্যাপ রিভিউ</h4>
+                    <p class="text-[10px] text-slate-500 mt-1 font-medium bg-slate-50 px-2 py-0.5 rounded border border-slate-100 inline-block">Installs & Rating</p>
+                </div>
+            </a>
         </div>
     </div>
 
     <!-- ==========================================
-         3. QUICK REFERRAL LINK (New Feature)
+         5. MINI GAMES & OFFERS
     ========================================== -->
-    <div class="bg-blue-600 rounded-[24px] p-5 shadow-[0_8px_30px_rgba(37,99,235,0.25)] relative overflow-hidden flex items-center justify-between text-white">
-        <i class="fa-solid fa-share-nodes absolute right-4 top-1/2 transform -translate-y-1/2 text-7xl opacity-[0.05] pointer-events-none rotate-12"></i>
-        <div class="relative z-10">
-            <h3 class="font-bold text-sm mb-1 flex items-center gap-2"><i class="fa-solid fa-link text-blue-300"></i> Share & Earn</h3>
-            <p class="text-[10px] text-blue-200 font-medium">Invite friends to join GrowEarn network.</p>
+    <div>
+        <h3 class="font-bold text-slate-800 text-xs uppercase tracking-widest mb-3 px-1 mt-6 flex items-center gap-1.5">
+            <i class="fa-solid fa-gamepad text-purple-500"></i> মিনি গেমস (সহজ আয়)
+        </h3>
+        <div class="grid grid-cols-2 gap-3">
+            <a href="/captcha" class="bg-white p-4 rounded-[20px] shadow-sm border border-slate-100 flex items-center gap-3 hover:border-teal-300 transition group hover:-translate-y-1">
+                <div class="h-10 w-10 bg-teal-50 text-teal-600 rounded-[12px] flex items-center justify-center text-lg group-hover:scale-110 transition"><i class="fa-solid fa-keyboard"></i></div>
+                <div>
+                    <h4 class="font-bold text-slate-800 text-xs">ক্যাপচা এন্ট্রি</h4>
+                    <p class="text-[9px] text-slate-400 mt-0.5">টাইপ করে আয়</p>
+                </div>
+            </a>
+            <a href="/spin" class="bg-white p-4 rounded-[20px] shadow-sm border border-slate-100 flex items-center gap-3 hover:border-orange-300 transition group hover:-translate-y-1">
+                <div class="h-10 w-10 bg-orange-50 text-orange-500 rounded-[12px] flex items-center justify-center text-lg group-hover:scale-110 transition"><i class="fa-solid fa-dharmachakra"></i></div>
+                <div>
+                    <h4 class="font-bold text-slate-800 text-xs">লাকি স্পিন</h4>
+                    <p class="text-[9px] text-slate-400 mt-0.5">ভাগ্য পরীক্ষা করুন</p>
+                </div>
+            </a>
+            <a href="/skatch" class="col-span-2 bg-white p-4 rounded-[20px] shadow-sm border border-slate-100 flex items-center justify-between hover:border-indigo-300 transition group hover:-translate-y-1">
+                <div class="flex items-center gap-3">
+                    <div class="h-10 w-10 bg-indigo-50 text-indigo-500 rounded-[12px] flex items-center justify-center text-lg group-hover:scale-110 transition"><i class="fa-solid fa-ticket"></i></div>
+                    <div>
+                        <h4 class="font-bold text-slate-800 text-xs">স্ক্র্যাচ কার্ড (Scratch)</h4>
+                        <p class="text-[9px] text-slate-400 mt-0.5">কার্ড ঘষে বোনাস নিন</p>
+                    </div>
+                </div>
+                <span class="text-[10px] bg-indigo-500 text-white font-bold px-3 py-1.5 rounded-lg shadow-sm">Play Now</span>
+            </a>
         </div>
-        <input type="hidden" id="hiddenRefLink" value="">
-        <button onclick="copyMyRef(this)" class="relative z-10 bg-white text-blue-600 px-5 py-2.5 rounded-[14px] text-xs font-black uppercase tracking-widest shadow-md hover:bg-slate-50 active:scale-95 transition flex items-center gap-2">
-            Copy Link <i class="fa-regular fa-copy"></i>
-        </button>
-    </div>
-
-    <!-- MAIN MENU WRAPPER FOR SEARCH FILTERING -->
-    <div id="menuContainer" class="space-y-6">
-
-        <!-- ==========================================
-             WORK STATION & TASKS (Sub-links Added)
-        ========================================== -->
-        <div class="menu-category">
-            <h3 class="font-bold text-slate-800 text-[10px] uppercase tracking-widest mb-2 ml-4 flex items-center gap-1.5">
-                <i class="fa-solid fa-briefcase text-blue-500"></i> Work Station
-            </h3>
-            <div class="menu-list-card">
-                <a href="/tasks" class="menu-item-row group">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-indigo-50 text-indigo-600 rounded-[12px] flex items-center justify-center text-sm shadow-sm group-hover:bg-indigo-600 group-hover:text-white transition"><i class="fa-solid fa-list-check"></i></div>
-                        <span class="font-bold text-slate-700 text-sm search-text">Micro Tasks</span>
-                    </div>
-                </a>
-                <a href="/gmail-tasks" class="menu-item-row group">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-red-50 text-red-500 rounded-[12px] flex items-center justify-center text-sm shadow-sm group-hover:bg-red-500 group-hover:text-white transition"><i class="fa-brands fa-google"></i></div>
-                        <span class="font-bold text-slate-700 text-sm search-text">Gmail Creation</span>
-                    </div>
-                    <span class="bg-red-500 text-white text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded shadow-sm">Hot</span>
-                </a>
-                <a href="/fb-task" class="menu-item-row group">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-blue-50 text-blue-600 rounded-[12px] flex items-center justify-center text-sm shadow-sm group-hover:bg-blue-600 group-hover:text-white transition"><i class="fa-brands fa-facebook-f"></i></div>
-                        <span class="font-bold text-slate-700 text-sm search-text">Facebook Farming</span>
-                    </div>
-                </a>
-                <a href="/ig-task" class="menu-item-row group">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-pink-50 text-pink-500 rounded-[12px] flex items-center justify-center text-sm shadow-sm group-hover:bg-pink-500 group-hover:text-white transition"><i class="fa-brands fa-instagram"></i></div>
-                        <span class="font-bold text-slate-700 text-sm search-text">Instagram Farming</span>
-                    </div>
-                </a>
-                <a href="/play" class="menu-item-row group">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-emerald-50 text-emerald-600 rounded-[12px] flex items-center justify-center text-sm shadow-sm group-hover:bg-emerald-600 group-hover:text-white transition"><i class="fa-brands fa-google-play"></i></div>
-                        <span class="font-bold text-slate-700 text-sm search-text">App Installs & Reviews</span>
-                    </div>
-                </a>
-                <a href="/premium-tasks" class="menu-item-row group bg-amber-50/30">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-amber-100 text-amber-600 rounded-[12px] flex items-center justify-center text-sm shadow-sm group-hover:bg-amber-500 group-hover:text-white transition"><i class="fa-solid fa-gem"></i></div>
-                        <span class="font-bold text-amber-900 text-sm search-text">Premium Exclusive Work</span>
-                    </div>
-                    <i class="fa-solid fa-lock text-amber-300 text-xs"></i>
-                </a>
-            </div>
-        </div>
-
-        <!-- ==========================================
-             FINANCIALS & RECORDS
-        ========================================== -->
-        <div class="menu-category">
-            <h3 class="font-bold text-slate-800 text-[10px] uppercase tracking-widest mb-2 ml-4 flex items-center gap-1.5">
-                <i class="fa-solid fa-wallet text-emerald-500"></i> Financials
-            </h3>
-            <div class="menu-list-card">
-                <a href="/income" class="menu-item-row group">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-emerald-50 text-emerald-600 rounded-[12px] flex items-center justify-center text-sm shadow-sm group-hover:bg-emerald-600 group-hover:text-white transition"><i class="fa-solid fa-chart-pie"></i></div>
-                        <span class="font-bold text-slate-700 text-sm search-text">Income Analytics</span>
-                    </div>
-                </a>
-                <a href="/withdraw" class="menu-item-row group">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-rose-50 text-rose-500 rounded-[12px] flex items-center justify-center text-sm shadow-sm group-hover:bg-rose-500 group-hover:text-white transition"><i class="fa-solid fa-money-bill-transfer"></i></div>
-                        <span class="font-bold text-slate-700 text-sm search-text">Withdraw Funds</span>
-                    </div>
-                </a>
-                <a href="/history" class="menu-item-row group">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-slate-100 text-slate-600 rounded-[12px] flex items-center justify-center text-sm shadow-sm group-hover:bg-slate-700 group-hover:text-white transition"><i class="fa-solid fa-clock-rotate-left"></i></div>
-                        <span class="font-bold text-slate-700 text-sm search-text">Transaction Logs</span>
-                    </div>
-                </a>
-                <a href="/adm" class="menu-item-row group">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-blue-50 text-blue-600 rounded-[12px] flex items-center justify-center text-sm shadow-sm group-hover:bg-blue-600 group-hover:text-white transition"><i class="fa-solid fa-building-columns"></i></div>
-                        <div>
-                            <span class="font-bold text-slate-700 text-sm block search-text">Payment Setup</span>
-                            <span class="text-[9px] text-slate-400 font-bold block uppercase">{{ user.wallet_method or 'Not Set' }} Linked</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-
-        <!-- ==========================================
-             NETWORK & COMMUNITY
-        ========================================== -->
-        <div class="menu-category">
-            <h3 class="font-bold text-slate-800 text-[10px] uppercase tracking-widest mb-2 ml-4 flex items-center gap-1.5">
-                <i class="fa-solid fa-network-wired text-purple-500"></i> Network & Community
-            </h3>
-            <div class="menu-list-card">
-                <a href="/referrals" class="menu-item-row group">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-purple-50 text-purple-600 rounded-[12px] flex items-center justify-center text-sm shadow-sm group-hover:bg-purple-600 group-hover:text-white transition"><i class="fa-solid fa-users"></i></div>
-                        <span class="font-bold text-slate-700 text-sm search-text">My Team / Referrals</span>
-                    </div>
-                </a>
-                <a href="/vip" class="menu-item-row group">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-amber-50 text-amber-500 rounded-[12px] flex items-center justify-center text-sm shadow-sm group-hover:bg-amber-500 group-hover:text-white transition"><i class="fa-solid fa-crown"></i></div>
-                        <span class="font-bold text-slate-700 text-sm search-text">Elite VIP Plans</span>
-                    </div>
-                </a>
-                <a href="/givework" class="menu-item-row group">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-sky-50 text-sky-500 rounded-[12px] flex items-center justify-center text-sm shadow-sm group-hover:bg-sky-500 group-hover:text-white transition"><i class="fa-solid fa-rocket"></i></div>
-                        <span class="font-bold text-slate-700 text-sm search-text">Promote Business (B2B)</span>
-                    </div>
-                </a>
-                <a href="/apply-leader" class="menu-item-row group">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-indigo-50 text-indigo-600 rounded-[12px] flex items-center justify-center text-sm shadow-sm group-hover:bg-indigo-600 group-hover:text-white transition"><i class="fa-solid fa-star"></i></div>
-                        <span class="font-bold text-slate-700 text-sm search-text">Become an Ambassador</span>
-                    </div>
-                </a>
-                {% if user.is_leader %}
-                <a href="/leader-panel" class="menu-item-row group bg-indigo-50/50">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-indigo-600 text-white rounded-[12px] flex items-center justify-center text-sm shadow-md"><i class="fa-solid fa-chart-line"></i></div>
-                        <span class="font-bold text-indigo-900 text-sm search-text">Leader Dashboard</span>
-                    </div>
-                    <span class="bg-indigo-600 text-white text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded shadow-sm animate-pulse">Exclusive</span>
-                </a>
-                {% endif %}
-            </div>
-        </div>
-
-        <!-- ==========================================
-             SUPPORT & SYSTEM
-        ========================================== -->
-        <div class="menu-category">
-            <h3 class="font-bold text-slate-800 text-[10px] uppercase tracking-widest mb-2 ml-4 flex items-center gap-1.5">
-                <i class="fa-solid fa-headset text-sky-500"></i> Help & Support
-            </h3>
-            <div class="menu-list-card">
-                <a href="/notice" class="menu-item-row group">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-blue-50 text-blue-600 rounded-[12px] flex items-center justify-center text-sm shadow-sm group-hover:bg-blue-600 group-hover:text-white transition"><i class="fa-solid fa-bullhorn"></i></div>
-                        <span class="font-bold text-slate-700 text-sm search-text">Notice Board</span>
-                    </div>
-                </a>
-                <a href="/tutorial" class="menu-item-row group">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-red-50 text-red-500 rounded-[12px] flex items-center justify-center text-sm shadow-sm group-hover:bg-red-500 group-hover:text-white transition"><i class="fa-brands fa-youtube"></i></div>
-                        <span class="font-bold text-slate-700 text-sm search-text">Video Guide</span>
-                    </div>
-                </a>
-                <a href="https://t.me/earndailysite" target="_blank" class="menu-item-row group">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-[#2AABEE]/10 text-[#2AABEE] rounded-[12px] flex items-center justify-center text-sm shadow-sm group-hover:bg-[#2AABEE] group-hover:text-white transition"><i class="fa-brands fa-telegram"></i></div>
-                        <span class="font-bold text-slate-700 text-sm search-text">Live Support Chat</span>
-                    </div>
-                    <i class="fa-solid fa-up-right-from-square text-slate-300 text-[10px]"></i>
-                </a>
-
-                {% if user.role == 'admin' %}
-                <div class="border-t border-slate-100"></div>
-                <a href="/admin" class="menu-item-row group bg-slate-50 hover:bg-slate-100">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-slate-900 text-white rounded-[12px] flex items-center justify-center text-sm shadow-md"><i class="fa-solid fa-shield-halved"></i></div>
-                        <span class="font-bold text-slate-900 text-sm search-text">Admin Control Panel</span>
-                    </div>
-                    <span class="bg-red-500 text-white text-[8px] font-black uppercase px-2 py-0.5 rounded shadow-sm animate-pulse ml-auto">Restricted</span>
-                </a>
-                {% endif %}
-            </div>
-        </div>
-
     </div>
 
     <!-- ==========================================
-         5. LOGOUT BUTTON
+         6. AFFILIATE & NETWORKING
     ========================================== -->
-    <a href="/logout" class="bg-white border border-slate-200 p-4 rounded-2xl shadow-sm flex items-center justify-center gap-3 hover:bg-red-50 hover:border-red-200 transition group mt-8 active:scale-95">
-        <i class="fa-solid fa-power-off text-red-500 text-lg group-hover:scale-110 transition-transform"></i>
-        <span class="font-black text-red-600 uppercase tracking-widest text-sm">Secure Logout</span>
+    <a href="/referrals" class="block bg-white p-6 rounded-[24px] shadow-[0_4px_15px_rgba(0,0,0,0.02)] border border-slate-100 mt-8 relative overflow-hidden group hover:border-blue-300 transition duration-300 hover:-translate-y-1">
+        <i class="fa-solid fa-network-wired absolute right-[-10px] bottom-[-20px] text-8xl text-slate-50 opacity-60 group-hover:scale-110 transition duration-500"></i>
+        <div class="flex items-center gap-5 relative z-10">
+            <div class="h-14 w-14 bg-blue-50 text-blue-600 rounded-[16px] flex items-center justify-center text-2xl shadow-sm border border-blue-100 group-hover:bg-blue-600 group-hover:text-white transition">
+                <i class="fa-solid fa-users"></i>
+            </div>
+            <div>
+                <span class="text-[9px] bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded font-black uppercase tracking-widest border border-emerald-100 mb-1.5 inline-block">Bonus System</span>
+                <h3 class="font-black text-slate-800 text-base leading-tight">My Team / Affiliate</h3>
+                <p class="text-[10px] text-slate-500 mt-1 font-medium leading-relaxed max-w-[200px]">আপনার রেফার লিংক শেয়ার করে বন্ধুদের ইনভাইট করুন এবং লাইফটাইম কমিশন পান।</p>
+            </div>
+        </div>
     </a>
 
-    <!-- App Version Footer -->
-    <div class="text-center pt-2 opacity-50 pb-2">
-        <p class="text-[9px] font-mono mt-1 text-slate-400">GrowEarn v3.5.0 (Stable)</p>
-    </div>
+    <!-- ==========================================
+         7. LEADERSHIP CTA BANNER
+    ========================================== -->
+    <a href="/apply-leader" class="block bg-gradient-to-r from-blue-700 to-indigo-900 p-6 sm:p-8 rounded-[24px] shadow-[0_15px_40px_rgba(37,99,235,0.3)] relative overflow-hidden group mt-6 hover:shadow-xl transition-shadow border border-blue-800">
+        <div class="absolute right-0 top-0 w-40 h-40 bg-white opacity-10 rounded-bl-full pointer-events-none group-hover:scale-110 transition-transform duration-700"></div>
+        <div class="flex items-center justify-between relative z-10">
+            <div class="pr-4">
+                <span class="bg-white/20 text-white px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest shadow-sm backdrop-blur-sm border border-white/20 inline-flex items-center gap-1 mb-3">
+                    <i class="fa-solid fa-star text-amber-300"></i> Career Opportunity
+                </span>
+                <h3 class="font-black text-white text-xl sm:text-2xl leading-tight">Become a Leader!</h3>
+                <p class="text-[11px] text-blue-200 mt-2 font-medium leading-relaxed max-w-[200px]">আমাদের অ্যাম্বাসেডর প্রোগ্রামে যুক্ত হয়ে প্রতি ১৫ দিনে <b>৳৭০০০ ফিক্সড স্যালারি</b> বুঝে নিন।</p>
+            </div>
+            <div class="h-14 w-14 bg-white text-blue-600 rounded-full flex items-center justify-center text-xl shadow-lg flex-shrink-0 group-hover:bg-amber-400 group-hover:text-slate-900 transition">
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+        </div>
+    </a>
 
 </div>
-
-<!-- JavaScript for Search & Copy -->
-<script>
-    // Referral Link Generator
-    document.addEventListener('DOMContentLoaded', () => {
-        const domain = window.location.origin;
-        const uniqueCode = "{{ user.referral_code if user.referral_code else 'GenerateID' }}";
-        document.getElementById("hiddenRefLink").value = `${domain}/register?ref=${uniqueCode}`;
-    });
-
-    // Copy Link Logic
-    function copyMyRef(btn) {
-        const copyText = document.getElementById("hiddenRefLink").value;
-        navigator.clipboard.writeText(copyText).then(() => {
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
-            btn.classList.replace("text-blue-600", "text-emerald-600");
-            setTimeout(() => {
-                btn.innerHTML = originalHTML;
-                btn.classList.replace("text-emerald-600", "text-blue-600");
-            }, 2000);
-        });
-    }
-
-    // Modern Real-time Search Filter Logic
-    function filterMenu() {
-        const input = document.getElementById('menuSearch').value.toLowerCase();
-        const items = document.querySelectorAll('.menu-item-row');
-        
-        items.forEach(item => {
-            const text = item.querySelector('.search-text').innerText.toLowerCase();
-            if (text.includes(input)) {
-                item.style.display = "flex";
-            } else {
-                item.style.display = "none";
-            }
-        });
-        
-        // Hide empty categories
-        document.querySelectorAll('.menu-category').forEach(cat => {
-            const visibleItems = cat.querySelectorAll('.menu-item-row[style="display: flex;"], .menu-item-row:not([style*="display: none"])');
-            if (visibleItems.length === 0) {
-                cat.style.display = "none";
-            } else {
-                cat.style.display = "block";
-            }
-        });
-    }
-</script>
 
 {% endblock %}
