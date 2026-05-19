@@ -3,13 +3,13 @@
 
 <style>
     /* Premium Entry Animations */
-    .fade-in-up { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
+    .fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(15px); }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
     /* Custom Gradient Card for Total Income */
     .hero-stat-card {
-        background: linear-gradient(135deg, #E11D48 0%, #BE123C 100%); /* Crimson to Rose-700 */
-        box-shadow: 0 15px 35px -5px rgba(225, 29, 72, 0.3);
+        background: linear-gradient(135deg, #E11D48 0%, #9F1239 100%); /* Crimson to Rose-800 */
+        box-shadow: 0 15px 35px -5px rgba(225, 29, 72, 0.25);
         position: relative;
         overflow: hidden;
         border-radius: 32px;
@@ -36,10 +36,12 @@
         flex-direction: column;
         justify-content: center;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+        position: relative;
+        overflow: hidden;
     }
     .stat-box:hover {
         transform: translateY(-4px);
-        box-shadow: 0 10px 25px rgba(225, 29, 72, 0.05);
+        box-shadow: 0 10px 25px rgba(225, 29, 72, 0.08);
         border-color: #FECDD3; /* Red-200 */
     }
 </style>
@@ -50,7 +52,7 @@
          1. PAGE HEADER
     ========================================== -->
     <div class="flex items-center gap-3 mb-6 pt-2">
-        <a href="/dashboard" class="h-10 w-10 bg-white rounded-[14px] flex items-center justify-center text-slate-500 shadow-[0_2px_10px_rgba(0,0,0,0.03)] border border-slate-100 hover:text-red-600 hover:bg-red-50 transition-all active:scale-95">
+        <a href="/dashboard" class="h-10 w-10 bg-white rounded-[14px] flex items-center justify-center text-slate-500 shadow-sm border border-slate-200 hover:text-red-600 hover:bg-red-50 transition-all active:scale-95">
             <i class="fa-solid fa-arrow-left"></i>
         </a>
         <div>
@@ -66,20 +68,20 @@
         <!-- Decor Elements -->
         <div class="absolute top-0 right-0 w-40 h-40 bg-white opacity-10 rounded-bl-full pointer-events-none"></div>
         <div class="chart-wave"></div>
-        <i class="fa-solid fa-chart-pie absolute left-4 top-4 text-8xl opacity-[0.05] transform -rotate-12"></i>
+        <i class="fa-solid fa-chart-pie absolute left-4 top-4 text-8xl opacity-[0.05] transform -rotate-12 pointer-events-none"></i>
         
         <div class="relative z-10">
             <div class="inline-flex items-center gap-1.5 bg-white/20 text-white px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border border-white/30 mb-4 backdrop-blur-sm shadow-sm">
                 <span class="h-1.5 w-1.5 bg-green-400 rounded-full animate-ping"></span> Live Assets
             </div>
             
-            <p class="text-[10px] text-red-100 font-bold uppercase tracking-[0.2em] mb-1">Total Net Worth</p>
-            <h1 class="text-5xl font-black font-mono tracking-tighter mb-6 drop-shadow-md">
+            <p class="text-[10px] text-red-200 font-bold uppercase tracking-[0.2em] mb-1">Total Net Worth</p>
+            <h1 class="text-5xl font-black font-mono tracking-tighter mb-8 drop-shadow-md">
                 <span class="text-2xl text-red-300 font-bold mr-1">৳</span>{{ main_bal + vip_bal }}
             </h1>
             
             <!-- Quick Balances Split -->
-            <div class="grid grid-cols-2 gap-4 divide-x divide-white/20 border-t border-white/20 pt-6">
+            <div class="grid grid-cols-2 gap-4 divide-x divide-white/20 border-t border-white/10 pt-6">
                 <div>
                     <p class="text-[9px] text-red-200 font-black uppercase tracking-widest mb-1 flex items-center justify-center gap-1">
                         <i class="fa-solid fa-wallet opacity-70"></i> Main Wallet
@@ -99,20 +101,22 @@
     <!-- ==========================================
          3. TODAY'S PERFORMANCE (Live Tracker)
     ========================================== -->
-    <h3 class="font-bold text-slate-800 text-xs mt-8 mb-4 flex items-center gap-1.5 px-1 uppercase tracking-widest">
-        <i class="fa-solid fa-bolt text-amber-500"></i> Today's Tracker
+    <h3 class="font-black text-slate-800 text-xs mt-8 mb-4 flex items-center gap-1.5 px-1 uppercase tracking-widest">
+        <i class="fa-solid fa-bolt text-red-500"></i> Today's Tracker
     </h3>
     
     <div class="grid grid-cols-2 gap-4">
         <!-- Approved Earnings -->
         <div class="stat-box group border-b-4 border-b-emerald-500">
-            <div class="flex items-start justify-between mb-3">
-                <div class="h-10 w-10 bg-emerald-50 text-emerald-600 rounded-[14px] flex items-center justify-center text-lg group-hover:scale-110 transition shadow-sm border border-emerald-100">
+            <div class="absolute right-0 top-0 w-16 h-16 bg-emerald-50 rounded-bl-full opacity-50 group-hover:scale-110 transition duration-300"></div>
+            
+            <div class="flex items-start justify-between mb-4 relative z-10">
+                <div class="h-10 w-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-lg group-hover:bg-emerald-500 group-hover:text-white transition shadow-sm border border-emerald-100">
                     <i class="fa-solid fa-arrow-trend-up"></i>
                 </div>
                 <span class="bg-emerald-500 text-white text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded shadow-sm">Verified</span>
             </div>
-            <div>
+            <div class="relative z-10">
                 <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-0.5">Today's Profit</p>
                 <h3 class="text-2xl font-black text-slate-800 font-mono tracking-tight">+৳{{ today_income }}</h3>
             </div>
@@ -120,13 +124,15 @@
 
         <!-- Pending Review -->
         <div class="stat-box group border-b-4 border-b-amber-500">
-            <div class="flex items-start justify-between mb-3">
-                <div class="h-10 w-10 bg-amber-50 text-amber-500 rounded-[14px] flex items-center justify-center text-lg group-hover:scale-110 transition shadow-sm border border-amber-100">
+            <div class="absolute right-0 top-0 w-16 h-16 bg-amber-50 rounded-bl-full opacity-50 group-hover:scale-110 transition duration-300"></div>
+
+            <div class="flex items-start justify-between mb-4 relative z-10">
+                <div class="h-10 w-10 bg-amber-50 text-amber-500 rounded-xl flex items-center justify-center text-lg group-hover:bg-amber-500 group-hover:text-white transition shadow-sm border border-amber-100">
                     <i class="fa-solid fa-hourglass-half"></i>
                 </div>
                 <span class="bg-amber-100 text-amber-600 text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded border border-amber-200 animate-pulse">Reviewing</span>
             </div>
-            <div>
+            <div class="relative z-10">
                 <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-0.5">Pending Funds</p>
                 <h3 class="text-2xl font-black text-slate-800 font-mono tracking-tight">৳{{ pending_income }}</h3>
             </div>
@@ -136,34 +142,34 @@
     <!-- ==========================================
          4. LIFETIME METRICS
     ========================================== -->
-    <h3 class="font-bold text-slate-800 text-xs mt-8 mb-4 flex items-center gap-1.5 px-1 uppercase tracking-widest">
+    <h3 class="font-black text-slate-800 text-xs mt-8 mb-4 flex items-center gap-1.5 px-1 uppercase tracking-widest">
         <i class="fa-solid fa-chart-line text-blue-500"></i> Lifetime Metrics
     </h3>
 
     <div class="grid grid-cols-2 gap-4">
         <!-- Total Withdrawals -->
         <div class="stat-box group">
-            <div class="flex items-start justify-between mb-3">
-                <div class="h-10 w-10 bg-blue-50 text-blue-600 rounded-[14px] flex items-center justify-center text-lg group-hover:bg-blue-600 group-hover:text-white transition shadow-sm border border-blue-100">
+            <div class="flex items-start justify-between mb-4">
+                <div class="h-10 w-10 bg-red-50 text-red-600 rounded-xl flex items-center justify-center text-lg group-hover:bg-red-600 group-hover:text-white transition shadow-sm border border-red-100">
                     <i class="fa-solid fa-money-bill-transfer"></i>
                 </div>
             </div>
             <div>
                 <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-0.5">Total Withdrawn</p>
-                <h3 class="text-xl font-black text-blue-600 font-mono tracking-tight">-৳{{ total_withdraw }}</h3>
+                <h3 class="text-xl font-black text-slate-800 font-mono tracking-tight">-৳{{ total_withdraw }}</h3>
             </div>
         </div>
 
         <!-- Total Team -->
         <div class="stat-box group">
-            <div class="flex items-start justify-between mb-3">
-                <div class="h-10 w-10 bg-purple-50 text-purple-600 rounded-[14px] flex items-center justify-center text-lg group-hover:bg-purple-600 group-hover:text-white transition shadow-sm border border-purple-100">
+            <div class="flex items-start justify-between mb-4">
+                <div class="h-10 w-10 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center text-lg group-hover:bg-purple-600 group-hover:text-white transition shadow-sm border border-purple-100">
                     <i class="fa-solid fa-network-wired"></i>
                 </div>
             </div>
             <div>
                 <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-0.5">Total Referrals</p>
-                <h3 class="text-xl font-black text-purple-600 font-mono tracking-tight">{{ ref_count }} Users</h3>
+                <h3 class="text-xl font-black text-slate-800 font-mono tracking-tight">{{ ref_count }} Users</h3>
             </div>
         </div>
     </div>
@@ -171,11 +177,11 @@
     <!-- ==========================================
          5. QUICK ACTION BUTTONS
     ========================================== -->
-    <div class="bg-slate-50 p-2 rounded-[20px] border border-slate-200 mt-8 flex gap-2">
-        <a href="/history" class="flex-1 bg-white text-slate-700 py-3.5 rounded-[16px] text-xs font-bold text-center shadow-sm hover:text-red-600 hover:border-red-200 border border-slate-100 transition flex items-center justify-center gap-2">
+    <div class="bg-slate-50 p-2 rounded-[24px] border border-slate-200 mt-6 flex gap-2">
+        <a href="/history" class="flex-1 bg-white text-slate-700 py-4 rounded-[20px] text-xs font-bold text-center shadow-sm hover:text-red-600 hover:border-red-200 border border-slate-100 transition flex items-center justify-center gap-2">
             <i class="fa-solid fa-receipt"></i> Transaction Log
         </a>
-        <a href="/withdraw" class="flex-1 bg-red-600 text-white py-3.5 rounded-[16px] text-xs font-bold text-center shadow-md hover:bg-red-700 active:scale-95 transition flex items-center justify-center gap-2 border border-red-700">
+        <a href="/withdraw" class="flex-1 bg-red-600 text-white py-4 rounded-[20px] text-xs font-bold text-center shadow-md hover:bg-red-700 active:scale-95 transition flex items-center justify-center gap-2 border border-red-700">
             Cashout <i class="fa-solid fa-arrow-right"></i>
         </a>
     </div>
