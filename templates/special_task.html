@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<style>
+    /* Premium Entry Animations */
+    .fade-in-up { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+    /* Shimmer Effect for the Coming Soon Box */
+    .shimmer-box {
+        position: relative;
+        overflow: hidden;
+    }
+    .shimmer-box::after {
+        content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+        background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
+        transform: skewX(-20deg); animation: shimmerFast 2.5s infinite; pointer-events: none;
+    }
+    @keyframes shimmerFast { 100% { left: 200%; } }
+
+    /* Floating Animation for the Icon */
+    .float-icon { animation: floatIcon 3s ease-in-out infinite; }
+    @keyframes floatIcon {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-10px) rotate(5deg); }
+    }
+</style>
+
+<div class="max-w-xl mx-auto space-y-6 fade-in-up pb-10 px-2 mt-4">
+
+    <!-- ==========================================
+         1. PAGE HEADER
+    ========================================== -->
+    <div class="flex items-center gap-4 mb-8">
+        <a href="/work" class="h-10 w-10 bg-white rounded-[14px] flex items-center justify-center text-slate-500 shadow-[0_2px_10px_rgba(0,0,0,0.04)] border border-slate-100 hover:text-red-600 hover:bg-red-50 transition-all active:scale-95">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <div>
+            <h2 class="text-2xl font-black text-slate-800 tracking-tight leading-none">Special Task</h2>
+            <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mt-1">Mega Reward Zone</p>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         2. COMING SOON CARD
+    ========================================== -->
+    <div class="bg-gradient-to-br from-amber-500 to-orange-500 rounded-[32px] p-10 text-center text-white shadow-[0_15px_40px_-5px_rgba(245,158,11,0.4)] relative overflow-hidden shimmer-box border border-amber-400">
+        
+        <!-- Abstract Decor -->
+        <div class="absolute top-0 right-0 w-48 h-48 bg-white opacity-10 rounded-bl-full blur-2xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-32 h-32 bg-yellow-300 opacity-20 rounded-tr-full blur-2xl pointer-events-none"></div>
+        
+        <div class="relative z-10 flex flex-col items-center">
+            
+            <!-- Animated Icon -->
+            <div class="h-24 w-24 bg-white/20 backdrop-blur-md rounded-[24px] flex items-center justify-center text-5xl shadow-inner border border-white/30 mb-6 text-white float-icon">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            
+            <span class="text-[10px] font-black uppercase tracking-[0.2em] text-amber-200 mb-2 bg-amber-900/20 px-3 py-1.5 rounded-full border border-amber-900/30 shadow-sm">
+                Work in Progress
+            </span>
+            
+            <h2 class="text-3xl sm:text-4xl font-black mb-4 tracking-tight leading-tight">Coming Soon!</h2>
+            
+            <p class="text-sm text-white/90 font-medium leading-relaxed max-w-sm mx-auto mb-8">
+                এই স্পেশাল টাস্ক সেকশনটির কাজ বর্তমানে চলছে। খুব শীঘ্রই এখানে অত্যন্ত আকর্ষণীয় এবং হাই-পেইং কাজ যুক্ত করা হবে।
+            </p>
+            
+            <a href="/work" class="inline-flex items-center justify-center gap-2 bg-white text-amber-600 px-8 py-4 rounded-[16px] font-black text-xs uppercase tracking-widest shadow-lg hover:bg-slate-50 active:scale-95 transition-all">
+                <i class="fa-solid fa-bolt"></i> Explore Other Tasks
+            </a>
+            
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
