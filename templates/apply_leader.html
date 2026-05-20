@@ -7,34 +7,37 @@
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
     /* Custom Gradient & Glow */
-    .leader-gradient { background: linear-gradient(135deg, #4338CA 0%, #312E81 100%); }
+    .leader-gradient { background: linear-gradient(135deg, #E11D48 0%, #9F1239 100%); }
     .gold-text { background: linear-gradient(to right, #FCD34D, #F59E0B); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     
     /* Modern Input Fields */
-    .premium-input { background: #F8FAFC; border: 1.5px solid #E2E8F0; transition: all 0.3s ease; }
-    .premium-input:focus { background: #FFFFFF; border-color: #4F46E5; box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1); outline: none; }
+    .premium-input { background: #F8FAFC; border: 2px solid #E2E8F0; transition: all 0.3s ease; }
+    .premium-input:focus { background: #FFFFFF; border-color: #E11D48; box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.1); outline: none; }
     
     /* Feature Card Hover Effects */
-    .feature-box { background: white; border: 1px solid #E2E8F0; border-radius: 20px; padding: 24px; transition: all 0.3s ease; }
-    .feature-box:hover { transform: translateY(-5px); box-shadow: 0 10px 30px -5px rgba(67, 56, 202, 0.15); border-color: #A5B4FC; }
+    .feature-box { background: white; border: 1px solid #E2E8F0; border-radius: 24px; padding: 24px; transition: all 0.3s ease; }
+    .feature-box:hover { transform: translateY(-5px); box-shadow: 0 10px 30px -5px rgba(225, 29, 72, 0.15); border-color: #FECDD3; }
     
     /* Highlight Rules List */
     .rule-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px; }
     .rule-icon { flex-shrink: 0; margin-top: 4px; }
+    
+    /* Video Box */
+    .video-box { border-radius: 20px; overflow: hidden; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 2px solid #F1F5F9; }
 </style>
 
-<div class="max-w-4xl mx-auto space-y-10 fade-in-up pb-16 px-2 pt-2">
+<div class="max-w-4xl mx-auto space-y-10 fade-in-up pb-16 px-1 pt-2">
 
     <!-- ==========================================
          1. HERO BANNER (The Hook)
     ========================================== -->
-    <div class="leader-gradient rounded-[32px] p-8 md:p-14 text-white text-center relative overflow-hidden shadow-[0_15px_40px_rgba(49,46,129,0.3)]">
-        <div class="absolute top-[-20%] right-[-10%] w-64 h-64 bg-indigo-500/20 rounded-full blur-[60px] pointer-events-none"></div>
-        <div class="absolute bottom-[-10%] left-[-10%] w-48 h-48 bg-purple-500/20 rounded-full blur-[50px] pointer-events-none"></div>
-        <i class="fa-solid fa-crown absolute right-10 top-1/2 transform -translate-y-1/2 text-9xl opacity-[0.03] pointer-events-none rotate-12"></i>
+    <div class="leader-gradient rounded-[32px] p-8 md:p-14 text-white text-center relative overflow-hidden shadow-[0_15px_40px_rgba(225,29,72,0.3)] border border-red-500/50">
+        <div class="absolute top-[-20%] right-[-10%] w-64 h-64 bg-red-400/20 rounded-full blur-[60px] pointer-events-none"></div>
+        <div class="absolute bottom-[-10%] left-[-10%] w-48 h-48 bg-amber-400/20 rounded-full blur-[50px] pointer-events-none"></div>
+        <i class="fa-solid fa-crown absolute right-10 top-1/2 transform -translate-y-1/2 text-9xl opacity-[0.05] pointer-events-none rotate-12"></i>
 
         <div class="relative z-10 max-w-2xl mx-auto">
-            <span class="inline-flex items-center gap-2 bg-indigo-500/30 text-indigo-200 border border-indigo-400/30 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-6 shadow-sm backdrop-blur-sm">
+            <span class="inline-flex items-center gap-2 bg-red-500/30 text-white border border-red-400/30 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-6 shadow-sm backdrop-blur-sm">
                 <span class="h-2 w-2 bg-amber-400 rounded-full animate-pulse"></span> Career Opportunity
             </span>
             
@@ -42,13 +45,46 @@
                 Become an Official <br><span class="gold-text">Brand Ambassador</span>
             </h1>
             
-            <p class="text-sm md:text-base text-indigo-100 font-medium leading-relaxed mb-8">
-                Earn Daily-এর অফিশিয়াল প্রোমোটার হোন! সাধারণ কাজের চেয়ে ১০ গুণ বেশি আয় করুন। টিম তৈরি করুন, টার্গেট পূরণ করুন এবং প্রতি ১৫ দিনে নিশ্চিত <b class="text-white">৭,০০০ টাকা ফিক্সড স্যালারি</b> বুঝে নিন।
+            <p class="text-sm md:text-base text-red-100 font-medium leading-relaxed mb-8">
+                GrowEarn-এর অফিশিয়াল প্রোমোটার হোন! সাধারণ কাজের চেয়ে বহুগুণ বেশি আয় করুন। টিম তৈরি করুন, টার্গেট পূরণ করুন এবং প্রতি ১৫ দিনে নিশ্চিত <b class="text-white">৮,০০০ টাকা ফিক্সড স্যালারি</b> বুঝে নিন।
             </p>
 
-            <button onclick="document.getElementById('applyForm').scrollIntoView({ behavior: 'smooth' });" class="bg-white text-indigo-900 px-8 py-4 rounded-xl font-black text-sm uppercase tracking-widest shadow-lg hover:bg-slate-50 active:scale-95 transition-all flex items-center justify-center gap-3 mx-auto">
+            <button onclick="document.getElementById('applyForm').scrollIntoView({ behavior: 'smooth' });" class="bg-white text-red-700 px-8 py-4 rounded-[16px] font-black text-sm uppercase tracking-widest shadow-lg hover:bg-slate-50 active:scale-95 transition-all flex items-center justify-center gap-3 mx-auto">
                 Apply Now <i class="fa-solid fa-arrow-down"></i>
             </button>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         NEW: VIDEO GUIDE SECTION
+    ========================================== -->
+    <div class="bg-slate-900 rounded-[32px] p-6 sm:p-10 shadow-xl relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-red-500/20 rounded-bl-full pointer-events-none blur-2xl"></div>
+        
+        <div class="flex flex-col md:flex-row items-center gap-8 relative z-10">
+            <div class="flex-1 text-center md:text-left">
+                <span class="text-[10px] text-red-400 font-black uppercase tracking-widest bg-red-500/10 px-3 py-1 rounded border border-red-500/20 mb-3 inline-block">Work Guide</span>
+                <h2 class="text-2xl font-black text-white mb-3">লিডারদের কাজ কী?</h2>
+                <p class="text-sm text-slate-400 font-medium leading-relaxed mb-6">
+                    অ্যাম্বাসেডর হিসেবে আপনার মূল কাজ হবে আমাদের প্ল্যাটফর্মটি সোশ্যাল মিডিয়ায় (ফেসবুক, ইউটিউব, টেলিগ্রাম) প্রমোশন করা এবং নতুন এক্টিভ ইউজার নিয়ে আসা। বিস্তারিত জানতে পাশের ভিডিওটি দেখুন।
+                </p>
+                <a href="https://t.me/earndailysite" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-white bg-blue-600 px-6 py-3 rounded-[14px] hover:bg-blue-700 transition">
+                    <i class="fa-brands fa-telegram"></i> Telegram Support
+                </a>
+            </div>
+            
+            <div class="flex-1 w-full max-w-sm mx-auto">
+                <div class="video-box bg-black relative">
+                    <!-- YouTube / Facebook Video Embed (Update the link here) -->
+                    <iframe 
+                        src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE" 
+                        class="w-full h-[200px]" 
+                        style="border:none;" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -64,20 +100,20 @@
         <div class="grid md:grid-cols-2 gap-5">
             <div class="feature-box border-t-4 border-t-amber-500 flex flex-col justify-center">
                 <div class="h-14 w-14 bg-amber-50 text-amber-500 rounded-[16px] flex items-center justify-center text-2xl mb-4"><i class="fa-solid fa-money-check-dollar"></i></div>
-                <h3 class="text-xl font-black text-slate-800 mb-2">১৫ দিনের স্যালারি সিস্টেম</h3>
-                <p class="text-sm text-slate-600 font-medium leading-relaxed">আপনার নির্দিষ্ট টার্গেট (যেমন: ৫০ জন অ্যাক্টিভ মেম্বার) পূরণ করতে পারলেই, প্রতি ১৫ দিন পর পর <b>৭,০০০ টাকা ফিক্সড স্যালারি</b> আপনার লিডার অ্যাকাউন্টে স্বয়ংক্রিয়ভাবে যোগ হবে।</p>
+                <h3 class="text-xl font-black text-slate-800 mb-2">৮,০০০ টাকা ফিক্সড স্যালারি</h3>
+                <p class="text-sm text-slate-600 font-medium leading-relaxed">আপনার নির্দিষ্ট টার্গেট (যেমন: ১৫০ জন অ্যাক্টিভ মেম্বার) পূরণ করতে পারলেই, প্রতি ১৫ দিন পর পর <b>৮,০০০ টাকা ফিক্সড স্যালারি</b> আপনার লিডার অ্যাকাউন্টে স্বয়ংক্রিয়ভাবে যোগ হবে।</p>
             </div>
 
             <div class="feature-box border-t-4 border-t-emerald-500 flex flex-col justify-center">
                 <div class="h-14 w-14 bg-emerald-50 text-emerald-500 rounded-[16px] flex items-center justify-center text-2xl mb-4"><i class="fa-solid fa-percent"></i></div>
                 <h3 class="text-xl font-black text-slate-800 mb-2">৫০% লাইফটাইম কমিশন</h3>
-                <p class="text-sm text-slate-600 font-medium leading-relaxed">আপনার রেফার করা কোনো মেম্বার যদি টেলিকম ড্রাইভ প্যাক (Drive) কেনে, ভিআইপি (VIP) আপগ্রেড করে বা একাউন্ট অ্যাক্টিভ করে, আপনি সরাসরি <b>তার ৫০% কমিশন</b> পেয়ে যাবেন।</p>
+                <p class="text-sm text-slate-600 font-medium leading-relaxed">আপনার রেফার করা কোনো মেম্বার যদি টেলিকম ড্রাইভ প্যাক (Drive) কেনে অথবা ভিআইপি (VIP) আপগ্রেড করে, আপনি সরাসরি <b>তার ৫০% কমিশন</b> পেয়ে যাবেন।</p>
             </div>
 
             <div class="feature-box border-t-4 border-t-blue-500 flex flex-col justify-center">
                 <div class="h-14 w-14 bg-blue-50 text-blue-600 rounded-[16px] flex items-center justify-center text-2xl mb-4"><i class="fa-solid fa-shield-heart"></i></div>
                 <h3 class="text-xl font-black text-slate-800 mb-2">গ্যারান্টেড রেফারেল বোনাস</h3>
-                <p class="text-sm text-slate-600 font-medium leading-relaxed">কোনো কারণে যদি আপনি ১৫ দিনের টার্গেট পূরণ করতে ব্যর্থও হন, তবুও আপনার ক্ষতি নেই! প্রতিটি রিয়েল এবং অ্যাক্টিভ রেফারের জন্য আপনাকে <b>২০ টাকা</b> করে গ্যারান্টেড বোনাস দেওয়া হবে।</p>
+                <p class="text-sm text-slate-600 font-medium leading-relaxed">কোনো কারণে টার্গেট পূরণ না হলেও আপনার ক্ষতি নেই! আপনার রেফার করা ইউজার শুধুমাত্র <b>একাউন্ট ভেরিফাই (Active)</b> করলেই আপনি <b>২০ টাকা</b> গ্যারান্টেড বোনাস পাবেন।</p>
             </div>
 
             <div class="feature-box border-t-4 border-t-purple-500 flex flex-col justify-center">
@@ -91,49 +127,41 @@
     <!-- ==========================================
          3. ELIGIBILITY & STRICT RULES
     ========================================== -->
-    <div class="bg-slate-900 rounded-[32px] p-8 md:p-12 text-white relative overflow-hidden shadow-xl">
+    <div class="bg-white rounded-[32px] p-8 md:p-10 border border-slate-200 shadow-sm relative overflow-hidden">
         <div class="flex flex-col md:flex-row gap-12 relative z-10">
             
             <!-- Eligibility -->
             <div class="flex-1">
-                <h3 class="text-lg font-black text-emerald-400 uppercase tracking-widest mb-6 flex items-center gap-2 border-b border-slate-700 pb-3">
+                <h3 class="text-lg font-black text-emerald-600 uppercase tracking-widest mb-6 flex items-center gap-2 border-b border-slate-100 pb-3">
                     <i class="fa-solid fa-list-check"></i> যোগ্যতাসমূহ
                 </h3>
-                <div class="space-y-4 text-sm font-medium text-slate-300">
+                <div class="space-y-4 text-sm font-medium text-slate-600">
                     <div class="rule-item">
-                        <i class="fa-solid fa-circle-check text-emerald-400 rule-icon"></i>
-                        <p>সোশ্যাল মিডিয়ায় (যেমন: Facebook Page, Telegram Group, YouTube Channel) মার্কেটিং করার প্রাথমিক ধারণা ও দক্ষতা থাকতে হবে।</p>
+                        <i class="fa-solid fa-circle-check text-emerald-500 rule-icon text-lg"></i>
+                        <p>সোশ্যাল মিডিয়ায় (যেমন: Facebook Page, Telegram Group, YouTube Channel) মার্কেটিং করার অভিজ্ঞতা থাকতে হবে।</p>
                     </div>
                     <div class="rule-item">
-                        <i class="fa-solid fa-circle-check text-emerald-400 rule-icon"></i>
+                        <i class="fa-solid fa-circle-check text-emerald-500 rule-icon text-lg"></i>
                         <p>মানুষের সাথে যোগাযোগ করার দক্ষতা এবং নিজস্ব টিম ম্যানেজমেন্টের ক্ষমতা থাকতে হবে।</p>
-                    </div>
-                    <div class="rule-item">
-                        <i class="fa-solid fa-circle-check text-emerald-400 rule-icon"></i>
-                        <p>অ্যাডমিনের কল ও মেসেজের দ্রুত রিপ্লাই দেওয়ার মানসিকতা থাকতে হবে।</p>
                     </div>
                 </div>
             </div>
 
-            <div class="w-px bg-slate-700 hidden md:block"></div>
+            <div class="w-px bg-slate-200 hidden md:block"></div>
 
             <!-- Rules -->
             <div class="flex-1">
-                <h3 class="text-lg font-black text-rose-400 uppercase tracking-widest mb-6 flex items-center gap-2 border-b border-slate-700 pb-3">
+                <h3 class="text-lg font-black text-red-600 uppercase tracking-widest mb-6 flex items-center gap-2 border-b border-slate-100 pb-3">
                     <i class="fa-solid fa-triangle-exclamation"></i> কঠোর শর্তাবলী
                 </h3>
-                <div class="space-y-4 text-sm font-medium text-slate-300">
+                <div class="space-y-4 text-sm font-medium text-slate-600">
                     <div class="rule-item">
-                        <i class="fa-solid fa-xmark text-rose-500 rule-icon text-lg"></i>
-                        <p>যেকোনো ধরনের ফেক (Fake), বট বা মাল্টিপল একাউন্ট রেফার করা সম্পূর্ণ নিষেধ। এটি সিস্টেমে ধরা পড়লে লিডার একাউন্ট পার্মানেন্টলি ব্যান করা হবে।</p>
+                        <i class="fa-solid fa-xmark text-red-500 rule-icon text-xl"></i>
+                        <p>যেকোনো ধরনের ফেক (Fake) বা বট রেফার করা সম্পূর্ণ নিষেধ। এটি সিস্টেমে ধরা পড়লে পার্মানেন্ট ব্যান করা হবে।</p>
                     </div>
                     <div class="rule-item">
-                        <i class="fa-solid fa-xmark text-rose-500 rule-icon text-lg"></i>
-                        <p>লিডাররা ওয়েবসাইটের সাধারণ কাজগুলো (যেমন: Micro Tasks বা Gmail creation) করতে পারবেন না। আপনার কাজ হবে শুধুমাত্র প্রমোশন করা।</p>
-                    </div>
-                    <div class="rule-item">
-                        <i class="fa-solid fa-xmark text-rose-500 rule-icon text-lg"></i>
-                        <p>লিডারশিপের টাকা মেইন ব্যালেন্স থেকে উইথড্র দেওয়া হবে না। আপনার জন্য সম্পূর্ণ আলাদা ড্যাশবোর্ড এবং উইথড্র সিস্টেম থাকবে।</p>
+                        <i class="fa-solid fa-xmark text-red-500 rule-icon text-xl"></i>
+                        <p>লিডাররা সাধারণ কাজ (Micro Tasks) করতে পারবেন না। আপনার কাজ শুধু প্রোমোশন করা।</p>
                     </div>
                 </div>
             </div>
@@ -142,83 +170,71 @@
     </div>
 
     <!-- ==========================================
-         4. HOW TO APPLY GUIDELINE
+         4. APPLICATION FORM
     ========================================== -->
-    <div class="bg-indigo-50 border border-indigo-100 p-6 rounded-[24px] shadow-sm">
-        <h3 class="font-black text-indigo-900 text-base mb-3 flex items-center gap-2">
-            <i class="fa-solid fa-circle-info text-indigo-600"></i> ফর্ম পূরণের গাইডলাইন
-        </h3>
-        <p class="text-sm text-indigo-800 font-medium leading-relaxed mb-2">নিচের ফর্মটি খুব সতর্কতার সাথে পূরণ করুন। ভুল তথ্য দিলে আপনার আবেদন বাতিল বলে গণ্য হবে:</p>
-        <ul class="list-disc pl-5 text-xs text-indigo-700 space-y-1.5 font-medium">
-            <li><b>Active Phone No:</b> এমন একটি নাম্বার দিবেন যেটিতে কল বা হোয়াটসঅ্যাপে আপনাকে পাওয়া যাবে।</li>
-            <li><b>Facebook Link:</b> আপনার আসল ফেসবুক প্রোফাইলের লিংক দিবেন, কোনো ফেক আইডি দিলে বাতিল হবে।</li>
-            <li><b>Marketing Plan:</b> এটি সবচেয়ে গুরুত্বপূর্ণ! আপনি কীভাবে মেম্বার যুক্ত করবেন, আপনার কোনো ফেসবুক পেজ বা গ্রুপ আছে কি না, তা বিস্তারিত লিখে বোঝাবেন।</li>
-        </ul>
-    </div>
-
-    <!-- ==========================================
-         5. APPLICATION FORM
-    ========================================== -->
-    <div id="applyForm" class="bg-white p-6 sm:p-10 rounded-[32px] shadow-[0_10px_40px_rgba(0,0,0,0.03)] border border-slate-100 relative overflow-hidden">
-        <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-indigo-600"></div>
+    <div id="applyForm" class="bg-white p-6 sm:p-10 rounded-[32px] shadow-[0_10px_40px_rgba(0,0,0,0.03)] border border-slate-100 relative overflow-hidden mt-10">
+        <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-red-600"></div>
 
         <div class="text-center mb-8">
             <h2 class="text-2xl font-black text-slate-800 tracking-tight">Application Form</h2>
             <p class="text-[11px] text-slate-500 font-bold uppercase tracking-widest mt-1">Please provide accurate details</p>
+        </div>
+        
+        <div class="bg-blue-50 border border-blue-100 p-4 rounded-xl mb-6 text-xs text-blue-800 font-medium">
+            <i class="fa-solid fa-circle-info text-blue-600 mr-1"></i> ফর্ম পূরণের ক্ষেত্রে <b>Marketing Plan</b> অপশনটি খুব গুরুত্ব সহকারে লিখবেন, কারণ এর উপর ভিত্তি করেই আপনার আবেদন গ্রহণ করা হবে।
         </div>
 
         <form method="POST" action="/apply-leader" class="space-y-5" onsubmit="showLoadingBtn()">
             
             <div class="grid sm:grid-cols-2 gap-5">
                 <div>
-                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">Full Name</label>
-                    <input type="text" name="name" required placeholder="আপনার পুরো নাম" class="premium-input w-full p-4 rounded-xl text-sm font-bold text-slate-800">
+                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Full Name</label>
+                    <input type="text" name="name" required placeholder="আপনার পুরো নাম" class="premium-input w-full p-4 rounded-[16px] text-sm font-bold text-slate-800">
                 </div>
                 <div>
-                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">Email Address</label>
-                    <!-- Email is read-only for security -->
-                    <input type="email" name="email" required readonly value="{{ user.email }}" class="premium-input w-full p-4 rounded-xl text-sm font-bold text-slate-500 bg-slate-100 cursor-not-allowed border-slate-200">
+                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Email Address</label>
+                    <input type="email" name="email" required readonly value="{{ user.email }}" class="premium-input w-full p-4 rounded-[16px] text-sm font-bold text-slate-500 bg-slate-100 cursor-not-allowed">
                 </div>
                 <div>
-                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">Active Phone No.</label>
-                    <input type="tel" name="phone" required placeholder="01XXXXXXXXX" class="premium-input w-full p-4 rounded-xl text-sm font-bold text-slate-800 font-mono">
+                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Active Phone No.</label>
+                    <input type="tel" name="phone" required placeholder="01XXXXXXXXX" class="premium-input w-full p-4 rounded-[16px] text-sm font-bold text-slate-800 font-mono tracking-widest">
                 </div>
                 <div>
-                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">Telegram Username</label>
-                    <input type="text" name="telegram" required placeholder="@username" class="premium-input w-full p-4 rounded-xl text-sm font-bold text-slate-800 font-mono">
+                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Telegram Username</label>
+                    <input type="text" name="telegram" required placeholder="@username" class="premium-input w-full p-4 rounded-[16px] text-sm font-bold text-slate-800 font-mono">
                 </div>
                 <div>
-                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">Your Age</label>
-                    <input type="number" name="age" required placeholder="Example: 22" class="premium-input w-full p-4 rounded-xl text-sm font-bold text-slate-800">
+                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Your Age</label>
+                    <input type="number" name="age" required placeholder="Example: 22" class="premium-input w-full p-4 rounded-[16px] text-sm font-bold text-slate-800">
                 </div>
                 <div>
-                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">Education</label>
-                    <input type="text" name="education" required placeholder="HSC / Honors / etc." class="premium-input w-full p-4 rounded-xl text-sm font-bold text-slate-800">
+                    <label class="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Education</label>
+                    <input type="text" name="education" required placeholder="HSC / Honors / etc." class="premium-input w-full p-4 rounded-[16px] text-sm font-bold text-slate-800">
                 </div>
             </div>
 
             <div>
-                <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">Facebook Profile Link</label>
-                <input type="url" name="fb_link" required placeholder="https://facebook.com/..." class="premium-input w-full p-4 rounded-xl text-sm font-medium text-slate-800">
+                <label class="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Facebook Profile Link</label>
+                <input type="url" name="fb_link" required placeholder="https://facebook.com/..." class="premium-input w-full p-4 rounded-[16px] text-sm font-medium text-slate-800">
             </div>
 
             <div>
-                <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">Full Address</label>
-                <textarea name="address" required rows="2" placeholder="আপনার বর্তমান ঠিকানা..." class="premium-input w-full p-4 rounded-xl text-sm font-medium text-slate-800 resize-none"></textarea>
+                <label class="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1.5 ml-1">Full Address</label>
+                <textarea name="address" required rows="2" placeholder="আপনার বর্তমান ঠিকানা..." class="premium-input w-full p-4 rounded-[16px] text-sm font-medium text-slate-800 resize-none"></textarea>
             </div>
 
-            <div class="bg-indigo-50 border border-indigo-100 p-5 rounded-[20px]">
-                <label class="block text-xs font-black text-indigo-900 mb-2">মার্কেটিং প্ল্যান (খুব গুরুত্বপূর্ণ) *</label>
-                <p class="text-[10px] text-indigo-600 font-medium mb-3">আপনি কীভাবে মেম্বার যুক্ত করবেন? আপনার কোনো ফেসবুক পেজ, গ্রুপ বা ইউটিউব চ্যানেল আছে কি না তা বিস্তারিত লিখুন।</p>
-                <textarea name="marketing_exp" required rows="4" placeholder="আপনার মার্কেটিং অভিজ্ঞতা এবং পরিকল্পনা লিখুন..." class="premium-input w-full p-4 rounded-xl text-sm font-medium text-slate-800 resize-none"></textarea>
+            <div class="bg-red-50/50 border border-red-100 p-5 rounded-[20px]">
+                <label class="block text-xs font-black text-red-900 mb-2">মার্কেটিং প্ল্যান (খুব গুরুত্বপূর্ণ) *</label>
+                <p class="text-[10px] text-red-600 font-medium mb-3">আপনি কীভাবে মেম্বার যুক্ত করবেন? আপনার কোনো ফেসবুক পেজ, গ্রুপ বা ইউটিউব চ্যানেল আছে কি না তা বিস্তারিত লিখুন।</p>
+                <textarea name="marketing_exp" required rows="4" placeholder="আপনার মার্কেটিং অভিজ্ঞতা এবং পরিকল্পনা লিখুন..." class="premium-input w-full p-4 rounded-[16px] text-sm font-medium text-slate-800 resize-none"></textarea>
             </div>
 
-            <button type="submit" id="submitBtn" class="w-full bg-indigo-600 text-white py-4.5 py-4 rounded-[16px] font-black text-sm uppercase tracking-widest shadow-[0_8px_20px_rgba(79,70,229,0.3)] hover:bg-indigo-700 active:scale-[0.98] transition-all flex items-center justify-center gap-2 mt-4">
+            <button type="submit" id="submitBtn" class="w-full bg-red-600 text-white py-4 rounded-[16px] font-black text-sm uppercase tracking-widest shadow-[0_8px_20px_rgba(225,29,72,0.25)] hover:bg-red-700 active:scale-[0.98] transition-all flex items-center justify-center gap-2 mt-4 border border-red-700">
                 <span>Submit Application</span> <i class="fa-solid fa-paper-plane"></i>
             </button>
             
             <p class="text-center text-[9px] text-slate-400 font-bold uppercase tracking-widest mt-5">
-                <i class="fa-solid fa-user-shield text-indigo-400 mr-1"></i> Authority reviews all profiles manually
+                <i class="fa-solid fa-user-shield text-red-400 mr-1"></i> Authority reviews all profiles manually
             </p>
         </form>
     </div>
@@ -226,7 +242,6 @@
 </div>
 
 <script>
-    // Prevent double submission
     function showLoadingBtn() {
         const btn = document.getElementById('submitBtn');
         btn.disabled = true;
