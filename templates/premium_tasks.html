@@ -3,77 +3,66 @@
 
 <style>
     /* Premium Entry Animation */
-    .fade-in-up { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
+    .fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-    /* Ultra Premium Elite Card */
+    /* Ultra Premium VIP Card (Dark Crimson Theme) */
     .elite-card {
-        background: linear-gradient(145deg, #0F172A 0%, #1E1B4B 100%);
-        border: 1px solid rgba(245, 158, 11, 0.2);
-        box-shadow: 0 10px 40px -10px rgba(245, 158, 11, 0.2);
+        background: linear-gradient(145deg, #4C0519 0%, #1E1B4B 100%);
+        border: 1px solid rgba(225, 29, 72, 0.2);
+        box-shadow: 0 10px 40px -10px rgba(225, 29, 72, 0.3);
         position: relative;
         overflow: hidden;
     }
     
-    /* Shimmer effect for locked tasks */
+    /* Locked Task Hover Effect */
     .locked-task {
-        transition: all 0.3s ease;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         position: relative;
+        overflow: hidden;
     }
     .locked-task::after {
         content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-        background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
-        transform: skewX(-20deg); animation: shimmer 3s infinite; pointer-events: none;
+        background: linear-gradient(to right, transparent, rgba(225,29,72,0.05), transparent);
+        transform: skewX(-20deg); animation: shimmerFast 2s infinite; pointer-events: none;
     }
-    @keyframes shimmer { 100% { left: 200%; } }
+    @keyframes shimmerFast { 100% { left: 200%; } }
     
     .locked-task:hover {
-        transform: translateY(-2px) scale(1.01);
-        border-color: #FBBF24; /* Amber */
-        box-shadow: 0 10px 20px -5px rgba(245, 158, 11, 0.15);
+        transform: translateY(-3px) scale(1.01);
+        border-color: #FDA4AF; /* Rose-300 */
+        box-shadow: 0 10px 25px -5px rgba(225, 29, 72, 0.15);
     }
 </style>
 
-<div class="max-w-3xl mx-auto space-y-6 fade-in-up pb-8 px-1">
+<div class="max-w-3xl mx-auto space-y-6 fade-in-up pb-8 px-1 mt-2">
 
     <!-- ==========================================
          1. HERO HEADER (The VIP Lure)
     ========================================== -->
-    <div class="elite-card rounded-[32px] p-6 sm:p-8 text-white relative">
+    <div class="elite-card rounded-[32px] p-8 sm:p-12 text-white relative text-center sm:text-left flex flex-col sm:flex-row items-center gap-6">
         
-        <!-- Abstract Gold Glows & Pattern -->
-        <div class="absolute top-[-20%] right-[-10%] w-48 h-48 bg-amber-500/20 rounded-full blur-[50px]"></div>
-        <div class="absolute bottom-[-10%] left-[-10%] w-32 h-32 bg-indigo-500/20 rounded-full blur-[40px]"></div>
-        <i class="fa-solid fa-gem absolute right-2 top-1/2 transform -translate-y-1/2 text-9xl opacity-[0.03] pointer-events-none -rotate-12"></i>
+        <!-- Abstract Red Glows & Pattern -->
+        <div class="absolute top-[-20%] right-[-10%] w-64 h-64 bg-red-500/20 rounded-full blur-[60px]"></div>
+        <div class="absolute bottom-[-10%] left-[-10%] w-48 h-48 bg-blue-500/20 rounded-full blur-[50px]"></div>
+        <i class="fa-solid fa-gem absolute right-4 top-1/2 transform -translate-y-1/2 text-9xl opacity-[0.03] pointer-events-none rotate-12"></i>
         
-        <div class="relative z-10">
-            <!-- Badge -->
-            <div class="inline-flex items-center gap-2 bg-amber-500/10 text-amber-400 px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border border-amber-500/20 mb-5 backdrop-blur-sm">
-                <i class="fa-solid fa-crown"></i> Elite Access Only
-            </div>
-            
-            <h1 class="text-3xl sm:text-4xl font-black text-white mb-3 tracking-tight">Private Work Board</h1>
-            
-            <p class="text-sm text-slate-300 font-medium leading-relaxed mb-6 max-w-lg">
-                এটি Earn Daily  নেটওয়ার্কের <b class="text-white">হাই-পেইং প্রাইভেট সার্ভার।</b> এখানে ইন্টারন্যাশনাল ক্লায়েন্টদের প্রজেক্ট, অ্যাপ টেস্টিং, এবং সার্ভের কাজ আসে। সাধারণ কাজের চেয়ে এগুলোর রেট <b class="text-amber-400">১০ গুন বেশি!</b>
-            </p>
+        <div class="h-20 w-20 bg-gradient-to-br from-red-500 to-rose-600 text-white rounded-[20px] flex items-center justify-center text-4xl shadow-[0_0_25px_rgba(225,29,72,0.5)] border border-red-400 flex-shrink-0 relative z-10">
+            <i class="fa-solid fa-lock"></i>
+        </div>
 
-            <!-- Features Grid (Convincing Content) -->
-            <div class="grid grid-cols-2 gap-3 mb-6">
-                <div class="bg-white/5 border border-white/10 rounded-xl p-3 backdrop-blur-sm">
-                    <i class="fa-solid fa-bolt-lightning text-amber-400 mb-1"></i>
-                    <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Approval</p>
-                    <p class="text-xs font-bold text-white mt-0.5">Instant Review</p>
-                </div>
-                <div class="bg-white/5 border border-white/10 rounded-xl p-3 backdrop-blur-sm">
-                    <i class="fa-solid fa-sack-dollar text-emerald-400 mb-1"></i>
-                    <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Payout Rates</p>
-                    <p class="text-xs font-bold text-white mt-0.5">Premium Scale</p>
-                </div>
-            </div>
+        <div class="relative z-10 flex-grow">
+            <span class="inline-flex items-center gap-1.5 bg-red-500/20 text-red-200 px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-[0.2em] border border-red-500/30 mb-3 shadow-sm backdrop-blur-sm">
+                <i class="fa-solid fa-crown text-amber-400"></i> Elite Access Only
+            </span>
             
-            <!-- Call to Action -->
-            <button onclick="triggerLockedAlert()" class="w-full sm:w-auto bg-gradient-to-r from-amber-400 to-amber-500 text-slate-900 px-8 py-3.5 rounded-xl font-black uppercase tracking-widest shadow-[0_10px_30px_rgba(245,158,11,0.3)] hover:from-amber-500 hover:to-amber-600 active:scale-95 transition-all flex items-center justify-center gap-2">
+            <h1 class="text-2xl sm:text-3xl font-black text-white mb-2 tracking-tight">Private Work Board</h1>
+            
+            <p class="text-xs text-slate-300 font-medium leading-relaxed max-w-sm mb-5">
+                এটি GrowEarn-এর হাই-পেইং প্রাইভেট সার্ভার। এখানে থাকা <b>খুবই সহজ</b> কাজগুলো করে সাধারণের চেয়ে <b class="text-amber-400">১০ গুন বেশি</b> আয় করা সম্ভব!
+            </p>
+            
+            <button onclick="triggerLockedAlert()" class="w-full sm:w-auto bg-gradient-to-r from-red-600 to-rose-600 text-white px-8 py-3.5 rounded-[16px] font-black uppercase tracking-widest shadow-[0_8px_20px_rgba(225,29,72,0.3)] hover:from-red-700 hover:to-rose-700 active:scale-95 transition-all flex items-center justify-center sm:justify-start gap-2 border border-red-500">
                 <i class="fa-solid fa-unlock"></i> Unlock Dashboard
             </button>
         </div>
@@ -82,91 +71,82 @@
     <!-- ==========================================
          2. LIVE MARKETPLACE FEED (Fake Live Ticker)
     ========================================== -->
-    <div class="bg-blue-50 border border-blue-100 rounded-[16px] p-3 flex items-center gap-3 overflow-hidden shadow-sm">
-        <div class="h-8 w-8 bg-blue-600 text-white rounded-lg flex items-center justify-center flex-shrink-0 animate-pulse">
-            <i class="fa-solid fa-radar text-xs"></i>
+    <div class="bg-red-50 border border-red-100 rounded-[16px] p-2 flex items-center gap-3 overflow-hidden shadow-sm">
+        <div class="h-8 w-8 bg-red-600 text-white rounded-lg flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-satellite-dish text-xs animate-spin-slow"></i>
         </div>
         <div class="flex-grow whitespace-nowrap overflow-hidden">
-            <p class="text-[10px] text-blue-800 font-bold uppercase tracking-widest animate-[marquee_10s_linear_infinite] inline-block">
-                • New batch of App Testing tasks arrived • Crypto Airdrop KYC demands increased • Premium Surveys now available •
+            <p class="text-[10px] text-red-800 font-bold uppercase tracking-widest animate-[marquee_12s_linear_infinite] inline-block">
+                • New App Rating tasks arrived • Telegram Airdrop tasks available • TikTok Video Share tasks added •
             </p>
         </div>
     </div>
     <style>
         @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        .animate-spin-slow { animation: spin 4s linear infinite; }
     </style>
 
     <!-- ==========================================
-         3. TASK LIST (LOCKED PREVIEWS)
+         3. TASK LIST (LOCKED PREVIEWS - Easy Tasks)
     ========================================== -->
-    <div class="flex items-center justify-between px-2 mb-2 mt-6">
-        <h3 class="font-bold text-slate-800 text-sm uppercase tracking-widest"><i class="fa-solid fa-briefcase text-slate-400 mr-1.5"></i> Live Projects Feed</h3>
-        <span class="text-[9px] text-slate-400 font-bold uppercase tracking-widest flex items-center gap-1">
+    <div class="flex items-center justify-between px-2 mb-3 mt-6">
+        <h3 class="font-bold text-slate-800 text-sm uppercase tracking-widest flex items-center gap-2">
+            <i class="fa-solid fa-briefcase text-red-500"></i> Live Projects
+        </h3>
+        <span class="text-[9px] bg-white text-slate-400 px-3 py-1.5 rounded-full font-bold uppercase tracking-widest border border-slate-200 flex items-center gap-1 shadow-sm">
             <i class="fa-solid fa-circle-notch fa-spin text-blue-500"></i> Auto Syncing
         </span>
     </div>
 
-    <div class="grid sm:grid-cols-2 gap-3 relative">
+    <div class="grid sm:grid-cols-2 gap-4 relative">
         
-        <!-- Premium Ad Box (Adds realism & revenue) -->
-        <div class="sm:col-span-2 bg-white border border-slate-200 rounded-[20px] p-2 flex justify-center overflow-hidden mb-1">
-            <script>
-              atOptions = {
-                'key' : '4a72be96f78b75e42afea5ee99005d34',
-                'format' : 'iframe',
-                'height' : 60,
-                'width' : 468,
-                'params' : {}
-              };
-            </script>
-            <script src="https://www.highperformanceformat.com/4a72be96f78b75e42afea5ee99005d34/invoke.js"></script>
-        </div>
-
+        <!-- Easy Task Titles List (Randomly selected by Python logic or frontend) -->
+        {% set easy_titles = [
+            'TikTok Video Share & Comment', 
+            'Rate 5-Star on PlayStore', 
+            'Join Crypto Telegram Group', 
+            'Watch 2 Min YouTube Video', 
+            'Retweet Twitter/X Post', 
+            'Facebook Page Like & Share'
+        ] %}
+        
         <!-- Generate tasks loop -->
         {% for task in tasks %}
-        <div class="locked-task bg-slate-50 p-4 rounded-[20px] border border-slate-200 shadow-[0_2px_10px_rgba(0,0,0,0.02)] flex items-center justify-between cursor-pointer" onclick="triggerLockedAlert()">
+        <div class="locked-task bg-white p-5 rounded-[24px] border border-slate-100 shadow-[0_2px_15px_rgba(0,0,0,0.02)] flex items-center justify-between cursor-pointer" onclick="triggerLockedAlert()">
             
             <!-- Left: Icon & Title -->
-            <div class="flex items-center gap-3 w-full overflow-hidden">
-                <div class="h-10 w-10 bg-slate-200/50 text-slate-400 rounded-[12px] flex items-center justify-center text-lg shadow-inner border border-slate-200 flex-shrink-0 relative">
-                    <i class="fa-solid fa-lock text-[10px] absolute right-1 bottom-1 text-slate-500"></i>
-                    {% if 'App' in task.title %} <i class="fa-brands fa-apple"></i>
-                    {% elif 'Crypto' in task.title %} <i class="fa-brands fa-bitcoin"></i>
-                    {% else %} <i class="fa-solid fa-globe"></i> {% endif %}
+            <div class="flex items-center gap-4 w-full overflow-hidden">
+                <div class="h-12 w-12 bg-slate-100 text-slate-400 rounded-[14px] flex items-center justify-center text-xl shadow-inner border border-slate-200 flex-shrink-0 relative overflow-hidden">
+                    {% if loop.index % 3 == 0 %} <i class="fa-brands fa-tiktok opacity-50"></i>
+                    {% elif loop.index % 2 == 0 %} <i class="fa-brands fa-telegram opacity-50"></i>
+                    {% else %} <i class="fa-brands fa-youtube opacity-50"></i> {% endif %}
+                    
+                    <!-- Lock Overlay -->
+                    <div class="absolute inset-0 bg-slate-900/10 flex items-center justify-center backdrop-blur-[1px]">
+                        <i class="fa-solid fa-lock text-slate-600 text-sm drop-shadow-md"></i>
+                    </div>
                 </div>
+                
                 <div class="flex-grow pr-2 min-w-0">
                     <!-- Blur text slightly to give a "hidden/locked" vibe -->
-                    <h4 class="font-bold text-slate-700 text-sm truncate w-full blur-[0.5px] select-none">{{ task.title }}</h4>
-                    <p class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">High Priority</p>
+                    <h4 class="font-bold text-slate-700 text-sm truncate w-full blur-[0.5px] select-none">
+                        {{ easy_titles[loop.index % easy_titles|length] }}
+                    </h4>
+                    <div class="flex items-center gap-2 mt-1">
+                        <span class="text-[9px] font-black text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-100 uppercase tracking-widest">Easy Task</span>
+                    </div>
                 </div>
             </div>
 
             <!-- Right: Reward Tag -->
-            <div class="flex flex-col items-end flex-shrink-0">
-                <span class="text-base font-black text-emerald-600 font-mono filter drop-shadow-sm blur-[0.5px] select-none">৳{{ task.reward }}</span>
-                <span class="mt-1 bg-amber-100 text-amber-700 px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest border border-amber-200 shadow-sm flex items-center gap-1">
-                    <i class="fa-solid fa-crown text-[8px]"></i> VIP
+            <div class="flex flex-col items-end flex-shrink-0 pl-2 border-l border-slate-100">
+                <span class="text-lg font-black text-red-500 font-mono filter drop-shadow-sm blur-[0.5px] select-none">৳{{ task.reward }}</span>
+                <span class="mt-1 bg-amber-50 text-amber-600 px-2 py-0.5 rounded-md text-[8px] font-black uppercase tracking-widest border border-amber-200 shadow-sm flex items-center gap-1">
+                    <i class="fa-solid fa-crown"></i> Elite
                 </span>
             </div>
 
         </div>
-
-        <!-- Inject Ads after every 10 tasks -->
-        {% if loop.index % 10 == 0 %}
-        <div class="sm:col-span-2 bg-white border border-slate-200 rounded-[20px] p-2 flex justify-center overflow-hidden my-1">
-            <script>
-              atOptions = {
-                'key' : '4a72be96f78b75e42afea5ee99005d34',
-                'format' : 'iframe',
-                'height' : 60,
-                'width' : 468,
-                'params' : {}
-              };
-            </script>
-            <script src="https://www.highperformanceformat.com/4a72be96f78b75e42afea5ee99005d34/invoke.js"></script>
-        </div>
-        {% endif %}
-
         {% endfor %}
     </div>
 
@@ -175,10 +155,8 @@
 <!-- Custom Alert Script -->
 <script>
     function triggerLockedAlert() {
-        // Show an attractive error toast using standard JS or sweet alert if available
-        alert("🔒 SYSTEM LOCKED\n\nআপনি বর্তমানে Free Plan এ আছেন। এই প্রাইভেট কাজগুলোর এক্সেস পেতে আপনার একাউন্টটি 'VIP Member' হিসেবে আপগ্রেড করুন।");
-        // Redirect to VIP purchase page
-        window.location.href = "/vip"; 
+        alert("🔒 SYSTEM LOCKED\n\nআপনি বর্তমানে Free Plan এ আছেন। এই সহজ এবং হাই-পেইং কাজগুলোর অ্যাক্সেস পেতে আপনার অ্যাকাউন্টটি 'Elite Member' হিসেবে আপগ্রেড করুন।");
+        window.location.href = "/vip"; // Redirect to VIP page immediately
     }
 </script>
 
