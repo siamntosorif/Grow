@@ -21,97 +21,125 @@
         animation: progressShine 2s infinite;
     }
     @keyframes progressShine { 100% { left: 200%; } }
+
+    /* Premium Banner Gradient */
+    .bounty-card {
+        background: linear-gradient(135deg, #E11D48 0%, #9F1239 100%);
+        box-shadow: 0 15px 35px -5px rgba(225, 29, 72, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
 </style>
 
 <div class="max-w-4xl mx-auto space-y-6 fade-in-up pb-8 px-1">
 
     <!-- ==========================================
-         1. SPECIAL BOUNTY BANNER (Corporate Blue)
+         1. PAGE HEADER
     ========================================== -->
-    <div class="bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-800 rounded-[32px] p-8 text-white text-center relative overflow-hidden shadow-[0_15px_40px_-10px_rgba(37,99,235,0.4)]">
-        
-        <!-- Abstract Orbs -->
-        <div class="absolute top-[-20%] right-[-10%] w-48 h-48 bg-white opacity-10 rounded-full blur-[40px] pointer-events-none"></div>
-        <div class="absolute bottom-[-20%] left-[-10%] w-32 h-32 bg-sky-400 opacity-20 rounded-full blur-[30px] pointer-events-none"></div>
-        <i class="fa-solid fa-gift absolute right-6 top-1/2 transform -translate-y-1/2 text-8xl opacity-[0.03] pointer-events-none -rotate-12"></i>
-
-        <div class="relative z-10 max-w-lg mx-auto">
-            <div class="inline-flex items-center gap-2 bg-white/10 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border border-white/20 mb-4 shadow-sm backdrop-blur-md">
-                <i class="fa-solid fa-bolt text-yellow-400"></i> Special Bounty
-            </div>
-            
-            <h2 class="text-3xl font-black mb-2 tracking-tight">Invite 50 Active Users</h2>
-            <p class="text-sm text-blue-100 font-medium mb-6">আপনার রেফার লিংক দিয়ে ৫০ জন এক্টিভ মেম্বার যুক্ত করলেই পেয়ে যাবেন <span class="bg-amber-400 text-slate-900 px-2 py-0.5 rounded-md font-black text-sm shadow-sm ml-1">৳১০০০</span> এক্সট্রা বোনাস!</p>
-
-            <!-- Progress Bar -->
-            <div class="w-full bg-slate-900/40 rounded-full h-3.5 mb-3 border border-white/10 overflow-hidden shadow-inner backdrop-blur-sm">
-                <div class="bg-gradient-to-r from-emerald-400 to-teal-400 h-full rounded-full transition-all duration-1000 ease-out progress-glow"
-                     style="width: {{ (active_count / 50) * 100 if active_count < 50 else 100 }}%">
-                </div>
-            </div>
-            
-            <div class="flex justify-between text-[11px] font-black text-blue-200 uppercase tracking-widest mb-6">
-                <span class="text-emerald-400">{{ active_count }} Active</span>
-                <span>Target: 50</span>
-            </div>
-
-            <!-- Action Button -->
-            {% if active_count >= 50 %}
-                <a href="https://t.me/payrsrp" target="_blank" class="bg-gradient-to-r from-amber-400 to-amber-500 text-slate-900 px-8 py-3.5 rounded-xl text-sm font-black shadow-lg shadow-amber-500/30 inline-flex items-center gap-2 animate-bounce border border-amber-300">
-                    <i class="fa-solid fa-gift"></i> Claim Reward
-                </a>
-            {% else %}
-                <button disabled class="bg-white/10 text-white/50 border border-white/10 px-8 py-3.5 rounded-xl text-xs font-black cursor-not-allowed uppercase tracking-widest backdrop-blur-sm">
-                    Need {{ 50 - active_count }} More
-                </button>
-            {% endif %}
+    <div class="flex items-center gap-3 mb-6 pt-2">
+        <a href="/dashboard" class="h-10 w-10 bg-white rounded-[14px] flex items-center justify-center text-slate-500 shadow-sm border border-slate-200 hover:text-red-600 hover:bg-red-50 transition-all active:scale-95">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <div>
+            <h2 class="text-2xl font-black text-slate-800 tracking-tight leading-none">Affiliate Network</h2>
+            <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mt-1">Build Your Team</p>
         </div>
     </div>
 
     <!-- ==========================================
-         2. COPY LINK SECTION (Minimalist)
+         2. SPECIAL BOUNTY BANNER (Target: 100 Refs)
     ========================================== -->
-    <div class="bg-white p-6 sm:p-8 rounded-[24px] shadow-sm border border-slate-100 relative overflow-hidden group">
-        <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-blue-600"></div>
+    <div class="bounty-card rounded-[32px] p-6 sm:p-8 text-white relative overflow-hidden">
         
-        <div class="flex items-center gap-3 mb-4">
-            <div class="h-10 w-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-lg shadow-sm">
+        <!-- Abstract Orbs -->
+        <div class="absolute top-0 right-0 w-48 h-48 bg-white opacity-10 rounded-bl-full pointer-events-none"></div>
+        <div class="absolute bottom-[-10%] left-[-10%] w-32 h-32 bg-amber-400 opacity-20 rounded-full blur-[40px] pointer-events-none"></div>
+        <i class="fa-solid fa-gift absolute right-4 top-1/2 transform -translate-y-1/2 text-9xl opacity-[0.05] pointer-events-none -rotate-12"></i>
+
+        <div class="relative z-10 max-w-lg">
+            <div class="inline-flex items-center gap-1.5 bg-white/20 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border border-white/30 mb-4 shadow-sm backdrop-blur-md">
+                <i class="fa-solid fa-bolt text-amber-300"></i> Mega Bounty
+            </div>
+            
+            <h2 class="text-3xl sm:text-4xl font-black mb-2 tracking-tight">Unlock <span class="text-amber-300">৳2,500</span> Bonus</h2>
+            <p class="text-xs sm:text-sm text-red-100 font-medium mb-6 leading-relaxed">
+                আপনার রেফার লিংক ব্যবহার করে <b>১০০ জন এক্টিভ (Verified)</b> মেম্বার যুক্ত করলেই পেয়ে যাবেন বিশাল ৳২,৫০০ ক্যাশ বোনাস!
+            </p>
+
+            <!-- Progress Bar Tracker -->
+            <div class="bg-black/20 p-4 rounded-[20px] backdrop-blur-sm border border-white/10">
+                <div class="flex justify-between text-[10px] font-black text-white uppercase tracking-widest mb-2">
+                    <span class="text-emerald-400 flex items-center gap-1.5"><i class="fa-solid fa-users"></i> {{ active_count }} Active</span>
+                    <span>Target: 100</span>
+                </div>
+                <div class="w-full bg-slate-900/50 rounded-full h-3 mb-1 border border-white/5 overflow-hidden shadow-inner">
+                    <div class="bg-gradient-to-r from-emerald-400 to-teal-400 h-full rounded-full transition-all duration-1000 ease-out progress-glow"
+                         style="width: {{ (active_count / 100) * 100 if active_count < 100 else 100 }}%">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Button -->
+            <div class="mt-6">
+                {% if active_count >= 100 %}
+                    <a href="https://t.me/earndailysite" target="_blank" class="bg-gradient-to-r from-amber-400 to-amber-500 text-slate-900 px-8 py-3.5 rounded-xl text-sm font-black shadow-lg hover:from-amber-500 hover:to-amber-600 inline-flex items-center gap-2 transition active:scale-95">
+                        <i class="fa-solid fa-trophy"></i> Claim Reward
+                    </a>
+                {% else %}
+                    <button disabled class="bg-white/10 text-white/60 border border-white/10 px-6 py-3 rounded-xl text-[10px] font-black cursor-not-allowed uppercase tracking-widest backdrop-blur-sm shadow-sm">
+                        <i class="fa-solid fa-lock mr-1"></i> Need {{ 100 - active_count }} More Verified Users
+                    </button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         3. COPY LINK SECTION (Minimalist UI)
+    ========================================== -->
+    <div class="bg-white p-6 sm:p-8 rounded-[28px] shadow-sm border border-slate-100 relative overflow-hidden group">
+        <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-red-600"></div>
+        
+        <div class="flex items-start gap-4 mb-5">
+            <div class="h-12 w-12 bg-red-50 text-red-600 rounded-[14px] flex items-center justify-center text-xl shadow-sm border border-red-100 flex-shrink-0">
                 <i class="fa-solid fa-link"></i>
             </div>
             <div>
-                <h3 class="font-bold text-slate-800 text-sm">Your Affiliate Link</h3>
-                <p class="text-[10px] text-slate-500 font-medium">প্রতি এক্টিভ রেফারে পাবেন <b class="text-emerald-600">১০ টাকা</b> বোনাস।</p>
+                <h3 class="font-bold text-slate-800 text-base leading-tight">Your Affiliate Link</h3>
+                <p class="text-[11px] text-slate-500 font-medium mt-1">প্রতি রিয়েল এক্টিভ রেফারে পাবেন <b class="text-emerald-600">১০ টাকা</b> বোনাস।</p>
             </div>
         </div>
         
-        <div class="flex flex-col sm:flex-row items-center gap-2">
-            <input type="text" id="refLink" value="..." class="bg-slate-50 border border-slate-200 text-sm font-bold text-slate-700 w-full p-4 rounded-xl outline-none font-mono focus:border-blue-500 focus:bg-white transition" readonly>
+        <div class="flex flex-col sm:flex-row items-center gap-3">
+            <div class="relative w-full">
+                <input type="text" id="refLink" value="..." class="bg-slate-50 border border-slate-200 text-sm font-bold text-slate-700 w-full pl-4 pr-12 py-4 rounded-[16px] outline-none font-mono focus:border-red-500 focus:bg-white transition" readonly>
+                <i class="fa-solid fa-share-nodes absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
+            </div>
             
-            <button onclick="copyRef(this)" class="w-full sm:w-auto bg-slate-900 text-white px-8 py-4 rounded-xl text-xs font-black uppercase tracking-widest shadow-md hover:bg-blue-600 transition flex items-center justify-center gap-2 flex-shrink-0 active:scale-95">
+            <button onclick="copyRef(this)" class="w-full sm:w-auto bg-slate-900 text-white px-8 py-4 rounded-[16px] text-xs font-black uppercase tracking-widest shadow-lg hover:bg-red-600 transition flex items-center justify-center gap-2 flex-shrink-0 active:scale-95">
                 <i class="fa-regular fa-copy"></i> Copy
             </button>
         </div>
     </div>
 
     <!-- ==========================================
-         3. LEADERBOARD & MY TEAM
+         4. LEADERBOARD & MY TEAM
     ========================================== -->
     <div class="grid md:grid-cols-2 gap-6">
         
         <!-- LEADERBOARD -->
-        <div class="bg-white p-6 rounded-[24px] shadow-sm border border-slate-100 flex flex-col">
+        <div class="bg-white p-6 rounded-[28px] shadow-sm border border-slate-100 flex flex-col">
             <div class="flex items-center justify-between mb-5 border-b border-slate-50 pb-3">
-                <h3 class="font-black text-slate-800 text-sm flex items-center gap-2">
+                <h3 class="font-black text-slate-800 text-sm flex items-center gap-2 uppercase tracking-widest">
                     <i class="fa-solid fa-trophy text-amber-500"></i> Top Networkers
                 </h3>
-                <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest bg-slate-50 px-2 py-1 rounded">Global</span>
+                <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest bg-slate-50 px-2.5 py-1 rounded border border-slate-200 shadow-sm">Global</span>
             </div>
             
-            <div class="space-y-3">
+            <div class="space-y-3 flex-grow">
                 {% for top in leaderboard %}
-                <div class="flex items-center justify-between p-3 rounded-2xl transition border border-transparent hover:border-blue-100 hover:bg-blue-50/50 group">
+                <div class="flex items-center justify-between p-3 rounded-[16px] transition border border-transparent hover:border-red-100 hover:bg-red-50/50 group">
                     <div class="flex items-center gap-3">
-                        <div class="h-9 w-9 rounded-xl flex items-center justify-center font-black text-xs shadow-sm border
+                        <div class="h-10 w-10 rounded-[12px] flex items-center justify-center font-black text-sm shadow-sm border
                             {% if loop.index == 1 %} bg-gradient-to-br from-amber-400 to-amber-500 text-white border-amber-500
                             {% elif loop.index == 2 %} bg-slate-200 text-slate-600 border-slate-300
                             {% elif loop.index == 3 %} bg-orange-200 text-orange-700 border-orange-300
@@ -120,11 +148,11 @@
                         </div>
                         <div>
                             <p class="text-xs font-bold text-slate-800 font-mono">{{ top.email.split('@')[0][:3] }}***{{ top.email.split('@')[0][-2:] }}</p>
-                            <p class="text-[9px] text-slate-400 font-medium">Affiliate Partner</p>
+                            <p class="text-[9px] text-slate-400 font-medium mt-0.5">Affiliate Partner</p>
                         </div>
                     </div>
-                    <span class="text-[10px] font-black text-blue-600 bg-white border border-blue-100 px-2.5 py-1 rounded-lg shadow-sm flex items-center gap-1 group-hover:bg-blue-600 group-hover:text-white transition">
-                        <i class="fa-solid fa-users text-[8px]"></i> {{ top.count }}
+                    <span class="text-[10px] font-black text-red-600 bg-white border border-red-100 px-3 py-1.5 rounded-lg shadow-sm flex items-center gap-1.5 group-hover:bg-red-600 group-hover:text-white transition">
+                        <i class="fa-solid fa-users text-[9px]"></i> {{ top.count }}
                     </span>
                 </div>
                 {% endfor %}
@@ -132,24 +160,24 @@
         </div>
 
         <!-- MY TEAM -->
-        <div class="bg-white p-6 rounded-[24px] shadow-sm border border-slate-100 flex flex-col h-full">
+        <div class="bg-white p-6 rounded-[28px] shadow-sm border border-slate-100 flex flex-col h-full">
             <div class="flex justify-between items-center mb-5 border-b border-slate-50 pb-3">
-                <h3 class="font-black text-slate-800 text-sm flex items-center gap-2">
+                <h3 class="font-black text-slate-800 text-sm flex items-center gap-2 uppercase tracking-widest">
                     <i class="fa-solid fa-network-wired text-blue-600"></i> My Direct Team
                 </h3>
-                <span class="text-[10px] bg-blue-50 text-blue-600 px-2.5 py-1 rounded-lg font-black uppercase tracking-widest border border-blue-100">
+                <span class="text-[10px] bg-blue-50 text-blue-600 px-2.5 py-1 rounded-lg font-black uppercase tracking-widest border border-blue-100 shadow-sm">
                     Total: {{ total_count }}
                 </span>
             </div>
 
             <!-- Scrollable Team List -->
-            <div class="space-y-3 overflow-y-auto pr-1 flex-grow team-scroll" style="max-height: 350px;">
+            <div class="space-y-3 overflow-y-auto pr-1 flex-grow team-scroll" style="max-height: 380px;">
                 {% for ref in referrals %}
-                <div class="flex items-center justify-between p-3.5 rounded-2xl border border-slate-100 hover:border-blue-200 hover:shadow-sm transition bg-slate-50/50">
+                <div class="flex items-center justify-between p-3.5 rounded-[16px] border border-slate-100 hover:border-blue-200 hover:shadow-sm transition bg-slate-50/50 group">
                     
                     <div class="flex items-center gap-3">
-                        <div class="h-10 w-10 rounded-[14px] flex items-center justify-center text-lg shadow-sm border 
-                            {{ 'bg-emerald-50 text-emerald-600 border-emerald-100' if ref.is_active else 'bg-white text-slate-400 border-slate-200' }}">
+                        <div class="h-10 w-10 rounded-[12px] flex items-center justify-center text-lg shadow-sm border transition-colors
+                            {{ 'bg-emerald-50 text-emerald-600 border-emerald-100 group-hover:bg-emerald-500 group-hover:text-white' if ref.is_active else 'bg-white text-slate-400 border-slate-200 group-hover:bg-slate-200' }}">
                             <i class="fa-solid fa-user"></i>
                         </div>
                         <div>
@@ -160,21 +188,21 @@
                     
                     <div class="text-right">
                         {% if ref.is_active %}
-                            <span class="text-[9px] font-black bg-emerald-500 text-white border border-emerald-600 px-2 py-0.5 rounded uppercase tracking-wider shadow-sm">
-                                Active
+                            <span class="text-[8px] font-black bg-emerald-500 text-white border border-emerald-600 px-2 py-0.5 rounded uppercase tracking-widest shadow-sm">
+                                Verified
                             </span>
-                            <p class="text-[9px] text-emerald-600 font-bold mt-1.5 font-mono">+৳10.00</p>
+                            <p class="text-[10px] text-emerald-600 font-bold mt-1.5 font-mono">+৳10.00</p>
                         {% else %}
-                            <span class="text-[9px] font-black bg-slate-200 text-slate-500 border border-slate-300 px-2 py-0.5 rounded uppercase tracking-wider">
+                            <span class="text-[8px] font-black bg-slate-200 text-slate-500 border border-slate-300 px-2 py-0.5 rounded uppercase tracking-widest">
                                 Unpaid
                             </span>
-                            <p class="text-[9px] text-slate-400 font-bold mt-1.5 font-mono">৳0.00</p>
+                            <p class="text-[10px] text-slate-400 font-bold mt-1.5 font-mono">৳0.00</p>
                         {% endif %}
                     </div>
                 </div>
                 {% else %}
-                <div class="text-center py-12">
-                    <div class="h-16 w-16 bg-slate-50 rounded-[16px] border border-slate-100 flex items-center justify-center mx-auto mb-3 text-2xl text-slate-300">
+                <div class="text-center py-16 bg-white border border-dashed border-slate-200 rounded-[20px]">
+                    <div class="h-16 w-16 bg-slate-50 rounded-[16px] flex items-center justify-center mx-auto mb-3 text-2xl text-slate-300 border border-slate-100 shadow-sm">
                         <i class="fa-solid fa-user-plus"></i>
                     </div>
                     <p class="text-sm font-bold text-slate-700">টিম মেম্বার নেই</p>
@@ -183,14 +211,13 @@
                 {% endfor %}
             </div>
         </div>
-
     </div>
 
 </div>
 
 <!-- Scripts -->
 <script>
-    // Generate Dynamic Ref Link based on User ID
+    // Generate Dynamic Ref Link
     document.addEventListener('DOMContentLoaded', () => {
         const domain = window.location.origin;
         const uniqueCode = "{{ user.referral_code if user.referral_code else 'GenerateID' }}";
@@ -206,18 +233,18 @@
     function copyRef(btnElement) {
         const copyText = document.getElementById("refLink");
         copyText.select();
-        copyText.setSelectionRange(0, 99999); // For mobile devices
+        copyText.setSelectionRange(0, 99999); 
         navigator.clipboard.writeText(copyText.value);
         
         const originalHTML = btnElement.innerHTML;
         btnElement.innerHTML = '<i class="fa-solid fa-check text-white"></i> Copied!';
         btnElement.classList.replace("bg-slate-900", "bg-emerald-500");
-        btnElement.classList.replace("hover:bg-blue-600", "hover:bg-emerald-600");
+        btnElement.classList.replace("hover:bg-red-600", "hover:bg-emerald-600");
         
         setTimeout(() => {
             btnElement.innerHTML = originalHTML;
             btnElement.classList.replace("bg-emerald-500", "bg-slate-900");
-            btnElement.classList.replace("hover:bg-emerald-600", "hover:bg-blue-600");
+            btnElement.classList.replace("hover:bg-emerald-600", "hover:bg-red-600");
         }, 2000);
     }
 </script>
