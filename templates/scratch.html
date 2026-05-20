@@ -6,19 +6,6 @@
     .fade-in-up { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-    /* Custom Ad Wrapper */
-    .premium-ad-card { 
-        background: #ffffff; border: 1px solid #E2E8F0; border-radius: 24px; 
-        position: relative; padding: 12px; margin: 16px 0; overflow: hidden; 
-        box-shadow: 0 4px 20px rgba(0,0,0,0.02);
-    }
-    .ad-badge { 
-        position: absolute; top: 0; right: 0; background: #F1F5F9; color: #94A3B8; 
-        font-size: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; 
-        padding: 4px 10px; border-bottom-left-radius: 16px; z-index: 10; 
-    }
-    .ad-inner { display: flex; justify-content: center; align-items: center; background: #F8FAFC; border-radius: 16px; overflow: hidden; min-height: 60px; }
-
     /* 3D Scratch Card Container */
     .scratch-container {
         position: relative; 
@@ -60,8 +47,8 @@
     <!-- ==========================================
          1. PAGE HEADER (Navigation)
     ========================================== -->
-    <div class="flex items-center gap-4 mb-4 px-2">
-        <a href="/work" class="h-10 w-10 bg-white rounded-[14px] flex items-center justify-center text-slate-500 shadow-sm border border-slate-100 hover:text-red-600 hover:bg-red-50 transition-all active:scale-95">
+    <div class="flex items-center gap-4 mb-6 px-2">
+        <a href="/work" class="h-10 w-10 bg-white rounded-xl flex items-center justify-center text-slate-500 shadow-sm border border-slate-100 hover:text-red-600 hover:bg-red-50 transition-all active:scale-95">
             <i class="fa-solid fa-arrow-left"></i>
         </a>
         <div>
@@ -71,20 +58,9 @@
     </div>
 
     <!-- ==========================================
-         AD SECTION 1 (TOP)
-    ========================================== -->
-    <div class="premium-ad-card">
-        <span class="ad-badge">Sponsored</span>
-        <div class="ad-inner">
-            <script>atOptions={'key':'4a72be96f78b75e42afea5ee99005d34','format':'iframe','height':60,'width':468,'params':{}};</script>
-            <script src="https://www.highperformanceformat.com/4a72be96f78b75e42afea5ee99005d34/invoke.js"></script>
-        </div>
-    </div>
-
-    <!-- ==========================================
          2. HYPE BANNER (Dark Red Gradient)
     ========================================== -->
-    <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-red-900 rounded-[32px] p-8 text-white text-center shadow-xl relative overflow-hidden mb-6 border border-slate-700">
+    <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-red-900 rounded-[32px] p-8 text-white text-center shadow-xl relative overflow-hidden mb-8 border border-slate-700">
         
         <!-- Ambient Decor -->
         <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/20 rounded-bl-full blur-2xl"></div>
@@ -112,9 +88,8 @@
     <!-- ==========================================
          3. INTERACTIVE SCRATCH AREA
     ========================================== -->
-    <div class="bg-white p-8 rounded-[32px] shadow-[0_4px_25px_rgba(0,0,0,0.03)] border border-slate-100 text-center relative overflow-hidden">
-        
-        <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-red-600"></div>
+    <div class="bg-white p-8 rounded-[32px] shadow-sm border border-slate-100 text-center">
+        <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-red-600 rounded-l-[32px] hidden md:block"></div>
 
         <h3 class="font-black text-slate-800 mb-6 uppercase tracking-widest text-sm flex items-center justify-center gap-2">
             <i class="fa-solid fa-hand-pointer text-red-500 animate-bounce"></i> Scratch the card below
@@ -128,7 +103,7 @@
                     <i class="fa-solid fa-gift text-red-500 text-3xl"></i>
                 </div>
                 <p class="text-[10px] font-black text-red-400 uppercase tracking-widest mb-0.5">You Won!</p>
-                <h1 id="rewardAmount" class="text-5xl font-black text-red-600 font-mono tracking-tighter drop-shadow-sm">???</h1>
+                <h1 id="rewardAmount" class="text-5xl font-black text-red-600 font-mono tracking-tighter drop-shadow-md">???</h1>
             </div>
             
             <!-- Foreground Canvas (Silver Coating) -->
@@ -139,17 +114,6 @@
         <div id="claimMsg" class="mt-8 text-sm font-bold text-green-700 hidden bg-green-50 p-4 rounded-2xl border border-green-200 shadow-sm flex items-center justify-center gap-2">
             <div class="h-6 w-6 bg-green-500 text-white rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-check"></i></div>
             <span>৳<span id="amountText" class="font-mono text-lg"></span> ব্যালেন্সে যোগ হয়েছে!</span>
-        </div>
-    </div>
-
-    <!-- ==========================================
-         AD SECTION 2 (BOTTOM)
-    ========================================== -->
-    <div class="premium-ad-card mb-8">
-        <span class="ad-badge">Sponsored</span>
-        <div class="ad-inner">
-            <script>atOptions={'key':'4a72be96f78b75e42afea5ee99005d34','format':'iframe','height':60,'width':468,'params':{}};</script>
-            <script src="https://www.highperformanceformat.com/4a72be96f78b75e42afea5ee99005d34/invoke.js"></script>
         </div>
     </div>
 
@@ -174,21 +138,20 @@
         ctx.fillStyle = '#CBD5E1'; // Slate-300
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
-        // Draw Text "SCRATCH HERE" on cover
+        // Add "SCRATCH HERE" Text
         ctx.fillStyle = '#64748B'; // Slate-500
         ctx.font = '900 24px Inter, sans-serif';
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText("SCRATCH HERE", canvas.width/2, canvas.height/2);
         
-        // Add some noise/pattern to look like a real scratch card
+        // Add noise/pattern
         for(let i=0; i<500; i++) {
             ctx.fillStyle = Math.random() > 0.5 ? '#E2E8F0' : '#94A3B8';
             ctx.fillRect(Math.random()*canvas.width, Math.random()*canvas.height, 2, 2);
         }
     }
     
-    // Call init after a tiny delay to ensure container is rendered
     setTimeout(initCanvas, 50);
 
     // 2. Mouse/Touch Events
@@ -211,11 +174,10 @@
     
     const scratch = (e) => {
         if (!isDrawing || isRevealed) return;
-        e.preventDefault(); // Prevent scrolling on mobile while scratching
+        e.preventDefault(); 
         
         const { x, y } = getPos(e);
         
-        // Erase the silver coating (Composite Operation)
         ctx.globalCompositeOperation = 'destination-out';
         ctx.beginPath();
         ctx.arc(x, y, 30, 0, Math.PI * 2); // 30px brush radius
@@ -231,22 +193,21 @@
     canvas.addEventListener('touchmove', scratch, {passive: false});
     canvas.addEventListener('touchend', endDraw);
 
-    // 3. Check how much is scratched (Auto Reveal)
+    // 3. Auto Reveal Logic
     function checkClear() {
         if(isRevealed) return;
         
         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         let clearPixels = 0;
         
-        // Check alpha channel (every 4th value)
+        // Check alpha channel
         for(let i = 3; i < imageData.data.length; i += 4) {
             if(imageData.data[i] === 0) clearPixels++; 
         }
         
         const clearPercentage = (clearPixels / (canvas.width * canvas.height)) * 100;
         
-        // If 45% cleared, auto reveal the rest
-        if(clearPercentage > 45) { 
+        if(clearPercentage > 45) { // Reveal if 45% cleared
             isRevealed = true;
             canvas.style.transition = 'opacity 0.6s ease-out';
             canvas.style.opacity = '0';
@@ -260,16 +221,13 @@
         .then(res => res.json())
         .then(data => {
             if(data.success) {
-                // Update UI with reward
                 document.getElementById('rewardAmount').innerText = '৳' + data.reward;
                 document.getElementById('amountText').innerText = data.reward;
                 
-                // Show Success Message
                 const msgBox = document.getElementById('claimMsg');
                 msgBox.classList.remove('hidden');
                 msgBox.classList.add('fade-in-up');
                 
-                // Reload after 3 seconds so user can scratch again
                 setTimeout(() => location.reload(), 3000);
             } else {
                 alert(data.message);
