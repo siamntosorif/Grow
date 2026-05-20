@@ -1,104 +1,197 @@
 {% extends "layout.html" %}
 {% block content %}
+
 <style>
-    .fade-in-up { animation: fadeInUp 0.5s forwards; opacity: 0; transform: translateY(15px); }
+    /* Premium Entry Animations */
+    .fade-in-up { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-    /* Ad Container */
-    .premium-ad-card { background: #ffffff; border: 1px solid #E2E8F0; border-radius: 20px; position: relative; padding: 12px; margin: 16px 0; overflow: hidden; }
-    .ad-badge { position: absolute; top: 0; right: 0; background: #F1F5F9; color: #94A3B8; font-size: 8px; font-weight: 800; text-transform: uppercase; padding: 4px 8px; border-bottom-left-radius: 12px; z-index: 10; }
-    .ad-inner { display: flex; justify-content: center; align-items: center; background: #F8FAFC; border-radius: 12px; overflow: hidden; min-height: 60px; }
+    /* Custom Ad Wrapper */
+    .premium-ad-card { 
+        background: #ffffff; border: 1px solid #E2E8F0; border-radius: 24px; 
+        position: relative; padding: 12px; margin: 16px 0; overflow: hidden; 
+        box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+    }
+    .ad-badge { 
+        position: absolute; top: 0; right: 0; background: #F1F5F9; color: #94A3B8; 
+        font-size: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; 
+        padding: 4px 10px; border-bottom-left-radius: 16px; z-index: 10; 
+    }
+    .ad-inner { display: flex; justify-content: center; align-items: center; background: #F8FAFC; border-radius: 16px; overflow: hidden; min-height: 60px; }
 
-    /* Scratch Card Container */
+    /* 3D Scratch Card Container */
     .scratch-container {
-        position: relative; width: 300px; height: 300px; margin: 0 auto;
-        border-radius: 24px; overflow: hidden;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        border: 4px solid #F8FAFC;
+        position: relative; 
+        width: 300px; height: 300px; margin: 0 auto;
+        border-radius: 32px; overflow: hidden;
+        box-shadow: 0 20px 50px -10px rgba(225, 29, 72, 0.3), inset 0 0 0 6px rgba(255, 255, 255, 0.2);
+        background: #ffffff; /* Fallback */
+        transform: translateZ(0); /* Hardware acceleration for smooth scratch */
     }
     
-    /* The Reward Behind the Canvas */
+    /* The Reward Behind the Canvas (Red/Gold Theme) */
     .scratch-reward {
         position: absolute; inset: 0;
-        background: linear-gradient(135deg, #FFFBEB 0%, #F59E0B 100%);
+        background: radial-gradient(circle at center, #FFF1F2 0%, #FECDD3 100%);
         display: flex; flex-direction: column; justify-content: center; align-items: center;
-        z-index: 1;
+        z-index: 1; border: 4px solid #E11D48; border-radius: 32px;
     }
     
     /* The Canvas (Silver cover to scratch off) */
     canvas {
         position: absolute; inset: 0; z-index: 2;
         cursor: crosshair; touch-action: none;
+        border-radius: 32px;
     }
+
+    /* Shimmer Effect for the Header */
+    .shimmer-text {
+        background: linear-gradient(to right, #FCD34D, #FFFBEB, #FCD34D);
+        background-size: 200% auto;
+        color: transparent;
+        -webkit-background-clip: text;
+        animation: shine 2s linear infinite;
+    }
+    @keyframes shine { to { background-position: 200% center; } }
 </style>
 
-<div class="max-w-xl mx-auto px-1 pb-8 fade-in-up">
+<div class="max-w-xl mx-auto px-1 pb-8 fade-in-up mt-2">
 
-    <!-- AD 1 -->
-    <div class="premium-ad-card"><span class="ad-badge">Sponsored</span><div class="ad-inner"><script>atOptions = {'key' : '4a72be96f78b75e42afea5ee99005d34','format' : 'iframe','height' : 60,'width' : 468,'params' : {}};</script><script src="https://www.highperformanceformat.com/4a72be96f78b75e42afea5ee99005d34/invoke.js"></script></div></div>
-
-    <!-- Hype Header -->
-    <div class="bg-gradient-to-r from-slate-900 to-slate-800 rounded-[24px] p-6 text-white text-center shadow-lg relative overflow-hidden mb-6">
-        <i class="fa-solid fa-gift absolute left-4 top-1/2 transform -translate-y-1/2 text-7xl opacity-5"></i>
-        <div class="relative z-10">
-            <span class="bg-red-500 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest animate-pulse border border-red-400 shadow-sm inline-block mb-2">
-                Hot Offer
-            </span>
-            <h2 class="text-3xl font-black text-amber-400">WIN UP TO ৳100!</h2>
-            <p class="text-xs text-slate-400 mt-2">কার্ড ঘষে আপনার ভাগ্য পরীক্ষা করুন।</p>
-            <p class="text-[10px] bg-white/10 px-3 py-1 rounded-lg inline-block mt-3 border border-white/20">Today's limit: {{ count }}/3</p>
+    <!-- ==========================================
+         1. PAGE HEADER (Navigation)
+    ========================================== -->
+    <div class="flex items-center gap-4 mb-4 px-2">
+        <a href="/work" class="h-10 w-10 bg-white rounded-[14px] flex items-center justify-center text-slate-500 shadow-sm border border-slate-100 hover:text-red-600 hover:bg-red-50 transition-all active:scale-95">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <div>
+            <h2 class="text-2xl font-black text-slate-800 tracking-tight leading-none">Scratch & Win</h2>
+            <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mt-1">Daily Lucky Reward</p>
         </div>
     </div>
 
-    <!-- Scratch Area -->
-    <div class="bg-white p-8 rounded-[32px] shadow-sm border border-slate-100 text-center mb-6">
-        <h3 class="font-bold text-slate-800 mb-6 uppercase tracking-widest text-sm flex items-center justify-center gap-2">
-            <i class="fa-solid fa-hand-pointer text-blue-500"></i> Scratch the card
+    <!-- ==========================================
+         AD SECTION 1 (TOP)
+    ========================================== -->
+    <div class="premium-ad-card">
+        <span class="ad-badge">Sponsored</span>
+        <div class="ad-inner">
+            <script>atOptions={'key':'4a72be96f78b75e42afea5ee99005d34','format':'iframe','height':60,'width':468,'params':{}};</script>
+            <script src="https://www.highperformanceformat.com/4a72be96f78b75e42afea5ee99005d34/invoke.js"></script>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         2. HYPE BANNER (Dark Red Gradient)
+    ========================================== -->
+    <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-red-900 rounded-[32px] p-8 text-white text-center shadow-xl relative overflow-hidden mb-6 border border-slate-700">
+        
+        <!-- Ambient Decor -->
+        <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/20 rounded-bl-full blur-2xl"></div>
+        <i class="fa-solid fa-ticket absolute left-4 top-1/2 transform -translate-y-1/2 text-8xl opacity-10 -rotate-12 pointer-events-none"></i>
+        
+        <div class="relative z-10">
+            <span class="bg-gradient-to-r from-amber-400 to-amber-500 text-slate-900 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-md inline-flex items-center gap-1.5 mb-3 border border-amber-300">
+                <i class="fa-solid fa-fire"></i> Hot Offer
+            </span>
+            
+            <h2 class="text-3xl sm:text-4xl font-black shimmer-text tracking-tight mb-2">WIN UP TO ৳100!</h2>
+            
+            <p class="text-xs text-red-100 font-medium max-w-[250px] mx-auto leading-relaxed">
+                কার্ড ঘষে আপনার ভাগ্য পরীক্ষা করুন এবং ইনস্ট্যান্ট ক্যাশ জিতে নিন।
+            </p>
+            
+            <div class="mt-5 inline-flex items-center justify-center gap-2 bg-black/30 backdrop-blur-md px-5 py-2.5 rounded-xl border border-white/10 shadow-inner">
+                <i class="fa-solid fa-gamepad text-slate-400"></i>
+                <span class="text-[10px] font-black uppercase tracking-widest text-slate-300">Today's Limit:</span>
+                <span class="text-sm font-black font-mono text-white">{{ count }}/3</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         3. INTERACTIVE SCRATCH AREA
+    ========================================== -->
+    <div class="bg-white p-8 rounded-[32px] shadow-[0_4px_25px_rgba(0,0,0,0.03)] border border-slate-100 text-center relative overflow-hidden">
+        
+        <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-red-600"></div>
+
+        <h3 class="font-black text-slate-800 mb-6 uppercase tracking-widest text-sm flex items-center justify-center gap-2">
+            <i class="fa-solid fa-hand-pointer text-red-500 animate-bounce"></i> Scratch the card below
         </h3>
         
+        <!-- The Scratch Card -->
         <div class="scratch-container" id="scratchContainer">
             <!-- Background (Reward) -->
             <div class="scratch-reward">
-                <i class="fa-solid fa-trophy text-amber-600 text-5xl mb-2"></i>
-                <p class="text-sm font-bold text-amber-900 uppercase">You Won!</p>
-                <h1 id="rewardAmount" class="text-5xl font-black text-white font-mono drop-shadow-md">???</h1>
+                <div class="h-16 w-16 bg-white rounded-full flex items-center justify-center shadow-sm mb-3">
+                    <i class="fa-solid fa-gift text-red-500 text-3xl"></i>
+                </div>
+                <p class="text-[10px] font-black text-red-400 uppercase tracking-widest mb-0.5">You Won!</p>
+                <h1 id="rewardAmount" class="text-5xl font-black text-red-600 font-mono tracking-tighter drop-shadow-sm">???</h1>
             </div>
-            <!-- Foreground Canvas -->
+            
+            <!-- Foreground Canvas (Silver Coating) -->
             <canvas id="scratchCanvas"></canvas>
         </div>
         
-        <p id="claimMsg" class="mt-6 text-sm font-bold text-green-600 hidden bg-green-50 p-3 rounded-xl border border-green-200">
-            ✅ ৳<span id="amountText"></span> আপনার ব্যালেন্সে যোগ হয়েছে!
-        </p>
+        <!-- Success Message (Hidden until scratched) -->
+        <div id="claimMsg" class="mt-8 text-sm font-bold text-green-700 hidden bg-green-50 p-4 rounded-2xl border border-green-200 shadow-sm flex items-center justify-center gap-2">
+            <div class="h-6 w-6 bg-green-500 text-white rounded-full flex items-center justify-center text-xs"><i class="fa-solid fa-check"></i></div>
+            <span>৳<span id="amountText" class="font-mono text-lg"></span> ব্যালেন্সে যোগ হয়েছে!</span>
+        </div>
     </div>
 
-    <!-- AD 2 -->
-    <div class="premium-ad-card"><span class="ad-badge">Sponsored</span><div class="ad-inner"><script>atOptions = {'key' : '4a72be96f78b75e42afea5ee99005d34','format' : 'iframe','height' : 60,'width' : 468,'params' : {}};</script><script src="https://www.highperformanceformat.com/4a72be96f78b75e42afea5ee99005d34/invoke.js"></script></div></div>
+    <!-- ==========================================
+         AD SECTION 2 (BOTTOM)
+    ========================================== -->
+    <div class="premium-ad-card mb-8">
+        <span class="ad-badge">Sponsored</span>
+        <div class="ad-inner">
+            <script>atOptions={'key':'4a72be96f78b75e42afea5ee99005d34','format':'iframe','height':60,'width':468,'params':{}};</script>
+            <script src="https://www.highperformanceformat.com/4a72be96f78b75e42afea5ee99005d34/invoke.js"></script>
+        </div>
+    </div>
+
 </div>
 
+<!-- ==========================================
+     SCRATCH LOGIC (HTML5 Canvas)
+========================================== -->
 <script>
-    // HTML5 Canvas Scratch Logic
     const canvas = document.getElementById('scratchCanvas');
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
     const container = document.getElementById('scratchContainer');
     let isDrawing = false;
     let isRevealed = false;
 
-    // Setup Canvas Size
-    canvas.width = container.offsetWidth;
-    canvas.height = container.offsetHeight;
+    // 1. Setup Canvas Size & Silver Coating
+    function initCanvas() {
+        canvas.width = container.offsetWidth;
+        canvas.height = container.offsetHeight;
 
-    // Fill Canvas with Silver Cover
-    ctx.fillStyle = '#CBD5E1'; // Slate-300
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+        // Draw Silver Background
+        ctx.fillStyle = '#CBD5E1'; // Slate-300
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw Text "SCRATCH HERE" on cover
+        ctx.fillStyle = '#64748B'; // Slate-500
+        ctx.font = '900 24px Inter, sans-serif';
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("SCRATCH HERE", canvas.width/2, canvas.height/2);
+        
+        // Add some noise/pattern to look like a real scratch card
+        for(let i=0; i<500; i++) {
+            ctx.fillStyle = Math.random() > 0.5 ? '#E2E8F0' : '#94A3B8';
+            ctx.fillRect(Math.random()*canvas.width, Math.random()*canvas.height, 2, 2);
+        }
+    }
     
-    // Add "Scratch Here" Text on cover
-    ctx.fillStyle = '#64748B';
-    ctx.font = '900 24px Inter';
-    ctx.textAlign = "center";
-    ctx.fillText("SCRATCH HERE", canvas.width/2, canvas.height/2);
+    // Call init after a tiny delay to ensure container is rendered
+    setTimeout(initCanvas, 50);
 
-    // Mouse/Touch Events
+    // 2. Mouse/Touch Events
     const getPos = (e) => {
         const rect = canvas.getBoundingClientRect();
         const x = (e.clientX || e.touches[0].clientX) - rect.left;
@@ -106,56 +199,75 @@
         return { x, y };
     };
 
-    const startDraw = (e) => { isDrawing = true; scratch(e); };
-    const endDraw = () => { isDrawing = false; checkClear(); };
+    const startDraw = (e) => { 
+        if(isRevealed) return;
+        isDrawing = true; 
+        scratch(e); 
+    };
+    const endDraw = () => { 
+        isDrawing = false; 
+        checkClear(); 
+    };
     
     const scratch = (e) => {
         if (!isDrawing || isRevealed) return;
-        e.preventDefault(); // Prevent scrolling on mobile
+        e.preventDefault(); // Prevent scrolling on mobile while scratching
+        
         const { x, y } = getPos(e);
         
+        // Erase the silver coating (Composite Operation)
         ctx.globalCompositeOperation = 'destination-out';
         ctx.beginPath();
-        ctx.arc(x, y, 25, 0, Math.PI * 2); // 25px brush radius
+        ctx.arc(x, y, 30, 0, Math.PI * 2); // 30px brush radius
         ctx.fill();
     };
 
     canvas.addEventListener('mousedown', startDraw);
     canvas.addEventListener('mousemove', scratch);
     canvas.addEventListener('mouseup', endDraw);
+    canvas.addEventListener('mouseleave', endDraw);
     
     canvas.addEventListener('touchstart', startDraw, {passive: false});
     canvas.addEventListener('touchmove', scratch, {passive: false});
     canvas.addEventListener('touchend', endDraw);
 
-    // Check how much is scratched
+    // 3. Check how much is scratched (Auto Reveal)
     function checkClear() {
         if(isRevealed) return;
+        
         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         let clearPixels = 0;
+        
+        // Check alpha channel (every 4th value)
         for(let i = 3; i < imageData.data.length; i += 4) {
-            if(imageData.data[i] === 0) clearPixels++; // Alpha 0 means scratched
+            if(imageData.data[i] === 0) clearPixels++; 
         }
         
         const clearPercentage = (clearPixels / (canvas.width * canvas.height)) * 100;
         
-        if(clearPercentage > 40) { // If 40% cleared, auto reveal
+        // If 45% cleared, auto reveal the rest
+        if(clearPercentage > 45) { 
             isRevealed = true;
-            canvas.style.transition = 'opacity 0.5s ease';
+            canvas.style.transition = 'opacity 0.6s ease-out';
             canvas.style.opacity = '0';
             fetchReward();
         }
     }
 
-    // Backend AJAX Call
+    // 4. Backend AJAX Call (Fetch Reward)
     function fetchReward() {
         fetch('/skatch', { method: 'POST' })
         .then(res => res.json())
         .then(data => {
             if(data.success) {
+                // Update UI with reward
                 document.getElementById('rewardAmount').innerText = '৳' + data.reward;
                 document.getElementById('amountText').innerText = data.reward;
-                document.getElementById('claimMsg').classList.remove('hidden');
+                
+                // Show Success Message
+                const msgBox = document.getElementById('claimMsg');
+                msgBox.classList.remove('hidden');
+                msgBox.classList.add('fade-in-up');
                 
                 // Reload after 3 seconds so user can scratch again
                 setTimeout(() => location.reload(), 3000);
@@ -163,7 +275,13 @@
                 alert(data.message);
                 location.reload();
             }
+        })
+        .catch(err => {
+            console.error(err);
+            alert("Connection error! Please try again.");
+            location.reload();
         });
     }
 </script>
+
 {% endblock %}
