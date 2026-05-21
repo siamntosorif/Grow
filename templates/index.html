@@ -2,199 +2,229 @@
 {% block content %}
 
 <style>
-    /* Smooth Entry Animation */
+    /* smooth Entry Animation */
     .fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(15px); }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-    /* Crimson Red Theme Avatar */
-    .red-theme-avatar {
-        background: linear-gradient(135deg, #FF4D4D 0%, #D32F2F 100%);
-        box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3);
-        position: relative;
-    }
-    
-    /* Image Theme Balance Card (Red Gradient) */
-    .red-balance-card {
-        background: linear-gradient(135deg, #FF0000 0%, #B71C1C 100%);
-        box-shadow: 0 10px 30px rgba(183, 28, 28, 0.2);
-        position: relative;
-        overflow: hidden;
-    }
-    .red-balance-card::before {
-        content: ''; position: absolute; right: -30px; top: -30px;
-        width: 160px; height: 160px;
-        background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
-        border-radius: 50%;
+    /* Red Glossy Header */
+    .red-header-bg {
+        background: linear-gradient(180deg, #E11D48 0%, #BE123C 100%);
+        border-radius: 0 0 40px 40px;
     }
 
-    /* Red Category Grid Cards */
-    .nav-card {
-        background: #ffffff; border: 1.5px solid #F1F5F9; border-radius: 20px;
-        padding: 18px 10px; display: flex; flex-direction: column; align-items: center; text-align: center;
-        gap: 8px; transition: all 0.3s ease;
+    /* Glassmorphism Profile Card */
+    .profile-glass-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
     }
-    .nav-card:hover { transform: translateY(-3px); border-color: #FFCDD2; box-shadow: 0 8px 15px rgba(211, 47, 47, 0.05); }
-    
-    /* CTA Button Red Style */
-    .btn-red-action {
-        background: #D32F2F; color: white; transition: all 0.2s;
+
+    /* Crimson Balance Card (Image Style) */
+    .crimson-balance-card {
+        background: white;
+        border-radius: 28px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+        border: 1px solid #F1F5F9;
     }
-    .btn-red-action:active { transform: scale(0.95); background: #B71C1C; }
+
+    /* UI Navigation Cards */
+    .ui-nav-card {
+        background: #ffffff;
+        border-radius: 22px;
+        padding: 18px 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+        border: 1px solid #F1F5F9;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+    .ui-nav-card:active { transform: scale(0.95); background: #FFF1F2; }
+
+    /* Red Action Buttons */
+    .btn-red-main {
+        background: linear-gradient(135deg, #E11D48 0%, #9F1239 100%);
+        box-shadow: 0 8px 20px rgba(225, 29, 72, 0.3);
+    }
+
+    .btn-red-outline {
+        border: 1.5px solid #E11D48;
+        color: #E11D48;
+    }
+
+    /* Marquee Notice Styling */
+    .notice-box {
+        background: #FFF1F2;
+        border-left: 4px solid #E11D48;
+    }
 </style>
 
-<div class="space-y-5 fade-in-up max-w-2xl mx-auto px-1 pb-8 relative z-10">
-
-    <!-- ==========================================
-         1. PROFILE HEADER (Red Accents)
-    ========================================== -->
-    <div class="bg-white p-5 rounded-[24px] shadow-sm border border-slate-100 flex items-center justify-between">
+<!-- Top Header Section (Red Background) -->
+<div class="red-header-bg pt-8 pb-20 px-5 -mx-4 mb-[-60px] relative">
+    <div class="flex items-center justify-between">
         <div class="flex items-center gap-4">
-            <div class="h-14 w-14 rounded-[18px] red-theme-avatar flex items-center justify-center text-white text-2xl font-black flex-shrink-0">
+            <div class="h-14 w-14 rounded-full border-2 border-white/50 p-0.5 bg-white/20 backdrop-blur-md flex items-center justify-center text-white text-2xl font-black">
                 {{ user.email[0] | upper }}
             </div>
             <div>
-                <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-0.5">Welcome Back 👋</p>
-                <h2 class="text-xl font-black text-slate-800 leading-none truncate max-w-[200px]">
+                <p class="text-white/80 text-[11px] font-medium uppercase tracking-widest leading-none mb-1">Welcome Back, 👋</p>
+                <h2 class="text-white text-xl font-black leading-tight truncate max-w-[200px]">
                     {{ user.full_name or user.email.split('@')[0] | title }}
                 </h2>
-                <span class="text-[10px] font-bold text-red-600 mt-1.5 flex items-center gap-1">
-                    <i class="fa-solid fa-circle-check"></i> Verified Member
-                </span>
+                <span class="bg-white/20 text-white text-[9px] px-2 py-0.5 rounded-full font-bold">Premium Member</span>
             </div>
         </div>
-        <a href="/account" class="h-10 w-10 bg-slate-50 rounded-full flex items-center justify-center text-slate-400 border border-slate-100">
-            <i class="fa-solid fa-gear"></i>
-        </a>
+        <div class="flex gap-2">
+            <a href="/notifications" class="h-10 w-10 bg-white/10 rounded-full flex items-center justify-center text-white text-lg"><i class="fa-regular fa-bell"></i></a>
+            <a href="/account" class="h-10 w-10 bg-white/10 rounded-full flex items-center justify-center text-white text-lg"><i class="fa-solid fa-bars-staggered"></i></a>
+        </div>
     </div>
+</div>
+
+<div class="space-y-6 fade-in-up max-w-2xl mx-auto px-4 pb-24 relative z-10">
 
     <!-- ==========================================
-         2. RED THEME BALANCE CARD
+         1. BALANCE CARD (Image Style)
     ========================================== -->
-    <div class="red-balance-card rounded-[30px] p-7 text-white shadow-xl">
-        <div class="flex justify-between items-center mb-1">
-            <p class="text-[11px] font-bold text-red-100 flex items-center gap-2 uppercase tracking-widest">
-                <i class="fa-solid fa-wallet"></i> Current Balance
-            </p>
-            <button onclick="toggleBalance()" class="text-red-100 hover:text-white transition">
-                <i id="eyeIcon" class="fa-regular fa-eye"></i>
-            </button>
+    <div class="crimson-balance-card p-6">
+        <div class="flex justify-between items-start mb-4">
+            <div>
+                <p class="text-slate-400 text-xs font-bold uppercase tracking-wide">Current Balance</p>
+                <div class="flex items-center gap-2 mt-1">
+                    <span class="text-3xl font-black text-slate-800">৳</span>
+                    <h1 class="text-4xl font-black text-slate-800 tracking-tight" id="balanceText" data-amount="{{ user.balance }}">
+                        {{ user.balance }}
+                    </h1>
+                </div>
+                <p class="text-[10px] text-slate-400 font-bold mt-2">Available Points: <span class="text-rose-500">৳{{ user.vip_balance or 0 }} / today</span></p>
+            </div>
+            <button onclick="toggleBalance()" class="bg-slate-50 h-8 w-8 rounded-full flex items-center justify-center text-slate-400"><i id="eyeIcon" class="fa-regular fa-eye"></i></button>
         </div>
 
-        <div class="mb-6 border-b border-white/10 pb-6">
-            <h1 class="text-5xl font-black font-mono tracking-tighter">
-                <span class="text-2xl opacity-80">৳</span>
-                <span id="balanceText" data-amount="{{ user.balance }}">{{ user.balance }}</span>
-            </h1>
-            <p class="text-[10px] text-red-100 font-medium mt-2">৳{{ user.today_earning or '0.00' }} / earned today</p>
-        </div>
-
-        <!-- Action Buttons Inside Card -->
-        <div class="grid grid-cols-2 gap-4">
-            <a href="/withdraw" class="bg-white text-red-600 py-3.5 rounded-2xl text-xs font-black uppercase tracking-widest text-center shadow-lg active:scale-95 transition">
-                Withdraw Funds
+        <div class="grid grid-cols-2 gap-3 mt-6">
+            <a href="/withdraw" class="btn-red-main text-white py-3.5 rounded-2xl text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2">
+                <i class="fa-solid fa-wallet"></i> Withdraw Funds
             </a>
-            <a href="/income" class="bg-black/20 text-white border border-white/20 py-3.5 rounded-2xl text-xs font-bold uppercase tracking-widest text-center backdrop-blur-sm active:scale-95 transition">
-                History
+            <a href="/income" class="btn-red-outline py-3.5 rounded-2xl text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2">
+                <i class="fa-solid fa-receipt"></i> Transaction
             </a>
         </div>
     </div>
 
     <!-- ==========================================
-         3. NOTICE BOX 
+         2. NOTICE BOARD (Image Style)
     ========================================== -->
     {% if settings.notice_text %}
-    <div class="bg-white border border-red-50 p-2 rounded-[20px] flex items-center shadow-sm">
-        <div class="bg-red-600 text-white px-3 py-2 rounded-[14px] text-[10px] font-black flex-shrink-0 shadow-md">
-            NOTICE
+    <div class="notice-box p-4 rounded-2xl flex gap-3 items-start shadow-sm">
+        <div class="text-rose-500 mt-0.5 text-xl"><i class="fa-solid fa-bullhorn"></i></div>
+        <div>
+            <h4 class="text-[11px] font-black text-slate-800 uppercase mb-1">Notice Board</h4>
+            <marquee class="text-[11px] text-slate-600 font-medium leading-relaxed" scrollamount="3">
+                📢 NOTICE: {{ settings.notice_text }}
+            </marquee>
         </div>
-        <marquee class="flex-grow text-xs text-slate-600 font-bold mx-3">
-            {{ settings.notice_text }}
-        </marquee>
     </div>
     {% endif %}
 
     <!-- ==========================================
-         4. NAVS / TASKS AREA
+         3. ACTION BUTTONS (Start Task Fire Style)
     ========================================== -->
-    <div class="pt-2">
-        <h3 class="font-black text-slate-800 text-[11px] uppercase tracking-widest mb-4 px-1 flex items-center gap-2">
-            <i class="fa-solid fa-fire text-red-600"></i> Hot Tasks
-        </h3>
-        
-        <div class="grid grid-cols-3 gap-3">
-            <a href="/tasks" class="nav-card">
-                <div class="h-12 w-12 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center text-xl"><i class="fa-solid fa-bolt-lightning"></i></div>
-                <span class="text-[11px] font-black text-slate-700">Start Task</span>
+    <div class="space-y-3">
+        <a href="/tasks" class="btn-red-main w-full py-4 rounded-2xl text-white font-black text-sm uppercase tracking-[2px] flex items-center justify-center gap-2">
+            START TASK 🔥
+        </a>
+
+        <div class="grid grid-cols-2 gap-3">
+            <a href="/gmail-tasks" class="btn-red-main py-3 rounded-2xl text-white text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2">
+                <i class="fa-solid fa-play-circle"></i> Watch Ads
             </a>
-            
-            <a href="/gmail-tasks" class="nav-card">
-                <div class="h-12 w-12 bg-orange-50 text-orange-600 rounded-2xl flex items-center justify-center text-xl"><i class="fa-brands fa-google"></i></div>
-                <span class="text-[11px] font-black text-slate-700">Watch Ads</span>
+            <a href="/spin" class="btn-red-main py-3 rounded-2xl text-white text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2">
+                <i class="fa-solid fa-dharmachakra"></i> Spin & Win
             </a>
-            
-            <a href="/work" class="nav-card">
-                <div class="h-12 w-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center text-xl"><i class="fa-solid fa-gamepad"></i></div>
-                <span class="text-[11px] font-black text-slate-700">Spin Win</span>
+            <a href="/work" class="btn-red-main py-3 rounded-2xl text-white text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2">
+                <i class="fa-solid fa-microchip"></i> Bonus Task
+            </a>
+            <a href="/refer" class="bg-white border-2 border-rose-100 py-3 rounded-2xl text-slate-800 text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 shadow-sm">
+                REFER & EARN 🎁 <span class="text-rose-500">৳2</span>
             </a>
         </div>
     </div>
 
     <!-- ==========================================
-         5. CTA BANNER
+         4. APP INFO (Site Age & Stats)
     ========================================== -->
-    <a href="/refer" class="block bg-slate-900 p-5 rounded-[24px] relative overflow-hidden group">
-        <div class="absolute right-[-10px] bottom-[-10px] opacity-10 rotate-12">
-            <i class="fa-solid fa-gift text-7xl text-white"></i>
-        </div>
-        <div class="relative z-10">
-            <h3 class="font-black text-white text-lg leading-tight">Refer & Earn $2.00</h3>
-            <p class="text-[10px] text-slate-400 mt-1 font-medium">Invite your friends and earn instant rewards!</p>
-        </div>
-    </a>
-
-    <!-- ==========================================
-         6. APP INFO (Site Age)
-    ========================================== -->
-    <div class="bg-white p-5 rounded-[24px] border border-slate-100 shadow-sm flex items-center justify-between">
-        <div class="flex items-center gap-3">
-            <div class="h-10 w-10 bg-slate-50 text-slate-400 rounded-xl flex items-center justify-center border border-slate-100">
-                <i class="fa-solid fa-clock-rotate-left"></i>
+    <div class="pt-2">
+        <h3 class="text-slate-800 font-black text-xs uppercase tracking-widest mb-4">App Information</h3>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="bg-white p-4 rounded-[22px] border border-slate-100 shadow-sm flex items-center gap-3">
+                <div class="h-10 w-10 bg-rose-50 text-rose-500 rounded-xl flex items-center justify-center text-lg"><i class="fa-regular fa-calendar-check"></i></div>
+                <div>
+                    <p class="text-[9px] text-slate-400 font-bold uppercase leading-none mb-1">Site Age:</p>
+                    <p class="text-xs font-black text-slate-800" id="siteAgeText">Loading...</p>
+                </div>
             </div>
-            <div>
-                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Site Age</p>
-                <p class="text-xs font-bold text-slate-800" id="siteAgeLabel">2 Years 14 Days</p>
+            <div class="bg-white p-4 rounded-[22px] border border-slate-100 shadow-sm flex items-center gap-3">
+                <div class="h-10 w-10 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center text-lg"><i class="fa-solid fa-users"></i></div>
+                <div>
+                    <p class="text-[9px] text-slate-400 font-bold uppercase leading-none mb-1">Total Users:</p>
+                    <p class="text-xs font-black text-slate-800">50,000+</p>
+                </div>
             </div>
-        </div>
-        <div class="text-right">
-            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Total Users</p>
-            <p class="text-xs font-bold text-red-600">50,000+</p>
         </div>
     </div>
 
 </div>
 
-<!-- Nav Fixed for better experience -->
-<div class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 px-6 py-3 flex justify-between items-center z-50 shadow-[0_-5px_20px_rgba(0,0,0,0.05)]">
-    <a href="#" class="flex flex-col items-center gap-1 text-red-600"><i class="fa-solid fa-house"></i><span class="text-[9px] font-bold uppercase">Home</span></a>
-    <a href="#" class="flex flex-col items-center gap-1 text-slate-400"><i class="fa-solid fa-trophy"></i><span class="text-[9px] font-bold uppercase">Leader</span></a>
-    <a href="#" class="flex flex-col items-center gap-1 text-slate-400"><i class="fa-solid fa-wallet"></i><span class="text-[9px] font-bold uppercase">Wallet</span></a>
-    <a href="#" class="flex flex-col items-center gap-1 text-slate-400"><i class="fa-solid fa-user"></i><span class="text-[9px] font-bold uppercase">Profile</span></a>
+<!-- BOTTOM NAVIGATION -->
+<div class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 px-6 py-3 flex justify-between items-center z-[100] shadow-[0_-5px_20px_rgba(0,0,0,0.05)] rounded-t-[30px]">
+    <a href="/home" class="flex flex-col items-center gap-1 text-rose-500">
+        <i class="fa-solid fa-house text-lg"></i>
+        <span class="text-[9px] font-black uppercase">Home</span>
+    </a>
+    <a href="/leaderboard" class="flex flex-col items-center gap-1 text-slate-400">
+        <i class="fa-solid fa-trophy text-lg"></i>
+        <span class="text-[9px] font-black uppercase">Board</span>
+    </a>
+    <a href="/withdraw" class="flex flex-col items-center gap-1 text-slate-400">
+        <i class="fa-solid fa-wallet text-lg"></i>
+        <span class="text-[9px] font-black uppercase">Wallet</span>
+    </a>
+    <a href="/account" class="flex flex-col items-center gap-1 text-slate-400">
+        <i class="fa-solid fa-user text-lg"></i>
+        <span class="text-[9px] font-black uppercase">Profile</span>
+    </a>
 </div>
 
 <script>
-    // Balance Toggle Logic
+    // Balance Visibility Toggle
     function toggleBalance() {
         const balElement = document.getElementById("balanceText");
         const icon = document.getElementById("eyeIcon");
+        const realAmount = balElement.getAttribute("data-amount");
         
         if (icon.classList.contains("fa-eye")) {
-            balElement.innerText = "******";
+            balElement.innerText = "••••••";
             icon.classList.replace("fa-eye", "fa-eye-slash");
         } else {
-            balElement.innerText = balElement.getAttribute("data-amount");
+            balElement.innerText = realAmount;
             icon.classList.replace("fa-eye-slash", "fa-eye");
         }
     }
+
+    // Site Age Calculation
+    function updateSiteAge() {
+        const startDate = new Date("2025-12-19T00:00:00").getTime(); 
+        const now = new Date().getTime();
+        const diff = now - startDate;
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const years = Math.floor(days / 365);
+        const remainingDays = days % 365;
+        
+        document.getElementById("siteAgeText").innerText = `${years} Years ${remainingDays} Days`;
+    }
+    updateSiteAge();
 </script>
 
 {% endblock %}
