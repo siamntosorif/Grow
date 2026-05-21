@@ -2,275 +2,281 @@
 {% block content %}
 
 <style>
-    :root {
-        --bkash-color: #e2136e;
-        --bkash-light: #fdedf4;
-        --surface: #ffffff;
-        --bg: #f5f6f7;
-    }
+    /* Smooth Entry Animation */
+    .fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(15px); }
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-    body { background-color: var(--bg); font-family: 'Inter', 'AdorshoLipi', sans-serif; }
-
-    /* 1. bKash Inspired Name Card */
-    .user-profile-card {
-        background: var(--surface);
-        padding: 15px 20px;
-        border-bottom: 1px solid #eee;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .avatar-circle {
-        width: 45px; height: 45px;
-        border-radius: 50%;
-        background: var(--bkash-light);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1.5px solid var(--bkash-color);
-    }
-
-    /* 2. Modern Balance Card (Refined) */
-    .balance-card-container {
-        background: var(--bkash-color);
-        margin: 15px;
-        border-radius: 15px;
-        padding: 20px;
-        color: white;
+    /* bKash Style Combined Header Card */
+    .bKash-header-card {
+        background: linear-gradient(145deg, #e11d48 0%, #be123c 100%);
+        border-radius: 28px;
+        box-shadow: 0 10px 30px -5px rgba(225, 29, 72, 0.3);
         position: relative;
         overflow: hidden;
-        box-shadow: 0 10px 20px rgba(226, 19, 110, 0.2);
+        color: white;
+        padding: 24px;
+        margin-top: 10px;
+    }
+    .bKash-header-card::after {
+        content: ''; position: absolute; right: -20px; top: -20px;
+        width: 150px; height: 150px;
+        background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+        border-radius: 50%; pointer-events: none;
     }
 
-    .balance-card-container::after {
-        content: ''; position: absolute; right: -20px; bottom: -20px;
-        width: 100px; height: 100px; background: rgba(255,255,255,0.1);
-        border-radius: 50%;
+    /* Shiny White Avatar */
+    .avatar-white {
+        background: white; color: #e11d48;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        border: 2px solid rgba(255,255,255,0.5);
     }
 
-    /* 3. bKash Style Grid Layout */
-    .service-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        background: var(--surface);
-        margin: 0 15px;
-        border-radius: 12px;
-        padding: 15px 5px;
-        border: 1px solid #f0f0f0;
+    /* Modern Category Grid Cards (Soft UI) */
+    .nav-card {
+        background: #ffffff; border: 1px solid #F1F5F9; border-radius: 20px;
+        padding: 16px 10px; display: flex; flex-direction: column; align-items: center; text-align: center;
+        gap: 12px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
     }
-
-    .service-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-        text-decoration: none;
-        padding: 10px 0;
+    .nav-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(225, 29, 72, 0.08); border-color: #FECDD3; }
+    .nav-card:active { transform: scale(0.96); }
+    
+    /* Icon Boxes */
+    .nav-icon-box {
+        height: 48px; width: 48px; border-radius: 16px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 20px; transition: all 0.3s ease;
     }
+    .nav-card:hover .nav-icon-box { transform: scale(1.1) rotate(5deg); }
 
-    .service-item img, .service-item i {
-        width: 28px; height: 28px;
-        color: var(--bkash-color);
-        font-size: 24px;
-    }
-
-    .service-label {
-        font-size: 11px;
-        color: #444;
-        font-weight: 600;
-        text-align: center;
-    }
-
-    /* 4. Notice Ticker */
-    .notice-bar {
-        background: #fff;
-        margin: 10px 15px;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        padding: 8px 12px;
-        border: 1px solid #ffe4f0;
-    }
-
-    /* Animation */
-    .fade-in { animation: fadeIn 0.5s ease-in; }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-    .popup-overlay {
-        position: fixed; inset: 0; background: rgba(0,0,0,0.7);
-        display: flex; align-items: center; justify-content: center; z-index: 1000;
+    /* Notice Board Box */
+    .notice-box {
+        background: #FFF1F2; border: 1px solid #FFE4E6; border-radius: 20px;
+        padding: 16px; display: flex; align-items: flex-start; gap: 16px;
     }
 </style>
 
-<div class="fade-in pb-20">
+<div class="space-y-6 fade-in-up max-w-2xl mx-auto px-2 pb-10 relative z-10">
 
-    <!-- USER NAME CARD (bKash UI) -->
-    <div class="user-profile-card">
-        <div class="avatar-circle">
-            <span class="text-rose-600 font-bold text-lg">{{ user.email[0] | upper }}</span>
+    <!-- ==========================================
+         1. BKASH STYLE HEADER & BALANCE CARD
+    ========================================== -->
+    <div class="bKash-header-card">
+        <!-- Top Row: Profile Info -->
+        <div class="flex justify-between items-center mb-6">
+            <div class="flex items-center gap-4 relative z-10">
+                <div class="h-12 w-12 rounded-full avatar-white flex items-center justify-center text-xl font-black flex-shrink-0">
+                    {{ user.email[0] | upper }}
+                </div>
+                <div>
+                    <h2 class="text-lg font-black leading-none truncate max-w-[150px] sm:max-w-[200px]">
+                        {{ user.full_name or user.email.split('@')[0] | title }}
+                    </h2>
+                    {% if user.current_level > 0 %}
+                        <span class="text-[10px] font-bold text-amber-300 mt-1 block"><i class="fa-solid fa-crown"></i> Elite Member</span>
+                    {% else %}
+                        <span class="text-[10px] font-bold text-red-100 mt-1 block"><i class="fa-solid fa-shield-check"></i> Verified User</span>
+                    {% endif %}
+                </div>
+            </div>
+            <a href="/account" class="h-10 w-10 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition backdrop-blur-sm relative z-10">
+                <i class="fa-solid fa-gear"></i>
+            </a>
         </div>
-        <div class="flex-grow">
-            <h2 class="text-[15px] font-bold text-slate-800 leading-tight">
-                {{ user.full_name or user.email.split('@')[0] | title }}
-            </h2>
-            <p class="text-[10px] text-slate-500 font-medium">একাউন্ট স্ট্যাটাস: <span class="text-green-600">ভেরিফাইড</span></p>
+
+        <!-- Middle Row: Balance Display -->
+        <div class="mb-6 relative z-10">
+            <div class="flex items-center gap-2 mb-1 cursor-pointer w-max" onclick="toggleBalance()">
+                <p class="text-[11px] font-medium text-red-100 uppercase tracking-widest">Available Balance</p>
+                <i id="eyeIcon" class="fa-regular fa-eye-slash text-red-200"></i>
+            </div>
+            <h1 class="text-4xl font-black font-mono tracking-tight leading-none flex items-center gap-2">
+                <span class="text-2xl text-red-200 font-bold">৳</span>
+                <span id="balanceText" data-amount="{{ user.balance }}" class="blur-md transition-all duration-300">{{ user.balance }}</span>
+            </h1>
         </div>
-        <div class="h-8 w-8 rounded-full bg-slate-100 flex items-center justify-center text-rose-600">
-            <i class="fa-solid fa-crown text-xs"></i>
+
+        <!-- Bottom Row: Quick Actions -->
+        <div class="flex gap-3 relative z-10 border-t border-white/20 pt-4 mt-2">
+            <a href="/withdraw" class="flex-1 bg-white text-red-600 py-3 rounded-[16px] text-xs font-black uppercase tracking-widest text-center shadow-md active:scale-95 transition flex items-center justify-center gap-2">
+                <i class="fa-solid fa-money-bill-transfer"></i> Withdraw
+            </a>
+            <a href="/income" class="flex-1 bg-white/20 text-white py-3 rounded-[16px] text-xs font-bold uppercase tracking-widest text-center border border-white/30 active:scale-95 transition flex items-center justify-center gap-2 backdrop-blur-sm">
+                <i class="fa-solid fa-chart-pie"></i> Details
+            </a>
         </div>
     </div>
 
-    <!-- BALANCE CARD -->
-    <div class="balance-card-container">
-        <div class="flex justify-between items-center opacity-80 text-[11px] uppercase tracking-wider mb-1">
-            <span>মেইন ব্যালেন্স</span>
-            <i class="fa-solid fa-circle-info"></i>
-        </div>
+    <!-- ⚠️ ACTIVATION ALERT -->
+    {% if settings.activation_required and not user.is_active %}
+    <div class="bg-amber-50 border border-amber-200 p-4 rounded-[20px] flex items-center justify-between shadow-sm">
         <div class="flex items-center gap-3">
-            <h1 class="text-3xl font-bold tracking-tight">৳ <span id="balanceText" data-amount="{{ user.balance }}">{{ user.balance }}</span></h1>
-            <button onclick="toggleBalance()" class="h-7 w-7 rounded-full bg-white/20 flex items-center justify-center">
-                <i id="eyeIcon" class="fa-regular fa-eye-slash text-xs"></i>
-            </button>
+            <div class="bg-amber-100 text-amber-600 h-10 w-10 rounded-xl flex items-center justify-center text-lg">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <div>
+                <h3 class="font-bold text-amber-800 text-sm">Verify Account</h3>
+                <p class="text-[10px] text-amber-600 font-medium">Please activate your account</p>
+            </div>
         </div>
-        
-        <div class="mt-5 grid grid-cols-2 gap-3">
-            <a href="/withdraw" class="bg-white text-rose-600 py-2.5 rounded-lg text-xs font-bold text-center">উইথড্র করুন</a>
-            <a href="/income" class="bg-black/20 text-white py-2.5 rounded-lg text-xs font-bold text-center border border-white/20">হিস্ট্রি</a>
-        </div>
-    </div>
-
-    <!-- NOTICE -->
-    {% if settings.notice_text %}
-    <div class="notice-bar">
-        <div class="text-rose-600 mr-3 animate-bounce"><i class="fa-solid fa-bullhorn"></i></div>
-        <marquee class="text-xs font-medium text-slate-600">{{ settings.notice_text }}</marquee>
+        <a href="/activate" class="bg-amber-500 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-md hover:bg-amber-600 transition">
+            Verify
+        </a>
     </div>
     {% endif %}
 
-    <!-- SERVICES GRID (bKash Style) -->
-    <div class="px-4 mb-3 flex justify-between items-center">
-        <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wide">আমাদের সার্ভিসসমূহ</h3>
-    </div>
-    
-    <div class="service-grid">
-        <a href="/tasks" class="service-item">
-            <i class="fa-solid fa-briefcase"></i>
-            <span class="service-label">টাস্ক</span>
-        </a>
-        <a href="/gmail-tasks" class="service-item">
-            <i class="fa-brands fa-google"></i>
-            <span class="service-label">জিমেইল</span>
-        </a>
-        <a href="/captcha" class="service-item">
-            <i class="fa-solid fa-keyboard"></i>
-            <span class="service-label">ক্যাপচা</span>
-        </a>
-        <a href="/spin" class="service-item">
-            <i class="fa-solid fa-dharmachakra"></i>
-            <span class="service-label">স্পিন</span>
-        </a>
-        <a href="/drivepack" class="service-item">
-            <i class="fa-solid fa-wifi"></i>
-            <span class="service-label">অফার</span>
-        </a>
-        <a href="/referrals" class="service-item">
-            <i class="fa-solid fa-users"></i>
-            <span class="service-label">রেফার</span>
-        </a>
-        <a href="/tutorial" class="service-item">
-            <i class="fa-brands fa-youtube"></i>
-            <span class="service-label">টিউটোরিয়াল</span>
-        </a>
-        <a href="/work" class="service-item">
-            <div class="h-7 w-7 rounded-full bg-rose-600 text-white flex items-center justify-center">
-                <i class="fa-solid fa-plus text-xs" style="color:white"></i>
-            </div>
-            <span class="service-label">More Task</span>
-        </a>
-    </div>
-
-    <!-- LIVE PAYOUTS -->
-    <div class="m-4 bg-white rounded-xl p-4 shadow-sm border border-slate-100">
-        <div class="flex items-center justify-between mb-4">
-            <h4 class="text-xs font-black text-slate-800 uppercase flex items-center gap-2">
-                <span class="h-2 w-2 bg-green-500 rounded-full"></span> লাইভ পেমেন্ট
-            </h4>
+    <!-- ==========================================
+         2. STATIC NOTICE BOARD (No Scroll)
+    ========================================== -->
+    {% if settings.notice_text %}
+    <div class="notice-box shadow-[0_2px_15px_rgba(225,29,72,0.03)] relative overflow-hidden group">
+        <div class="absolute right-0 top-0 w-20 h-20 bg-red-100 rounded-bl-full opacity-50 pointer-events-none"></div>
+        <div class="h-10 w-10 bg-red-100 text-red-500 rounded-full flex items-center justify-center flex-shrink-0 text-lg group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-bullhorn"></i>
         </div>
-        <div id="payoutList" class="space-y-3"></div>
-    </div>
-
-</div>
-
-<!-- POPUP MODAL -->
-<div id="popupModal" class="popup-overlay hidden">
-    <div class="bg-white w-[85%] max-w-sm rounded-2xl overflow-hidden shadow-2xl scale-in">
-        <div class="bg-rose-600 p-6 text-center text-white">
-            <i class="fa-solid fa-bell text-4xl mb-3"></i>
-            <h2 class="text-xl font-bold">গুরুত্বপূর্ণ নোটিশ</h2>
-        </div>
-        <div class="p-6">
-            <p class="text-sm text-slate-600 leading-relaxed mb-6 text-center">
-                আমাদের টেলিগ্রাম চ্যানেলে জয়েন করুন সকল আপডেট সবার আগে পেতে। নিয়ম মেনে কাজ না করলে পেমেন্ট পাওয়া যাবে না।
+        <div class="relative z-10 pr-2">
+            <h4 class="text-[10px] font-black text-red-600 uppercase tracking-widest mb-1">Notice Board</h4>
+            <p class="text-[12px] text-slate-700 font-medium leading-relaxed">
+                {{ settings.notice_text }}
             </p>
-            <div class="space-y-3">
-                <a href="https://t.me/earndailysite" class="block w-full bg-sky-500 text-white py-3 rounded-xl text-center font-bold text-sm">টেলিগ্রাম চ্যানেল</a>
-                <button onclick="closePopup()" class="block w-full bg-slate-100 text-slate-600 py-3 rounded-xl text-center font-bold text-sm">বন্ধ করুন</button>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- ==========================================
+         3. BIG START WORK CTA
+    ========================================== -->
+    <a href="/work" class="block bg-slate-900 text-white p-5 rounded-[24px] shadow-[0_8px_25px_rgba(0,0,0,0.15)] relative overflow-hidden group active:scale-95 transition-all mt-4 border border-slate-800">
+        <div class="absolute right-0 top-0 w-32 h-32 bg-blue-500/20 rounded-bl-full pointer-events-none blur-2xl"></div>
+        <div class="flex items-center justify-between relative z-10">
+            <div>
+                <span class="bg-white/10 text-slate-300 border border-white/10 px-2.5 py-1 rounded text-[8px] font-black uppercase tracking-widest mb-2 inline-block">Earn Money</span>
+                <h3 class="font-black text-white text-xl leading-tight tracking-tight">Start Working!</h3>
+                <p class="text-[11px] text-slate-400 mt-1 font-medium">Complete daily tasks to earn rewards.</p>
+            </div>
+            <div class="h-14 w-14 bg-blue-600 text-white rounded-full flex items-center justify-center text-xl shadow-lg group-hover:bg-blue-500 transition-colors flex-shrink-0">
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+        </div>
+    </a>
+
+    <!-- ==========================================
+         4. QUICK SERVICES GRID (App Style)
+    ========================================== -->
+    <div class="pt-4">
+        <h3 class="font-bold text-slate-800 text-xs uppercase tracking-widest mb-4 px-2 flex items-center gap-1.5">
+            <i class="fa-solid fa-bolt text-red-500"></i> Quick Services
+        </h3>
+        
+        <div class="grid grid-cols-4 gap-3 sm:gap-4">
+            <a href="/tasks" class="nav-card group">
+                <div class="nav-icon-box bg-indigo-50 text-indigo-600 border border-indigo-100 group-hover:bg-indigo-600 group-hover:text-white"><i class="fa-solid fa-list-check"></i></div>
+                <span class="text-[10px] font-bold text-slate-700">Tasks</span>
+            </a>
+            
+            <a href="/gmail-tasks" class="nav-card group relative overflow-hidden">
+                <span class="absolute top-0 right-0 bg-red-500 h-1.5 w-1.5 rounded-full m-2"></span>
+                <div class="nav-icon-box bg-red-50 text-red-500 border border-red-100 group-hover:bg-red-500 group-hover:text-white"><i class="fa-brands fa-google"></i></div>
+                <span class="text-[10px] font-bold text-slate-700">Gmail</span>
+            </a>
+            
+            <a href="/captcha" class="nav-card group">
+                <div class="nav-icon-box bg-teal-50 text-teal-600 border border-teal-100 group-hover:bg-teal-600 group-hover:text-white"><i class="fa-solid fa-keyboard"></i></div>
+                <span class="text-[10px] font-bold text-slate-700">Captcha</span>
+            </a>
+            
+            <a href="/spin" class="nav-card group">
+                <div class="nav-icon-box bg-orange-50 text-orange-500 border border-orange-100 group-hover:bg-orange-500 group-hover:text-white"><i class="fa-solid fa-dharmachakra"></i></div>
+                <span class="text-[10px] font-bold text-slate-700">Spin</span>
+            </a>
+            
+            <a href="/drivepack" class="nav-card group">
+                <div class="nav-icon-box bg-sky-50 text-sky-500 border border-sky-100 group-hover:bg-sky-500 group-hover:text-white"><i class="fa-solid fa-wifi"></i></div>
+                <span class="text-[10px] font-bold text-slate-700">Drive</span>
+            </a>
+
+            <a href="/givework" class="nav-card group">
+                <div class="nav-icon-box bg-blue-50 text-blue-600 border border-blue-100 group-hover:bg-blue-600 group-hover:text-white"><i class="fa-solid fa-briefcase"></i></div>
+                <span class="text-[10px] font-bold text-slate-700">Hire Us</span>
+            </a>
+
+            <a href="/referrals" class="nav-card group">
+                <div class="nav-icon-box bg-purple-50 text-purple-600 border border-purple-100 group-hover:bg-purple-600 group-hover:text-white"><i class="fa-solid fa-users"></i></div>
+                <span class="text-[10px] font-bold text-slate-700">Team</span>
+            </a>
+
+            <a href="/tutorial" class="nav-card group">
+                <div class="nav-icon-box bg-rose-50 text-rose-500 border border-rose-100 group-hover:bg-rose-500 group-hover:text-white"><i class="fa-brands fa-youtube"></i></div>
+                <span class="text-[10px] font-bold text-slate-700">Guide</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         5. APP INFORMATION (Footer Style Stats)
+    ========================================== -->
+    <div class="bg-white rounded-[24px] p-5 shadow-sm border border-slate-100 mt-8 mb-4">
+        <h3 class="font-black text-slate-800 text-sm mb-4">App Information</h3>
+        <div class="flex justify-between items-center px-1">
+            <div class="flex items-center gap-3">
+                <div class="h-10 w-10 bg-slate-50 text-slate-400 rounded-xl flex items-center justify-center text-lg border border-slate-100"><i class="fa-regular fa-calendar"></i></div>
+                <div>
+                    <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest">Site Age</p>
+                    <p class="text-xs font-black text-slate-700" id="countdown">Loading...</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="h-10 w-10 bg-slate-50 text-slate-400 rounded-xl flex items-center justify-center text-lg border border-slate-100"><i class="fa-solid fa-users"></i></div>
+                <div>
+                    <p class="text-[9px] text-slate-400 font-bold uppercase tracking-widest">Total Users</p>
+                    <p class="text-xs font-black text-slate-700">56,000+</p>
+                </div>
             </div>
         </div>
     </div>
+
 </div>
 
+<!-- SCRIPTS -->
 <script>
-    // Balance Toggle Logic
+    // 1. App-like Balance Toggle
     function toggleBalance() {
-        const bal = document.getElementById("balanceText");
+        const balElement = document.getElementById("balanceText");
         const icon = document.getElementById("eyeIcon");
-        if(bal.innerText === "******") {
-            bal.innerText = bal.getAttribute("data-amount");
+        
+        if (icon.classList.contains("fa-eye")) {
+            balElement.innerText = "******";
             icon.classList.replace("fa-eye", "fa-eye-slash");
+            balElement.classList.add("blur-md");
         } else {
-            bal.innerText = "******";
+            balElement.innerText = balElement.getAttribute("data-amount");
             icon.classList.replace("fa-eye-slash", "fa-eye");
+            balElement.classList.remove("blur-md");
         }
     }
 
-    // Live Payout Logic
-    function generatePayout() {
-        const container = document.getElementById('payoutList');
-        const numbers = ["017***", "019***", "018***", "016***"];
-        const num = numbers[Math.floor(Math.random()*numbers.length)] + Math.floor(1000+Math.random()*9000);
-        const amount = Math.floor(Math.random()*500 + 100);
+    // 2. Simple Site Age Text
+    (function() {
+        function updateSiteAge() {
+            const startDate = new Date("2025-01-01T00:00:00").getTime(); 
+            const now = new Date().getTime();
+            const diff = now - startDate;
 
-        const html = `
-            <div class="flex justify-between items-center p-2 border-b border-slate-50 last:border-0 fade-in">
-                <div class="flex items-center gap-3">
-                    <div class="h-8 w-8 rounded bg-slate-100 flex items-center justify-center text-rose-600 text-[10px] font-bold">BK</div>
-                    <div>
-                        <p class="text-[11px] font-bold text-slate-700">${num}</p>
-                        <p class="text-[9px] text-slate-400">সফলভাবে পেমেন্ট পেয়েছে</p>
-                    </div>
-                </div>
-                <div class="text-right">
-                    <p class="text-xs font-bold text-green-600">৳${amount}</p>
-                </div>
-            </div>
-        `;
-        container.insertAdjacentHTML('afterbegin', html);
-        if(container.children.length > 4) container.lastElementChild.remove();
-        setTimeout(generatePayout, 4000);
-    }
-    generatePayout();
-
-    // Popup Logic
-    window.onload = function() {
-        setTimeout(() => {
-            document.getElementById('popupModal').classList.remove('hidden');
-        }, 1000);
-    }
-    function closePopup() {
-        document.getElementById('popupModal').classList.add('hidden');
-    }
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const months = Math.floor(days / 30);
+                const remainingDays = days % 30;
+                
+                let text = "";
+                if(months > 0) text += months + " Months ";
+                text += remainingDays + " Days";
+                
+                document.getElementById("countdown").innerText = text;
+            }
+        }
+        setInterval(updateSiteAge, 60000);
+        updateSiteAge();
+    })();
 </script>
 
 {% endblock %}
