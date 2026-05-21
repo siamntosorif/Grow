@@ -21,7 +21,7 @@
                         primary: {
                             50: '#fff1f2', 100: '#ffe4e6', 200: '#fecdd3',
                             300: '#fda4af', 400: '#fb7185', 500: '#f43f5e',
-                            600: '#e11d48', /* Premium Crimson Red */
+                            600: '#e11d48', /* Crimson Red */
                             700: '#be123c', 800: '#9f1239', 900: '#881337',
                         },
                         surface: '#ffffff',
@@ -44,7 +44,7 @@
             overflow-x: hidden;
         }
 
-        /* --- Global Button Override (Red Theme) --- */
+        /* Global Button Override */
         .btn-emerald {
             background: linear-gradient(135deg, theme('colors.primary.500') 0%, theme('colors.primary.700') 100%) !important;
             box-shadow: 0 8px 20px -5px rgba(225, 29, 72, 0.4) !important;
@@ -57,61 +57,28 @@
         .btn-emerald:active { transform: translateY(1px) !important; box-shadow: none !important; }
         .btn-emerald::after { display: none !important; }
 
-        /* --- Premium Cards --- */
         .clean-card, .clean-card-ui, .ai-glass-card {
             background: theme('colors.surface') !important;
             border: 1px solid theme('colors.slate.100') !important;
             border-radius: 24px !important;
             box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03) !important;
-            backdrop-filter: none !important;
-            transition: all 0.3s ease !important;
         }
 
-        /* --- Navbars --- */
+        /* Navbars */
         .top-navbar {
             background: rgba(255, 255, 255, 0.98);
             border-bottom: 1px solid theme('colors.slate.100');
             box-shadow: 0 2px 15px rgba(0,0,0,0.02);
+            z-index: 40;
         }
 
-        .bottom-navbar {
-            background: theme('colors.surface');
-            border-top: 1px solid theme('colors.slate.100');
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.04);
-            padding-bottom: env(safe-area-inset-bottom);
-        }
-        
-        .tab-item { color: theme('colors.slate.400'); transition: all 0.3s ease; }
-        .tab-item.active { color: theme('colors.primary.600'); transform: translateY(-2px); }
-        
-        /* --- CENTER FLOATING BUTTON (/work) --- */
-        .center-fab-wrapper {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            top: -24px; 
-            z-index: 100;
-        }
-        .center-action-btn {
-            background: linear-gradient(135deg, theme('colors.primary.500') 0%, theme('colors.primary.700') 100%);
-            color: white;
-            box-shadow: 0 8px 20px rgba(225, 29, 72, 0.3);
-            border: 5px solid #F8FAFC;
-            height: 64px; width: 64px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 24px;
-            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .center-action-btn:hover { transform: scale(1.05) rotate(5deg); }
-        .center-action-btn:active { transform: scale(0.95); box-shadow: none; }
-
-        /* --- Fix Main Container Spacing --- */
+        /* Main Body Spacing Fix */
         main {
             padding-top: 85px !important;
             padding-bottom: 110px !important; 
         }
 
-        /* --- Sidebar --- */
+        /* Sidebar & Menu */
         #sidebar { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform; }
         .sidebar-open { transform: translateX(0); }
         .sidebar-closed { transform: translateX(-100%); }
@@ -128,7 +95,7 @@
 <body class="flex flex-col min-h-screen">
 
     <!-- ================= 1. TOP NAVBAR ================= -->
-    <nav class="top-navbar fixed top-0 w-full z-40 h-[70px]">
+    <nav class="top-navbar fixed top-0 w-full h-[70px]">
         <div class="max-w-7xl mx-auto px-4 h-full flex justify-between items-center">
             
             <div class="flex items-center gap-3 md:gap-4">
@@ -139,7 +106,7 @@
                     <div class="bg-red-600 text-white h-8 w-8 flex items-center justify-center rounded-[10px] shadow-sm group-hover:scale-105 transition">
                         <i class="fa-solid fa-bolt text-sm"></i>
                     </div>
-                    <span style="color: black; font-size: 23px;">Grow<span class="text-red-600"><b style="color: red;">Earn</b></span></span>
+                    <span class="text-xl font-black tracking-tight text-slate-900 hidden sm:block">Grow<span class="text-red-600">Earn</span></span>
                 </a>
             </div>
 
@@ -158,12 +125,11 @@
         </div>
     </nav>
 
-    <!-- ================= 2. ADVANCED SIDEBAR (Redesigned) ================= -->
-    <div id="sidebarOverlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
+    <!-- ================= 2. ADVANCED SIDEBAR ================= -->
+    <div id="sidebarOverlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] hidden opacity-0 transition-opacity duration-300"></div>
     
-    <div id="sidebar" class="fixed top-0 left-0 h-full w-[290px] bg-white z-[60] sidebar-closed flex flex-col shadow-[20px_0_40px_rgba(0,0,0,0.08)]">
+    <div id="sidebar" class="fixed top-0 left-0 h-full w-[290px] bg-white z-[70] sidebar-closed flex flex-col shadow-[20px_0_40px_rgba(0,0,0,0.08)]">
         
-        <!-- Sidebar Header (Premium Crimson) -->
         <div class="p-6 bg-gradient-to-br from-red-700 to-red-900 text-white relative overflow-hidden">
             <div class="absolute right-0 top-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
             
@@ -195,7 +161,6 @@
             </div>
         </div>
 
-        <!-- Scrollable Navigation -->
         <div class="flex-grow overflow-y-auto p-4 pb-24">
             
             <p class="menu-title">Main Navigation</p>
@@ -216,23 +181,18 @@
                 <i class="fa-solid fa-clock-rotate-left w-6 text-center text-red-400"></i> <span>History</span>
             </a>
             
-            <a href="/vip" class="menu-item {{ 'active' if request.endpoint == 'drive_store' or request.endpoint == 'drivepack' }}">
-                <i class="fab fa-squarespace w-6 text-center text-sky-500"></i> <span>Elite Pass</span> <i class="fa-brands fa-squarespace"></i>
-            </a>
-     
             <a href="/drive" class="menu-item {{ 'active' if request.endpoint == 'drive_store' or request.endpoint == 'drivepack' }}">
                 <i class="fa-solid fa-wifi w-6 text-center text-sky-500"></i> <span>Drivepack</span>
             </a>
             
-            <a href="/hire-us" class="menu-item {{ 'active' if request.endpoint == 'hire_us' or request.endpoint == 'givework' }}">
+            <a href="/givework" class="menu-item {{ 'active' if request.endpoint == 'hire_us' or request.endpoint == 'givework' }}">
                 <i class="fa-solid fa-briefcase w-6 text-center text-indigo-500"></i> <span>Give Work</span>
             </a>
             
-            <a href="/menu" class="menu-item {{ 'active' if request.endpoint == 'account' or request.endpoint == 'menu' }}">
+            <a href="/account" class="menu-item {{ 'active' if request.endpoint == 'account' or request.endpoint == 'menu' }}">
                 <i class="fa-solid fa-bars w-6 text-center text-slate-500"></i> <span>Menu</span>
             </a>
 
-            <!-- Admin Area -->
             {% if user and user.role == 'admin' %}
             <div class="my-4 border-t border-slate-100"></div>
             <p class="menu-title text-red-400">Administration</p>
@@ -241,7 +201,6 @@
             </a>
             {% endif %}
 
-            <!-- Logout -->
             {% if session.get('user_id') %}
             <div class="my-4 border-t border-slate-100"></div>
             <a href="/logout" class="menu-item text-slate-500 hover:bg-red-50 hover:text-red-600">
@@ -273,63 +232,52 @@
         {% block content %}{% endblock %}
     </main>
 
-    <!-- ================= 5. FLOATING SUPPORT WIDGET (TG & WA ONLY) ================= -->
-    <div class="fixed bottom-[95px] right-4 md:bottom-[95px] md:right-8 z-40 flex flex-col gap-3 group">
-        
-        <!-- WhatsApp Action -->
-        <a href="https://wa.me/8801894577179" target="_blank" class="relative block transform transition hover:scale-110 hover:-rotate-6">
-            <div class="absolute right-16 top-2 bg-slate-900 text-white text-[10px] uppercase tracking-wider px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition duration-300 shadow-xl font-bold flex items-center gap-2 whitespace-nowrap">
-                <span>WhatsApp</span>
-            </div>
-            <div class="h-12 w-12 bg-[#25D366] rounded-full flex items-center justify-center text-white text-2xl shadow-[0_8px_20px_rgba(37,211,102,0.4)] border-2 border-white">
-                <i class="fa-brands fa-whatsapp"></i>
-            </div>
-        </a>
-
-        <!-- Telegram Action -->
+    <!-- ================= 5. TELEGRAM ONLY WIDGET ================= -->
+    <div class="fixed bottom-[95px] right-4 md:bottom-[95px] md:right-8 z-40 group">
         <a href="https://t.me/grow_earn" target="_blank" class="relative block transform transition hover:scale-110 hover:-rotate-6">
             <div class="absolute right-16 top-2 bg-slate-900 text-white text-[10px] uppercase tracking-wider px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition duration-300 shadow-xl font-bold flex items-center gap-2 whitespace-nowrap">
-                <span>Telegram</span>
+                <span>Telegram Support</span>
             </div>
             <div class="h-12 w-12 bg-[#2AABEE] rounded-full flex items-center justify-center text-white text-xl shadow-[0_8px_20px_rgba(42,171,238,0.4)] border-2 border-white">
                 <i class="fa-brands fa-telegram pr-0.5"></i>
             </div>
-            <!-- Online Indicator -->
             <div class="absolute bottom-0 right-0 h-3.5 w-3.5 bg-green-500 rounded-full border-2 border-white animate-pulse"></div>
         </a>
-
     </div>
 
-    <!-- ================= 6. BOTTOM NAVIGATION ================= -->
+    <!-- ================= 6. RED THEME BOTTOM NAVIGATION ================= -->
     {% if session.get('user_id') %}
-    <div class="bottom-navbar fixed bottom-0 left-0 w-full z-50" style="background: #ffffffd5;">
-        <div class="max-w-md mx-auto flex justify-between items-center h-[70px] px-6 relative">
+    <style>
+        .bottom-navbar {
+            background: #DC2626; /* Deep Red */
+            border-top-left-radius: 24px;
+            border-top-right-radius: 24px;
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        .tab-item { color: rgba(255,255,255,0.6); transition: all 0.3s ease; }
+        .tab-item.active { color: white; transform: translateY(-3px); }
+    </style>
+    <div class="bottom-navbar fixed bottom-0 left-0 w-full z-50">
+        <div class="max-w-md mx-auto flex justify-between items-center h-[70px] px-6">
             
-            <a href="/dashboard" class="flex flex-col items-center justify-center w-12 tab-item {{ 'active' if request.endpoint == 'dashboard' }}">
-                <i class="fa-solid fa-house text-xl mb-1" style="color: red;"></i>
-                <span class="text-[9px] font-bold">Home</span>
+            <a href="/dashboard" class="flex flex-col items-center justify-center w-14 tab-item {{ 'active' if request.endpoint == 'dashboard' }}">
+                <i class="fa-solid fa-house text-xl mb-1"></i>
+                <span class="text-[9px] font-bold uppercase tracking-widest">Home</span>
             </a>
 
-            <a href="/history" class="flex flex-col items-center justify-center w-12 tab-item {{ 'active' if request.endpoint == 'history' }}">
-                <i class="fa-solid fa-clock-rotate-left text-xl mb-1" style="color: red;"></i>
-                <span class="text-[9px] font-bold">History </span>
+            <a href="/history" class="flex flex-col items-center justify-center w-14 tab-item {{ 'active' if request.endpoint == 'history' }}">
+                <i class="fa-solid fa-chart-line text-xl mb-1"></i>
+                <span class="text-[9px] font-bold uppercase tracking-widest">Logs</span>
             </a>
 
-            <!-- CENTER BUTTON FIX -->
-            <div class="center-fab-wrapper" style="background-color: red; border-radius: 50%;">
-                <a href="/work" class="center-action-btn">
-                    <i class="fa-solid fa-bolt"></i>
-                </a>
-            </div>
-
-            <a href="/withdraw" class="flex flex-col items-center justify-center w-12 tab-item {{ 'active' if request.endpoint == 'withdraw' }}">
-                <i class="fa-solid fa-wallet text-xl mb-1" style="color: red;"></i>
-                <span class="text-[9px] font-bold">Cashout</span>
+            <a href="/withdraw" class="flex flex-col items-center justify-center w-14 tab-item {{ 'active' if request.endpoint == 'withdraw' }}">
+                <i class="fa-solid fa-wallet text-xl mb-1"></i>
+                <span class="text-[9px] font-bold uppercase tracking-widest">Wallet</span>
             </a>
 
-            <a href="/menu" class="flex flex-col items-center justify-center w-12 tab-item {{ 'active' if request.endpoint == 'account' or request.endpoint == 'menu' }}">
-                <i class="fa-solid fa-bars text-xl mb-1" style="color: red;"></i>
-                <span class="text-[9px] font-bold">Menu</span>
+            <a href="/account" class="flex flex-col items-center justify-center w-14 tab-item {{ 'active' if request.endpoint == 'account' or request.endpoint == 'menu' }}">
+                <i class="fa-solid fa-user text-xl mb-1"></i>
+                <span class="text-[9px] font-bold uppercase tracking-widest">Profile</span>
             </a>
 
         </div>
@@ -338,7 +286,7 @@
 
     <!-- ================= SCRIPTS ================= -->
     <script>
-        // App Install logic
+        // PWA App Install logic
         let deferredPrompt;
         window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; });
         function triggerInstall() {
