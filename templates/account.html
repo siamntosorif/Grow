@@ -2,302 +2,168 @@
 {% block content %}
 
 <style>
-    /* Premium Entry Animations */
-    .fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(15px); }
-    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-
-    /* Custom Modern List Items */
-    .menu-list-card {
-        background: #ffffff;
-        border-radius: 24px;
-        border: 1px solid #E2E8F0;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
-        overflow: hidden;
+    :root {
+        --primary-gradient: linear-gradient(135deg, #FF1F40 0%, #941125 100%);
+        --glass-bg: rgba(255, 255, 255, 0.8);
+        --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
     }
-    .menu-item-row {
+
+    .premium-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 28px;
+        box-shadow: var(--card-shadow);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .premium-card:active {
+        transform: scale(0.98);
+    }
+
+    .action-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .stat-badge {
+        background: rgba(255, 255, 255, 0.15);
+        padding: 4px 10px;
+        border-radius: 10px;
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 700;
+    }
+
+    .icon-box {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        padding: 16px 20px;
-        transition: all 0.2s ease;
+        justify-content: center;
+        margin-bottom: 12px;
+        font-size: 1.2rem;
     }
-    .menu-item-row:hover { background: #F8FAFC; padding-left: 24px; }
-    .menu-item-row:active { background: #FFF1F2; }
-    .menu-item-row:not(:last-child) { border-bottom: 1px solid #F1F5F9; }
 
-    /* Custom Search Bar */
-    .search-nav {
-        background: #F8FAFC;
-        border: 1px solid #E2E8F0;
-        transition: all 0.3s ease;
+    @keyframes slideUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
     }
-    .search-nav:focus-within {
-        background: #ffffff;
-        border-color: #E11D48; /* Red-600 */
-        box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.1);
-    }
+    .animate-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
 </style>
 
-<div class="max-w-2xl mx-auto space-y-6 fade-in-up pb-10 px-1 mt-2">
+<div class="max-w-md mx-auto px-4 pt-4 pb-20 space-y-6">
 
-    <!-- ==========================================
-         1. SEARCH NAV BAR 
-    ========================================== -->
-    <div class="search-nav rounded-[20px] p-3 flex items-center gap-3 relative">
-        <i class="fa-solid fa-search text-slate-400 pl-2"></i>
-        <input type="text" id="menuSearch" onkeyup="filterMenu()" placeholder="Search menu, settings, logs..." 
-               class="w-full bg-transparent border-none outline-none text-sm font-medium text-slate-800 placeholder-slate-400">
-    </div>
-
-    <!-- ==========================================
-         2. PROFILE CARD (Premium Red Theme)
-    ========================================== -->
-    <div class="bg-gradient-to-br from-[#881337] via-[#BE123C] to-[#E11D48] rounded-[32px] p-6 shadow-[0_10px_30px_rgba(225,29,72,0.2)] relative overflow-hidden group">
-        <!-- Decor Blur -->
-        <div class="absolute right-0 top-0 w-48 h-48 bg-white/10 rounded-bl-full blur-2xl pointer-events-none group-hover:scale-110 transition-transform duration-500"></div>
-        <div class="absolute left-0 bottom-0 w-32 h-32 bg-rose-400/20 rounded-tr-full blur-2xl pointer-events-none"></div>
+    <!-- 1. ELITE PROFILE CARD -->
+    <div class="premium-card bg-gradient-to-br from-slate-900 to-slate-800 p-6 relative overflow-hidden animate-up">
+        <div class="absolute -right-6 -top-6 w-32 h-32 bg-red-600/20 rounded-full blur-3xl"></div>
         
-        <div class="flex items-center gap-5 relative z-10">
-            <!-- User Avatar -->
-            <div class="relative flex-shrink-0">
-                <div class="h-16 w-16 bg-white text-red-600 rounded-[20px] flex items-center justify-center text-3xl font-black shadow-lg transform -rotate-3 group-hover:rotate-0 transition-transform">
+        <div class="flex items-center gap-4 relative z-10">
+            <div class="h-14 w-14 rounded-2xl bg-gradient-to-tr from-red-500 to-rose-400 p-[2px]">
+                <div class="w-full h-full bg-slate-900 rounded-[14px] flex items-center justify-center text-xl font-bold text-white">
                     {{ user.email[0] | upper }}
                 </div>
-                {% if user.is_active or user.current_level > 0 %}
-                <div class="absolute -bottom-1 -right-1 h-5 w-5 bg-emerald-400 border-2 border-white rounded-full flex items-center justify-center shadow-sm">
-                    <i class="fa-solid fa-check text-[8px] text-white"></i>
-                </div>
-                {% endif %}
             </div>
-            
-            <!-- User Info -->
-            <div class="flex-grow text-white">
-                <h2 class="text-xl font-black tracking-tight leading-none mb-1">{{ user.full_name or user.email.split('@')[0] | title }}</h2>
-                <p class="text-[11px] text-red-100 font-medium font-mono mb-2 opacity-90">{{ user.email }}</p>
-                
-                <!-- ID Badge -->
-                <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 px-3 py-1.5 rounded-xl text-[10px] font-bold shadow-sm cursor-copy hover:bg-white/20 transition backdrop-blur-sm" onclick="navigator.clipboard.writeText('{{ user.referral_code }}'); alert('ID Copied!');">
-                    UID: <span class="font-mono text-white">{{ user.referral_code }}</span> <i class="fa-regular fa-copy opacity-70"></i>
+            <div>
+                <h2 class="text-white font-bold text-lg leading-tight">{{ user.full_name or user.email.split('@')[0] | title }}</h2>
+                <div class="flex items-center gap-2 mt-1">
+                    <span class="stat-badge text-red-400 border border-red-500/30">Lvl {{ user.current_level or '1' }}</span>
+                    <span class="text-slate-400 text-[10px] font-mono tracking-tighter">{{ user.email }}</span>
                 </div>
             </div>
         </div>
+
+        <div class="mt-6 flex items-center justify-between bg-white/5 rounded-2xl p-3 border border-white/5">
+            <div>
+                <p class="text-[10px] text-slate-400 uppercase font-bold">Referral Code</p>
+                <p class="text-white font-mono font-bold">{{ user.referral_code }}</p>
+            </div>
+            <button onclick="copyText('{{ user.referral_code }}')" class="h-10 w-10 rounded-xl bg-red-600 text-white flex items-center justify-center active:scale-90 transition">
+                <i class="fa-regular fa-copy"></i>
+            </button>
+        </div>
     </div>
 
-    <!-- ==========================================
-         3. QUICK REFERRAL LINK (Redesigned)
-    ========================================== -->
-    <div class="bg-white rounded-[24px] p-5 shadow-sm border border-slate-100 flex items-center justify-between group hover:border-red-200 transition">
-        <div>
-            <h3 class="font-bold text-slate-800 text-sm mb-1 flex items-center gap-2"><i class="fa-solid fa-link text-red-500"></i> Share & Earn</h3>
-            <p class="text-[10px] text-slate-500 font-medium">Invite friends to join GrowEarn network.</p>
+    <!-- 2. QUICK ACTIONS (BENTO GRID) -->
+    <div class="space-y-3 animate-up" style="animation-delay: 0.1s">
+        <h3 class="text-xs font-black text-slate-400 uppercase tracking-[2px] ml-2">Wallet & Assets</h3>
+        <div class="action-grid">
+            <a href="/income" class="premium-card p-5 flex flex-col items-start">
+                <div class="icon-box bg-emerald-100 text-emerald-600"><i class="fa-solid fa-chart-line"></i></div>
+                <span class="font-bold text-slate-800 text-sm">Earnings</span>
+                <span class="text-[10px] text-slate-500">View Analytics</span>
+            </a>
+            <a href="/withdraw" class="premium-card p-5 flex flex-col items-start">
+                <div class="icon-box bg-rose-100 text-rose-600"><i class="fa-solid fa-wallet"></i></div>
+                <span class="font-bold text-slate-800 text-sm">Withdraw</span>
+                <span class="text-[10px] text-slate-500">Cash Out Now</span>
+            </a>
         </div>
-        <input type="hidden" id="hiddenRefLink" value="">
-        <button onclick="copyMyRef(this)" class="bg-slate-900 text-white px-5 py-2.5 rounded-[12px] text-xs font-black uppercase tracking-widest shadow-md hover:bg-red-600 transition flex items-center gap-2 flex-shrink-0 active:scale-95">
-            Copy <i class="fa-regular fa-copy"></i>
-        </button>
     </div>
 
-    <!-- MAIN MENU WRAPPER FOR SEARCH FILTERING -->
-    <div id="menuContainer" class="space-y-6">
-
-        <!-- ==========================================
-             FINANCIALS & RECORDS
-        ========================================== -->
-        <div class="menu-category">
-            <h3 class="font-bold text-slate-800 text-[10px] uppercase tracking-widest mb-2 ml-4 flex items-center gap-1.5">
-                <i class="fa-solid fa-wallet text-emerald-500"></i> Financials
-            </h3>
-            <div class="menu-list-card">
-                <a href="/income" class="menu-item-row group">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-sm shadow-sm border border-emerald-100 group-hover:bg-emerald-600 group-hover:text-white transition"><i class="fa-solid fa-chart-pie"></i></div>
-                        <span class="font-bold text-slate-700 text-sm search-text">Income Analytics</span>
+    <!-- 3. NETWORK SECTION -->
+    <div class="space-y-3 animate-up" style="animation-delay: 0.2s">
+        <h3 class="text-xs font-black text-slate-400 uppercase tracking-[2px] ml-2">Growth Network</h3>
+        <div class="premium-card overflow-hidden">
+            <a href="/referrals" class="flex items-center justify-between p-4 border-bottom border-slate-50 hover:bg-slate-50 transition">
+                <div class="flex items-center gap-4">
+                    <div class="h-10 w-10 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center"><i class="fa-solid fa-users-viewfinder"></i></div>
+                    <div>
+                        <p class="font-bold text-slate-800 text-sm">My Network</p>
+                        <p class="text-[10px] text-slate-500">Manage your referrals</p>
                     </div>
-                </a>
-                <a href="/withdraw" class="menu-item-row group">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-rose-50 text-rose-500 rounded-xl flex items-center justify-center text-sm shadow-sm border border-rose-100 group-hover:bg-rose-500 group-hover:text-white transition"><i class="fa-solid fa-money-bill-transfer"></i></div>
-                        <span class="font-bold text-slate-700 text-sm search-text">Withdraw Funds</span>
+                </div>
+                <i class="fa-solid fa-chevron-right text-slate-300 text-xs"></i>
+            </a>
+            <a href="/vip" class="flex items-center justify-between p-4 border-t border-slate-100 hover:bg-slate-50 transition">
+                <div class="flex items-center gap-4">
+                    <div class="h-10 w-10 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center"><i class="fa-solid fa-crown"></i></div>
+                    <div>
+                        <p class="font-bold text-slate-800 text-sm">VIP Membership</p>
+                        <p class="text-[10px] text-slate-500">Unlock premium perks</p>
                     </div>
-                </a>
-                <a href="/history" class="menu-item-row group">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-slate-100 text-slate-600 rounded-xl flex items-center justify-center text-sm shadow-sm border border-slate-200 group-hover:bg-slate-700 group-hover:text-white transition"><i class="fa-solid fa-clock-rotate-left"></i></div>
-                        <span class="font-bold text-slate-700 text-sm search-text">Transaction Logs</span>
-                    </div>
-                </a>
-                <a href="/adm" class="menu-item-row group">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-sm shadow-sm border border-blue-100 group-hover:bg-blue-600 group-hover:text-white transition"><i class="fa-solid fa-building-columns"></i></div>
-                        <div>
-                            <span class="font-bold text-slate-700 text-sm block search-text">Payment Setup</span>
-                            <span class="text-[9px] text-slate-400 font-bold block uppercase">{{ user.wallet_method or 'Not Set' }} Linked</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
+                </div>
+                <span class="bg-amber-100 text-amber-700 text-[9px] px-2 py-0.5 rounded-md font-bold">UPGRADE</span>
+            </a>
         </div>
-
-        <!-- ==========================================
-             NETWORK & BUSINESS
-        ========================================== -->
-        <div class="menu-category">
-            <h3 class="font-bold text-slate-800 text-[10px] uppercase tracking-widest mb-2 ml-4 mt-6 flex items-center gap-1.5">
-                <i class="fa-solid fa-network-wired text-purple-500"></i> Network & Business
-            </h3>
-            <div class="menu-list-card">
-                <a href="/referrals" class="menu-item-row group">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center text-sm shadow-sm border border-purple-100 group-hover:bg-purple-600 group-hover:text-white transition"><i class="fa-solid fa-users"></i></div>
-                        <span class="font-bold text-slate-700 text-sm search-text">My Team / Referrals</span>
-                    </div>
-                    <i class="fa-solid fa-chevron-right text-slate-300 text-[10px] group-hover:text-purple-500 transition-transform group-hover:translate-x-1"></i>
-                </a>
-
-                <a href="/vip" class="menu-item-row group">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-amber-50 text-amber-500 rounded-xl flex items-center justify-center text-sm shadow-sm border border-amber-100 group-hover:bg-amber-500 group-hover:text-white transition"><i class="fa-solid fa-crown"></i></div>
-                        <span class="font-bold text-slate-700 text-sm search-text">Elite VIP Plans</span>
-                    </div>
-                    <i class="fa-solid fa-chevron-right text-slate-300 text-[10px] group-hover:text-amber-500 transition-transform group-hover:translate-x-1"></i>
-                </a>
-
-                <a href="/givework" class="menu-item-row group">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-sky-50 text-sky-500 rounded-xl flex items-center justify-center text-sm shadow-sm border border-sky-100 group-hover:bg-sky-500 group-hover:text-white transition"><i class="fa-solid fa-briefcase"></i></div>
-                        <span class="font-bold text-slate-700 text-sm search-text">Promote Business (B2B)</span>
-                    </div>
-                    <span class="bg-red-600 text-white text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded shadow-sm ml-auto mr-2">Hot</span>
-                </a>
-
-                <a href="/apply-leader" class="menu-item-row group">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center text-sm shadow-sm border border-indigo-100 group-hover:bg-indigo-600 group-hover:text-white transition"><i class="fa-solid fa-star"></i></div>
-                        <span class="font-bold text-slate-700 text-sm search-text">Become an Ambassador</span>
-                    </div>
-                    <i class="fa-solid fa-chevron-right text-slate-300 text-[10px] group-hover:text-indigo-500 transition-transform group-hover:translate-x-1"></i>
-                </a>
-                
-                <!-- If User is already a Leader -->
-                {% if user.is_leader %}
-                <a href="/leader-panel" class="menu-item-row group bg-red-50/50">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-red-600 text-white rounded-xl flex items-center justify-center text-sm shadow-md"><i class="fa-solid fa-chart-line"></i></div>
-                        <span class="font-bold text-red-900 text-sm search-text">Leader Dashboard</span>
-                    </div>
-                    <span class="bg-red-600 text-white text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded shadow-sm ml-auto mr-2 animate-pulse">Exclusive</span>
-                </a>
-                {% endif %}
-            </div>
-        </div>
-
-        <!-- ==========================================
-             SYSTEM & ADMIN
-        ========================================== -->
-        <div class="menu-category">
-            <h3 class="font-bold text-slate-800 text-[10px] uppercase tracking-widest mb-2 ml-4 mt-6 flex items-center gap-1.5">
-                <i class="fa-solid fa-gear text-slate-400"></i> System
-            </h3>
-            <div class="menu-list-card">
-                
-                <a href="/notice" class="menu-item-row group">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-sm shadow-sm border border-blue-100 group-hover:bg-blue-600 group-hover:text-white transition"><i class="fa-solid fa-bullhorn"></i></div>
-                        <span class="font-bold text-slate-700 text-sm search-text">Notice Board</span>
-                    </div>
-                    <i class="fa-solid fa-chevron-right text-slate-300 text-[10px] group-hover:text-blue-500 transition-transform group-hover:translate-x-1"></i>
-                </a>
-
-                <a href="/tutorial" class="menu-item-row group">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-rose-50 text-rose-500 rounded-xl flex items-center justify-center text-sm shadow-sm border border-rose-100 group-hover:bg-rose-500 group-hover:text-white transition"><i class="fa-brands fa-youtube"></i></div>
-                        <span class="font-bold text-slate-700 text-sm search-text">Video Guide</span>
-                    </div>
-                    <i class="fa-solid fa-chevron-right text-slate-300 text-[10px] group-hover:text-rose-500 transition-transform group-hover:translate-x-1"></i>
-                </a>
-
-                <!-- Admin Panel (Conditional) -->
-                {% if user.role == 'admin' %}
-                <div class="border-t border-slate-100"></div>
-                <a href="/admin" class="menu-item-row group bg-slate-50 hover:bg-slate-100">
-                    <div class="flex items-center gap-4">
-                        <div class="h-9 w-9 bg-slate-900 text-white rounded-xl flex items-center justify-center text-sm shadow-md"><i class="fa-solid fa-shield-halved"></i></div>
-                        <span class="font-bold text-slate-900 text-sm search-text">Admin Control Panel</span>
-                    </div>
-                    <span class="bg-red-500 text-white text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded shadow-sm animate-pulse ml-auto">Restricted</span>
-                </a>
-                {% endif %}
-
-            </div>
-        </div>
-
     </div>
 
-    <!-- ==========================================
-         5. LOGOUT BUTTON
-    ========================================== -->
-    <a href="/logout" class="bg-white border border-slate-200 p-4 rounded-[20px] shadow-sm flex items-center justify-center gap-3 hover:bg-red-50 hover:border-red-200 hover:text-red-600 transition group mt-8 active:scale-95 text-slate-500">
-        <i class="fa-solid fa-power-off text-lg group-hover:scale-110 transition-transform"></i>
-        <span class="font-black uppercase tracking-widest text-sm">Secure Logout</span>
-    </a>
+    <!-- 4. SYSTEM & GUIDES -->
+    <div class="grid grid-cols-2 gap-3 animate-up" style="animation-delay: 0.3s">
+        <a href="/notice" class="premium-card p-4 flex items-center gap-3">
+            <div class="h-8 w-8 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center text-xs"><i class="fa-solid fa-bell"></i></div>
+            <span class="font-bold text-slate-700 text-xs">News</span>
+        </a>
+        <a href="/tutorial" class="premium-card p-4 flex items-center gap-3">
+            <div class="h-8 w-8 rounded-lg bg-red-100 text-red-600 flex items-center justify-center text-xs"><i class="fa-solid fa-play"></i></div>
+            <span class="font-bold text-slate-700 text-xs">Guides</span>
+        </a>
+    </div>
 
-    <!-- App Version Footer -->
-    <div class="text-center pt-2 opacity-50 pb-2">
-        <div class="inline-flex items-center gap-1.5 text-slate-400">
-            <div class="h-4 w-4 bg-red-600 rounded-md text-white flex items-center justify-center text-[8px]"><i class="fa-solid fa-bolt"></i></div>
-            <span class="text-[10px] font-black uppercase tracking-widest text-slate-500">GrowEarn Network</span>
-        </div>
-        <p class="text-[9px] font-mono mt-1 text-slate-400">Version 3.5.0 (Stable)</p>
+    <!-- 5. LOGOUT -->
+    <div class="pt-4 animate-up" style="animation-delay: 0.4s">
+        <a href="/logout" class="w-full py-4 rounded-3xl border-2 border-dashed border-slate-200 flex items-center justify-center gap-2 text-slate-400 hover:text-red-500 hover:border-red-200 transition group">
+            <i class="fa-solid fa-power-off group-hover:rotate-90 transition-transform"></i>
+            <span class="font-bold text-sm uppercase tracking-widest">Sign Out Securely</span>
+        </a>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="text-center space-y-1 opacity-40">
+        <p class="text-[9px] font-black uppercase tracking-[3px]">GrowEarn Elite</p>
+        <p class="text-[8px] font-mono">Build v3.5 • Encrypted Session</p>
     </div>
 
 </div>
 
-<!-- JavaScript for Search & Copy -->
 <script>
-    // Referral Link Generator
-    document.addEventListener('DOMContentLoaded', () => {
-        const domain = window.location.origin;
-        const uniqueCode = "{{ user.referral_code if user.referral_code else 'GenerateID' }}";
-        document.getElementById("hiddenRefLink").value = `${domain}/register?ref=${uniqueCode}`;
-    });
-
-    // Copy Link Logic
-    function copyMyRef(btn) {
-        const copyText = document.getElementById("hiddenRefLink").value;
-        navigator.clipboard.writeText(copyText).then(() => {
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
-            btn.classList.replace("bg-slate-900", "bg-emerald-500");
-            setTimeout(() => {
-                btn.innerHTML = originalHTML;
-                btn.classList.replace("bg-emerald-500", "bg-slate-900");
-            }, 2000);
-        });
-    }
-
-    // Modern Real-time Search Filter Logic
-    function filterMenu() {
-        const input = document.getElementById('menuSearch').value.toLowerCase();
-        const items = document.querySelectorAll('.menu-item-row');
-        
-        items.forEach(item => {
-            const text = item.querySelector('.search-text').innerText.toLowerCase();
-            if (text.includes(input)) {
-                item.style.display = "flex";
-            } else {
-                item.style.display = "none";
-            }
-        });
-        
-        // Hide empty categories
-        document.querySelectorAll('.menu-category').forEach(cat => {
-            const visibleItems = cat.querySelectorAll('.menu-item-row[style="display: flex;"], .menu-item-row:not([style*="display: none"])');
-            if (visibleItems.length === 0) {
-                cat.style.display = "none";
-            } else {
-                cat.style.display = "block";
-            }
-        });
+    function copyText(text) {
+        navigator.clipboard.writeText(text);
+        // Simple elegant toast can be added here
+        alert("Copied to clipboard!");
     }
 </script>
 
