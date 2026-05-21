@@ -2,229 +2,401 @@
 {% block content %}
 
 <style>
-    /* smooth Entry Animation */
+    /* Smooth Entry Animation */
     .fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(15px); }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-    /* Red Glossy Header */
-    .red-header-bg {
-        background: linear-gradient(180deg, #E11D48 0%, #BE123C 100%);
-        border-radius: 0 0 40px 40px;
+    /* Shiny Red Avatar */
+    .shiny-red-avatar {
+        background: linear-gradient(135deg, #ff4d4d 0%, #be123c 100%);
+        box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4), inset 0 -2px 6px rgba(0,0,0,0.2), inset 0 2px 6px rgba(255,255,255,0.4);
+        position: relative;
+    }
+    
+    /* Binance Style Dark Card */
+    .binance-card {
+        background: linear-gradient(145deg, #181A20 0%, #0B0E11 100%);
+        border: 1px solid #2B3139;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+    .binance-card::after {
+        content: ''; position: absolute; right: -20px; top: -20px;
+        width: 150px; height: 150px;
+        background: radial-gradient(circle, rgba(225,29,72,0.1) 0%, transparent 70%);
+        border-radius: 50%; pointer-events: none;
     }
 
-    /* Glassmorphism Profile Card */
-    .profile-glass-card {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+    /* Modern Category Grid Cards */
+    .nav-card {
+        background: #ffffff; border: 1px solid #E2E8F0; border-radius: 20px;
+        padding: 16px 10px; display: flex; flex-direction: column; align-items: center; text-align: center;
+        gap: 10px; transition: all 0.3s ease; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.01);
     }
-
-    /* Crimson Balance Card (Image Style) */
-    .crimson-balance-card {
-        background: white;
-        border-radius: 28px;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
-        border: 1px solid #F1F5F9;
-    }
-
-    /* UI Navigation Cards */
-    .ui-nav-card {
-        background: #ffffff;
-        border-radius: 22px;
-        padding: 18px 10px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 8px;
-        transition: all 0.3s ease;
-        border: 1px solid #F1F5F9;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-    }
-    .ui-nav-card:active { transform: scale(0.95); background: #FFF1F2; }
-
-    /* Red Action Buttons */
-    .btn-red-main {
-        background: linear-gradient(135deg, #E11D48 0%, #9F1239 100%);
-        box-shadow: 0 8px 20px rgba(225, 29, 72, 0.3);
-    }
-
-    .btn-red-outline {
-        border: 1.5px solid #E11D48;
-        color: #E11D48;
-    }
-
-    /* Marquee Notice Styling */
-    .notice-box {
-        background: #FFF1F2;
-        border-left: 4px solid #E11D48;
-    }
+    .nav-card:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(225, 29, 72, 0.08); border-color: #FECDD3; }
+    .nav-card:active { transform: scale(0.96); }
+    
+    /* Live Payout Item Animation */
+    .payout-item { animation: slideDown 0.4s ease-out forwards; }
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 
-<!-- Top Header Section (Red Background) -->
-<div class="red-header-bg pt-8 pb-20 px-5 -mx-4 mb-[-60px] relative">
-    <div class="flex items-center justify-between">
-        <div class="flex items-center gap-4">
-            <div class="h-14 w-14 rounded-full border-2 border-white/50 p-0.5 bg-white/20 backdrop-blur-md flex items-center justify-center text-white text-2xl font-black">
+<div class="space-y-5 fade-in-up max-w-2xl mx-auto px-1 pb-8 relative z-10">
+
+    <!-- ==========================================
+         1. PROFILE HEADER
+    ========================================== -->
+    <div class="bg-white p-5 rounded-[24px] shadow-sm border border-slate-100 relative overflow-hidden flex items-center justify-between">
+        
+        <!-- Abstract Decor -->
+        <div class="absolute right-0 top-0 w-24 h-24 bg-rose-50 rounded-bl-full opacity-60 pointer-events-none"></div>
+        
+        <div class="flex items-center gap-4 relative z-10">
+            <div class="h-14 w-14 rounded-[16px] shiny-red-avatar flex items-center justify-center text-white text-2xl font-black flex-shrink-0 z-10">
                 {{ user.email[0] | upper }}
+                {% if user.is_active or user.current_level > 0 %}
+                <div class="absolute -bottom-1 -right-1 h-4 w-4 bg-emerald-500 border-2 border-white rounded-full"></div>
+                {% endif %}
             </div>
-            <div>
-                <p class="text-white/80 text-[11px] font-medium uppercase tracking-widest leading-none mb-1">Welcome Back, 👋</p>
-                <h2 class="text-white text-xl font-black leading-tight truncate max-w-[200px]">
+            
+            <div class="z-10">
+                <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-0.5">স্বাগতম</p>
+                <h2 class="text-xl font-black text-slate-800 leading-none truncate max-w-[180px] sm:max-w-[300px]">
                     {{ user.full_name or user.email.split('@')[0] | title }}
                 </h2>
-                <span class="bg-white/20 text-white text-[9px] px-2 py-0.5 rounded-full font-bold">Premium Member</span>
+                {% if user.current_level > 0 %}
+                    <span class="text-[9px] font-bold text-amber-500 mt-1.5 flex items-center gap-1"><i class="fa-solid fa-crown"></i> এলিট মেম্বার</span>
+                {% else %}
+                    <span class="text-[9px] font-bold text-green-600 mt-1.5 flex items-center gap-1"><i class="fa-solid fa-shield-check"></i> ভেরিফাইড ইউজার</span>
+                {% endif %}
             </div>
         </div>
-        <div class="flex gap-2">
-            <a href="/notifications" class="h-10 w-10 bg-white/10 rounded-full flex items-center justify-center text-white text-lg"><i class="fa-regular fa-bell"></i></a>
-            <a href="/account" class="h-10 w-10 bg-white/10 rounded-full flex items-center justify-center text-white text-lg"><i class="fa-solid fa-bars-staggered"></i></a>
-        </div>
+
+        <a href="/account" class="h-10 w-10 bg-slate-50 rounded-full flex items-center justify-center text-slate-500 hover:bg-rose-50 hover:text-rose-600 transition border border-slate-100 shadow-sm relative z-10">
+            <i class="fa-solid fa-gear"></i>
+        </a>
     </div>
-</div>
 
-<div class="space-y-6 fade-in-up max-w-2xl mx-auto px-4 pb-24 relative z-10">
-
-    <!-- ==========================================
-         1. BALANCE CARD (Image Style)
-    ========================================== -->
-    <div class="crimson-balance-card p-6">
-        <div class="flex justify-between items-start mb-4">
+    <!-- ⚠️ ACTIVATION ALERT -->
+    {% if settings.activation_required and not user.is_active %}
+    <div class="bg-red-50 border border-red-100 p-4 rounded-[20px] flex items-center justify-between shadow-sm">
+        <div class="flex items-center gap-3">
+            <div class="bg-white text-red-500 h-10 w-10 rounded-full flex items-center justify-center shadow-sm text-lg border border-red-100">
+                <i class="fa-solid fa-lock"></i>
+            </div>
             <div>
-                <p class="text-slate-400 text-xs font-bold uppercase tracking-wide">Current Balance</p>
-                <div class="flex items-center gap-2 mt-1">
-                    <span class="text-3xl font-black text-slate-800">৳</span>
-                    <h1 class="text-4xl font-black text-slate-800 tracking-tight" id="balanceText" data-amount="{{ user.balance }}">
-                        {{ user.balance }}
-                    </h1>
-                </div>
-                <p class="text-[10px] text-slate-400 font-bold mt-2">Available Points: <span class="text-rose-500">৳{{ user.vip_balance or 0 }} / today</span></p>
+                <h3 class="font-bold text-red-700 text-sm">একাউন্ট আনভেরিফাইড</h3>
+                <p class="text-[10px] text-red-500 font-medium">কাজ শুরু করতে একাউন্ট ভেরিফাই করুন</p>
             </div>
-            <button onclick="toggleBalance()" class="bg-slate-50 h-8 w-8 rounded-full flex items-center justify-center text-slate-400"><i id="eyeIcon" class="fa-regular fa-eye"></i></button>
         </div>
-
-        <div class="grid grid-cols-2 gap-3 mt-6">
-            <a href="/withdraw" class="btn-red-main text-white py-3.5 rounded-2xl text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2">
-                <i class="fa-solid fa-wallet"></i> Withdraw Funds
-            </a>
-            <a href="/income" class="btn-red-outline py-3.5 rounded-2xl text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2">
-                <i class="fa-solid fa-receipt"></i> Transaction
-            </a>
-        </div>
-    </div>
-
-    <!-- ==========================================
-         2. NOTICE BOARD (Image Style)
-    ========================================== -->
-    {% if settings.notice_text %}
-    <div class="notice-box p-4 rounded-2xl flex gap-3 items-start shadow-sm">
-        <div class="text-rose-500 mt-0.5 text-xl"><i class="fa-solid fa-bullhorn"></i></div>
-        <div>
-            <h4 class="text-[11px] font-black text-slate-800 uppercase mb-1">Notice Board</h4>
-            <marquee class="text-[11px] text-slate-600 font-medium leading-relaxed" scrollamount="3">
-                📢 NOTICE: {{ settings.notice_text }}
-            </marquee>
-        </div>
+        <a href="/activate" class="bg-red-600 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-md hover:bg-red-700 transition">
+            ভেরিফাই করুন
+        </a>
     </div>
     {% endif %}
 
     <!-- ==========================================
-         3. ACTION BUTTONS (Start Task Fire Style)
+         2. BINANCE STYLE BALANCE CARD
     ========================================== -->
-    <div class="space-y-3">
-        <a href="/tasks" class="btn-red-main w-full py-4 rounded-2xl text-white font-black text-sm uppercase tracking-[2px] flex items-center justify-center gap-2">
-            START TASK 🔥
-        </a>
+    <div class="binance-card rounded-[28px] p-6 text-white shadow-xl shadow-slate-900/10">
+        <!-- Top Row: Title & Eye Icon -->
+        <div class="flex justify-between items-center mb-2">
+            <p class="text-[11px] font-semibold text-[#848E9C] flex items-center gap-1.5 uppercase tracking-widest">
+                <i class="fa-solid fa-wallet"></i> মেইন ব্যালেন্স
+            </p>
+            <button onclick="toggleBalance()" class="text-[#848E9C] hover:text-white transition p-1">
+                <i id="eyeIcon" class="fa-regular fa-eye"></i>
+            </button>
+        </div>
 
-        <div class="grid grid-cols-2 gap-3">
-            <a href="/gmail-tasks" class="btn-red-main py-3 rounded-2xl text-white text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2">
-                <i class="fa-solid fa-play-circle"></i> Watch Ads
+        <!-- Balance Amount -->
+        <div class="mb-5 flex justify-between items-end border-b border-[#2B3139] pb-5">
+            <h1 class="text-4xl font-black font-mono tracking-tight flex items-center gap-2">
+                <span class="text-xl text-rose-500">৳</span>
+                <span id="balanceText" data-amount="{{ user.balance }}">{{ user.balance }}</span>
+            </h1>
+            
+            <!-- ELITE BALANCE -->
+            <div class="text-right">
+                <p class="text-[9px] text-[#848E9C] font-bold uppercase tracking-widest mb-1"><i class="fa-solid fa-crown text-amber-500 mr-0.5"></i> এলিট ব্যালেন্স</p>
+                <p class="text-lg font-black font-mono text-amber-400 leading-none">৳<span id="vipBalanceText" data-amount="{{ user.vip_balance or 0 }}">{{ user.vip_balance or 0 }}</span></p>
+            </div>
+        </div>
+
+        <!-- Action Buttons inside Card -->
+        <div class="grid grid-cols-2 gap-3 mt-2">
+            <a href="/withdraw" class="bg-[#FCD535] text-black py-3 rounded-xl text-xs font-black uppercase tracking-widest text-center hover:bg-[#F0B90B] transition flex items-center justify-center gap-2">
+                <i class="fa-solid fa-money-bill-transfer"></i> উইথড্র
             </a>
-            <a href="/spin" class="btn-red-main py-3 rounded-2xl text-white text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2">
-                <i class="fa-solid fa-dharmachakra"></i> Spin & Win
-            </a>
-            <a href="/work" class="btn-red-main py-3 rounded-2xl text-white text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2">
-                <i class="fa-solid fa-microchip"></i> Bonus Task
-            </a>
-            <a href="/refer" class="bg-white border-2 border-rose-100 py-3 rounded-2xl text-slate-800 text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 shadow-sm">
-                REFER & EARN 🎁 <span class="text-rose-500">৳2</span>
+            <a href="/income" class="bg-[#2B3139] text-white py-3 rounded-xl text-xs font-bold uppercase tracking-widest text-center hover:bg-[#323942] transition border border-[#474D57] flex items-center justify-center gap-2">
+                <i class="fa-solid fa-chart-pie text-rose-500"></i> ইনকাম ডিটেইলস
             </a>
         </div>
     </div>
 
     <!-- ==========================================
-         4. APP INFO (Site Age & Stats)
+         3. NEW SLICK NOTICE TICKER 
+    ========================================== -->
+    {% if settings.notice_text %}
+    <div class="bg-white border border-rose-100 p-1.5 rounded-[16px] flex items-center shadow-sm relative overflow-hidden group">
+        <div class="bg-rose-500 text-white px-3 py-2 rounded-[12px] text-[10px] font-black flex-shrink-0 flex items-center gap-1.5 shadow-sm uppercase tracking-widest z-10">
+            <div class="h-1.5 w-1.5 bg-white rounded-full animate-ping"></div> আপডেট
+        </div>
+        <marquee class="flex-grow text-xs text-slate-700 font-medium mx-3" scrollamount="4">
+            {{ settings.notice_text }}
+        </marquee>
+        <a href="/notice" class="h-8 w-8 bg-slate-50 rounded-[10px] flex items-center justify-center text-slate-400 group-hover:text-rose-600 group-hover:bg-rose-50 border border-slate-100 flex-shrink-0 transition z-10">
+            <i class="fa-solid fa-arrow-right text-[10px]"></i>
+        </a>
+    </div>
+    {% endif %}
+
+    <!-- ==========================================
+         4. WORK STATION (Tasks, Gmail, Work)
     ========================================== -->
     <div class="pt-2">
-        <h3 class="text-slate-800 font-black text-xs uppercase tracking-widest mb-4">App Information</h3>
-        <div class="grid grid-cols-2 gap-4">
-            <div class="bg-white p-4 rounded-[22px] border border-slate-100 shadow-sm flex items-center gap-3">
-                <div class="h-10 w-10 bg-rose-50 text-rose-500 rounded-xl flex items-center justify-center text-lg"><i class="fa-regular fa-calendar-check"></i></div>
-                <div>
-                    <p class="text-[9px] text-slate-400 font-bold uppercase leading-none mb-1">Site Age:</p>
-                    <p class="text-xs font-black text-slate-800" id="siteAgeText">Loading...</p>
+        <h3 class="font-bold text-slate-800 text-xs uppercase tracking-widest mb-3 px-1 flex items-center gap-1.5">
+            <i class="fa-solid fa-bolt text-rose-500"></i> কাজের এরিয়া
+        </h3>
+        
+        <div class="grid grid-cols-3 gap-3">
+            <a href="/tasks" class="nav-card">
+                <div class="h-12 w-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center text-xl"><i class="fa-solid fa-list-check"></i></div>
+                <span class="text-[11px] font-bold text-slate-700">মাইক্রো টাস্ক</span>
+            </a>
+            
+            <a href="/gmail-tasks" class="nav-card relative overflow-hidden">
+                <span class="absolute top-0 right-0 bg-red-500 h-2 w-2 rounded-bl-lg"></span>
+                <div class="h-12 w-12 bg-red-50 text-red-500 rounded-xl flex items-center justify-center text-xl"><i class="fa-brands fa-google"></i></div>
+                <span class="text-[11px] font-bold text-slate-700">জিমেইল টাস্ক</span>
+            </a>
+            
+            <a href="/work" class="nav-card">
+                <div class="h-12 w-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-xl"><i class="fa-solid fa-briefcase"></i></div>
+                <span class="text-[11px] font-bold text-slate-700">অন্যান্য কাজ</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         5. ESSENTIAL NAVIGATIONS (NEW)
+    ========================================== -->
+    <div class="pt-2">
+        <h3 class="font-bold text-slate-800 text-xs uppercase tracking-widest mb-3 px-1 mt-2 flex items-center gap-1.5">
+            <i class="fa-solid fa-layer-group text-slate-400"></i> প্রয়োজনীয় লিংকস
+        </h3>
+        
+        <div class="grid grid-cols-4 gap-3">
+            <a href="https://t.me/growearnch" target="_blank" class="nav-card !p-3 group hover:border-sky-300">
+                <div class="h-10 w-10 bg-sky-50 text-sky-500 rounded-xl flex items-center justify-center text-lg group-hover:bg-sky-500 group-hover:text-white transition-colors"><i class="fa-brands fa-telegram"></i></div>
+                <span class="text-[9px] font-bold text-slate-700">টেলিগ্মরা চ্যানেল</span>
+            </a>
+            <a href="/notice" class="nav-card !p-3 group hover:border-blue-300">
+                <div class="h-10 w-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-lg group-hover:bg-blue-600 group-hover:text-white transition-colors"><i class="fa-solid fa-bullhorn"></i></div>
+                <span class="text-[9px] font-bold text-slate-700">নোটিশ</span>
+            </a>
+            <a href="/hire-us" class="nav-card !p-3 group hover:border-pink-300">
+                <div class="h-10 w-10 bg-pink-50 text-pink-500 rounded-xl flex items-center justify-center text-lg group-hover:bg-pink-500 group-hover:text-white transition-colors"><i class="fa-solid fa-receipt"></i></div>
+                <span class="text-[9px] font-bold text-slate-700">কাজ দিন</span>
+            </a>
+            <a href="/tutorial" class="nav-card !p-3 group hover:border-rose-300">
+                <div class="h-10 w-10 bg-rose-50 text-rose-500 rounded-xl flex items-center justify-center text-lg group-hover:bg-rose-500 group-hover:text-white transition-colors"><i class="fa-brands fa-youtube"></i></div>
+                <span class="text-[9px] font-bold text-slate-700">টিউটোরিয়াল</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         6. VIP & PREMIUM ZONE
+    ========================================== -->
+    <div>
+        <div class="flex items-center justify-between px-2 mb-3 mt-4">
+            <h3 class="font-bold text-slate-800 text-xs uppercase tracking-widest flex items-center gap-1.5">
+                <i class="fa-solid fa-crown text-amber-500"></i> এলিট নেটওয়ার্ক
+            </h3>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+            <a href="/vip" class="bg-gradient-to-br from-slate-900 to-slate-800 p-4 rounded-[20px] shadow-sm flex items-center gap-3 relative overflow-hidden group border border-slate-700 hover:shadow-lg transition">
+                <i class="fa-solid fa-crown absolute -right-2 -bottom-2 text-5xl text-amber-500/10 group-hover:scale-110 transition"></i>
+                <div class="h-10 w-10 bg-amber-500/20 text-amber-400 rounded-xl flex items-center justify-center text-lg shadow-sm border border-amber-500/30"><i class="fa-solid fa-gem"></i></div>
+                <div class="relative z-10">
+                    <h4 class="font-bold text-white text-xs">এলিট মেম্বারশিপ</h4>
+                    <p class="text-[9px] text-slate-400 mt-0.5">অটো ডেইলি প্রফিট</p>
                 </div>
-            </div>
-            <div class="bg-white p-4 rounded-[22px] border border-slate-100 shadow-sm flex items-center gap-3">
-                <div class="h-10 w-10 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center text-lg"><i class="fa-solid fa-users"></i></div>
+            </a>
+            <a href="/premium-tasks" class="bg-white p-4 rounded-[20px] shadow-sm border border-slate-100 flex items-center gap-3 hover:border-rose-200 transition">
+                <div class="h-10 w-10 bg-rose-50 text-rose-500 rounded-xl flex items-center justify-center text-lg border border-rose-100"><i class="fa-solid fa-lock"></i></div>
                 <div>
-                    <p class="text-[9px] text-slate-400 font-bold uppercase leading-none mb-1">Total Users:</p>
-                    <p class="text-xs font-black text-slate-800">50,000+</p>
+                    <h4 class="font-bold text-slate-800 text-xs">প্রিমিয়াম ওয়ার্ক</h4>
+                    <p class="text-[9px] text-slate-500 mt-0.5"><i class="fa-solid fa-star text-amber-400"></i> হাই পেইং কাজ</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         7. LEADERSHIP CTA BANNER
+    ========================================== -->
+    <a href="/apply-leader" class="block bg-gradient-to-r from-rose-500 to-red-600 p-5 rounded-[24px] shadow-lg shadow-red-500/20 relative overflow-hidden group mt-6 hover:shadow-xl transition-shadow border border-red-500">
+        <div class="absolute right-0 top-0 w-32 h-32 bg-white opacity-10 rounded-bl-full pointer-events-none group-hover:scale-110 transition-transform duration-700"></div>
+        <div class="flex items-center justify-between relative z-10">
+            <div>
+                <span class="bg-white/20 text-white px-2.5 py-1 rounded text-[8px] font-black uppercase tracking-widest shadow-sm backdrop-blur-sm border border-white/20 inline-flex items-center gap-1 mb-2">
+                    <i class="fa-solid fa-star text-amber-300"></i> ক্যারিয়ার সুযোগ
+                </span>
+                <h3 class="font-black text-white text-lg leading-tight mt-1">আমাদের ব্র্যান্ড অ্যাম্বাসেডর হোন!</h3>
+                <p class="text-[10px] text-red-100 mt-1.5 font-medium leading-relaxed">টিম তৈরি করে প্রতি 14 দিনে <b>৳৮০০০ স্যালারি</b> বুঝে নিন। সাথে থাকছে কমিশন!</p>
+            </div>
+            <div class="h-10 w-10 bg-white text-red-600 rounded-full flex items-center justify-center shadow-lg flex-shrink-0 group-hover:scale-110 transition">
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+        </div>
+    </a>
+
+    <!-- ==========================================
+         8. REALISTIC LIVE PAYOUTS
+    ========================================== -->
+    <div class="bg-white p-5 rounded-[24px] shadow-sm border border-slate-100 mt-6 h-[250px] flex flex-col relative overflow-hidden">
+        <div class="flex justify-between items-center mb-4 border-b border-slate-50 pb-3 relative z-10">
+            <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+                <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span></span>
+                লাইভ পেমেন্ট
+            </h3>
+            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Real-time</span>
+        </div>
+        
+        <div class="flex-grow overflow-hidden relative z-10">
+            <div class="absolute top-0 left-0 w-full h-4 bg-gradient-to-b from-white to-transparent z-10"></div>
+            <div class="absolute bottom-0 left-0 w-full h-4 bg-gradient-to-t from-white to-transparent z-10"></div>
+            
+            <div id="payoutContainer" class="absolute top-0 left-0 w-full flex flex-col gap-2">
+                <div class="text-center py-8 text-slate-400 text-xs" id="payoutLoader">
+                    <i class="fa-solid fa-circle-notch fa-spin text-xl mb-2 text-rose-500"></i><br>ডাটা ফেচ করা হচ্ছে...
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- ==========================================
+         9. UNIQUE SITE AGE TERMINAL (In Bengali)
+    ========================================== -->
+    <div class="bg-slate-900 rounded-[20px] p-4 flex items-center justify-between shadow-lg mt-6 mb-2 border border-slate-800">
+        <div class="flex items-center gap-3">
+            <div class="h-8 w-8 bg-emerald-500/20 text-emerald-400 rounded-lg flex items-center justify-center text-sm shadow-inner border border-emerald-500/30">
+                <i class="fa-solid fa-server"></i>
+            </div>
+            <div>
+                <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-tight">ওয়েবসাইটের বয়স</p>
+                <p class="text-xs font-bold text-emerald-400">100% Trusted</p>
+            </div>
+        </div>
+        <div class="flex gap-1.5" id="countdown"></div>
+    </div>
+
 </div>
 
-<!-- BOTTOM NAVIGATION -->
-<div class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 px-6 py-3 flex justify-between items-center z-[100] shadow-[0_-5px_20px_rgba(0,0,0,0.05)] rounded-t-[30px]">
-    <a href="/home" class="flex flex-col items-center gap-1 text-rose-500">
-        <i class="fa-solid fa-house text-lg"></i>
-        <span class="text-[9px] font-black uppercase">Home</span>
-    </a>
-    <a href="/leaderboard" class="flex flex-col items-center gap-1 text-slate-400">
-        <i class="fa-solid fa-trophy text-lg"></i>
-        <span class="text-[9px] font-black uppercase">Board</span>
-    </a>
-    <a href="/withdraw" class="flex flex-col items-center gap-1 text-slate-400">
-        <i class="fa-solid fa-wallet text-lg"></i>
-        <span class="text-[9px] font-black uppercase">Wallet</span>
-    </a>
-    <a href="/account" class="flex flex-col items-center gap-1 text-slate-400">
-        <i class="fa-solid fa-user text-lg"></i>
-        <span class="text-[9px] font-black uppercase">Profile</span>
-    </a>
-</div>
-
+<!-- SCRIPTS -->
 <script>
-    // Balance Visibility Toggle
+    // 1. Binance Style Balance Toggle
     function toggleBalance() {
         const balElement = document.getElementById("balanceText");
+        const vipElement = document.getElementById("vipBalanceText");
         const icon = document.getElementById("eyeIcon");
-        const realAmount = balElement.getAttribute("data-amount");
         
         if (icon.classList.contains("fa-eye")) {
-            balElement.innerText = "••••••";
+            balElement.innerText = "******";
+            vipElement.innerText = "****";
             icon.classList.replace("fa-eye", "fa-eye-slash");
         } else {
-            balElement.innerText = realAmount;
+            balElement.innerText = balElement.getAttribute("data-amount");
+            vipElement.innerText = vipElement.getAttribute("data-amount");
             icon.classList.replace("fa-eye-slash", "fa-eye");
         }
     }
 
-    // Site Age Calculation
-    function updateSiteAge() {
-        const startDate = new Date("2025-12-19T00:00:00").getTime(); 
-        const now = new Date().getTime();
-        const diff = now - startDate;
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const years = Math.floor(days / 365);
-        const remainingDays = days % 365;
-        
-        document.getElementById("siteAgeText").innerText = `${years} Years ${remainingDays} Days`;
-    }
-    updateSiteAge();
+    // 2. Realistic Live Payouts
+    (function() {
+        const container = document.getElementById('payoutContainer');
+        const methods =['bKash', 'Nagad', 'Rocket'];
+        const prefixes =['017', '019', '018', '016', '013', '015', '014'];
+        let payoutCount = 0;
+
+        function generateRealisticAmount() {
+            const min = 300;
+            const max = 2000;
+            return Math.floor(Math.random() * ((max - min) / 5 + 1)) * 5 + min;
+        }
+
+        function addPayout() {
+            if(!container) return;
+            if(payoutCount === 0) {
+                const loader = document.getElementById('payoutLoader');
+                if(loader) loader.remove();
+            }
+
+            const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+            const lastFour = Math.floor(1000 + Math.random() * 9000).toString().slice(-4);
+            const number = `${prefix}****${lastFour}`;
+            const amount = generateRealisticAmount();
+            const method = methods[Math.floor(Math.random() * methods.length)];
+            
+            let iconClass = 'bg-pink-50 text-pink-600';
+            if(method === 'Nagad') iconClass = 'bg-orange-50 text-orange-600';
+            if(method === 'Rocket') iconClass = 'bg-purple-50 text-purple-600';
+
+            const div = document.createElement('div');
+            div.className = "flex items-center justify-between p-3 rounded-2xl bg-slate-50 border border-slate-100 payout-item";
+            
+            div.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <div class="h-9 w-9 ${iconClass} border border-white rounded-xl flex items-center justify-center text-xs shadow-sm">
+                        <i class="fa-solid fa-wallet"></i>
+                    </div>
+                    <div>
+                        <p class="text-[11px] text-slate-800 font-bold font-mono tracking-wider">${number}</p>
+                        <p class="text-[9px] text-slate-400 mt-0.5 font-medium">via ${method}</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <span class="text-[11px] font-black text-emerald-600 font-mono">-৳${amount}</span>
+                    <p class="text-[8px] text-emerald-500 font-bold uppercase tracking-widest mt-0.5"><i class="fa-solid fa-check"></i> Sent</p>
+                </div>
+            `;
+
+            container.insertBefore(div, container.firstChild);
+            payoutCount++;
+
+            if (container.children.length > 4) {
+                container.removeChild(container.lastElementChild);
+            }
+
+            let nextInterval = Math.floor(Math.random() * (12000 - 4000) + 4000); 
+            setTimeout(addPayout, nextInterval);
+        }
+        setTimeout(addPayout, 1000);
+
+        // 3. Unique Site Age Terminal (Bengali Output)
+        function updateSiteAge() {
+            const startDate = new Date("2025-12-19T00:00:00").getTime(); 
+            const now = new Date().getTime();
+            const diff = now - startDate;
+
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+                document.getElementById("countdown").innerHTML = `
+                    <span class="text-xs font-black text-white font-mono bg-slate-800 px-2 py-1 rounded shadow-inner">${days}দিন</span>
+                    <span class="text-xs font-black text-white font-mono bg-slate-800 px-2 py-1 rounded shadow-inner">${hours}ঘণ্টা</span>
+                    <span class="text-xs font-black text-white font-mono bg-slate-800 px-2 py-1 rounded shadow-inner">${mins}মিনিট</span>
+                `;
+            }
+        }
+        setInterval(updateSiteAge, 60000);
+        updateSiteAge();
+    })();
 </script>
 
 {% endblock %}
