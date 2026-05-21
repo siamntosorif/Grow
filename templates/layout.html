@@ -7,13 +7,11 @@
     <meta name="theme-color" content="#ffffff">
     <title>GrowEarn | Premium Earning Network</title>
     
-    <!-- PWA Required Tags -->
     <link rel="manifest" href="/manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/192/3135/3135715.png">
     
-    <!-- Tailwind CSS (Advanced Config) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -34,10 +32,7 @@
         }
     </script>
     
-    <!-- FontAwesome Pro Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
@@ -66,23 +61,23 @@
             box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03) !important;
         }
 
-        /* --- Navbars --- */
+        /* --- SOLID NAVBAR FIX --- */
         .top-navbar {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid theme('colors.slate.100');
-            box-shadow: 0 2px 15px rgba(0,0,0,0.02);
+            background: #ffffff;
+            border-bottom: 1px solid theme('colors.slate.200');
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 50;
         }
 
         /* ==========================================
            GLASSMORPHISM BOTTOM NAV (GLOWING)
         ========================================== */
         .glass-bottom-nav {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border-top: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 -10px 40px rgba(225, 29, 72, 0.08); /* Red tint shadow */
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 -5px 30px rgba(225, 29, 72, 0.05); 
             padding-bottom: env(safe-area-inset-bottom);
         }
         
@@ -90,7 +85,7 @@
         .tab-item.active { 
             color: theme('colors.primary.600'); 
             transform: translateY(-2px); 
-            text-shadow: 0 4px 10px rgba(225, 29, 72, 0.3); /* Glowing text */
+            text-shadow: 0 4px 10px rgba(225, 29, 72, 0.2); 
         }
         
         /* --- GLOWING CENTER FLOATING BUTTON (/work) --- */
@@ -98,25 +93,24 @@
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
-            top: -28px; 
+            top: -26px; 
             z-index: 100;
         }
         .center-action-btn {
-            background: linear-gradient(135deg, #e11d48 0%, #be123c 100%); /* Crimson Red */
+            background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
             color: white;
-            box-shadow: 0 8px 25px rgba(225, 29, 72, 0.5); /* Heavy Glowing Shadow */
-            border: 6px solid #ffffff; /* Thick white border to pop out */
+            box-shadow: 0 8px 25px rgba(225, 29, 72, 0.5); 
+            border: 6px solid #ffffff; 
             height: 68px; width: 68px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             font-size: 26px;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .center-action-btn:hover { transform: scale(1.08) rotate(5deg); }
         .center-action-btn:active { transform: scale(0.95); box-shadow: 0 4px 15px rgba(225, 29, 72, 0.3); }
 
         /* --- Fix Main Container Spacing --- */
         main {
-            padding-top: 85px !important;
+            padding-top: 75px !important;
             padding-bottom: 110px !important; 
         }
 
@@ -124,7 +118,6 @@
         #sidebar { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); will-change: transform; }
         .sidebar-open { transform: translateX(0); }
         .sidebar-closed { transform: translateX(-100%); }
-
         .menu-title { font-size: 10px; font-weight: 800; color: theme('colors.slate.400'); text-transform: uppercase; letter-spacing: 0.15em; margin: 24px 0 8px 16px; }
         .menu-item { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 16px; color: theme('colors.slate.700'); font-size: 14px; font-weight: 600; transition: all 0.2s ease; margin-bottom: 4px;}
         .menu-item:hover { background: theme('colors.primary.50'); color: theme('colors.primary.600'); }
@@ -136,38 +129,30 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <!-- ================= 1. TOP NAVBAR (Clear Name & Logo) ================= -->
-    <nav class="top-navbar fixed top-0 w-full z-40 h-[70px]">
+    <!-- ================= 1. SOLID TOP NAVBAR (Fixed Issue) ================= -->
+    <nav class="top-navbar fixed top-0 w-full h-[70px]">
         <div class="max-w-7xl mx-auto px-4 h-full flex justify-between items-center">
             
-            <div class="flex items-center gap-3">
-                <button onclick="toggleSidebar()" class="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-50 border border-slate-100 hover:bg-red-50 text-slate-600 hover:text-red-600 transition shadow-sm">
+            <div class="flex items-center gap-3 md:gap-4">
+                <button onclick="toggleSidebar()" class="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-50 border border-slate-200 hover:bg-red-50 text-slate-600 hover:text-red-600 transition shadow-sm">
                     <i class="fa-solid fa-bars-staggered"></i>
                 </button>
                 
-                <!-- Clear Username Display -->
-                {% if session.get('user_id') %}
-                <div class="flex flex-col">
-                    <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none mb-0.5">GrowEarn</span>
-                    <span class="text-sm font-black text-slate-800 leading-none truncate max-w-[140px] sm:max-w-[200px]">{{ user.full_name or user.email.split('@')[0] | title }}</span>
-                </div>
-                {% else %}
+                <!-- Clear Brand Name (GrowEarn) -->
                 <a href="/" class="flex items-center gap-2 group">
-                    <div class="bg-red-600 text-white h-8 w-8 flex items-center justify-center rounded-[10px] shadow-sm group-hover:scale-105 transition">
+                    <div class="bg-red-600 text-white h-8 w-8 flex items-center justify-center rounded-[10px] shadow-md group-hover:scale-105 transition">
                         <i class="fa-solid fa-bolt text-sm"></i>
                     </div>
                     <span class="text-xl font-black tracking-tight text-slate-900">Grow<span class="text-red-600">Earn</span></span>
                 </a>
-                {% endif %}
             </div>
 
             <div class="flex items-center gap-2 md:gap-3">
-                <!-- Direct App Download -->
-                <button onclick="triggerInstall()" class="flex items-center justify-center h-10 w-10 bg-red-50 text-red-600 rounded-xl hover:bg-red-600 hover:text-white transition shadow-sm border border-red-100" title="Install App">
+                <button onclick="triggerInstall()" class="hidden md:flex items-center justify-center h-10 w-10 bg-red-50 text-red-600 rounded-xl hover:bg-red-600 hover:text-white transition shadow-sm border border-red-100" title="Install App">
                     <i class="fa-solid fa-download"></i>
                 </button>
                 
-                <a href="/notice" class="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-50 border border-slate-100 hover:bg-slate-100 transition text-slate-500 relative shadow-sm">
+                <a href="/notice" class="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-50 border border-slate-200 hover:bg-slate-100 transition text-slate-500 relative shadow-sm">
                     <i class="fa-regular fa-bell text-lg"></i>
                     {% if settings and settings.notice_text %}
                     <span class="absolute top-2.5 right-2.5 h-2 w-2 bg-red-500 rounded-full animate-ping"></span>
@@ -179,9 +164,9 @@
     </nav>
 
     <!-- ================= 2. ADVANCED SIDEBAR ================= -->
-    <div id="sidebarOverlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
+    <div id="sidebarOverlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[60] hidden opacity-0 transition-opacity duration-300"></div>
     
-    <div id="sidebar" class="fixed top-0 left-0 h-full w-[290px] bg-white z-[60] sidebar-closed flex flex-col shadow-[20px_0_40px_rgba(0,0,0,0.08)]">
+    <div id="sidebar" class="fixed top-0 left-0 h-full w-[290px] bg-white z-[70] sidebar-closed flex flex-col shadow-[20px_0_40px_rgba(0,0,0,0.08)]">
         
         <div class="p-6 bg-gradient-to-br from-red-700 to-red-900 text-white relative overflow-hidden">
             <div class="absolute right-0 top-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
@@ -215,7 +200,6 @@
         </div>
 
         <div class="flex-grow overflow-y-auto p-4 pb-24">
-            
             <p class="menu-title">Navigation</p>
             <a href="/dashboard" class="menu-item {{ 'active' if request.endpoint == 'dashboard' }}"><i class="fa-solid fa-house w-6 text-center text-slate-400"></i> <span>Dashboard</span></a>
             <a href="/withdraw" class="menu-item {{ 'active' if request.endpoint == 'withdraw' }}"><i class="fa-solid fa-money-bill-transfer w-6 text-center text-emerald-500"></i> <span>Withdraw</span></a>
@@ -225,7 +209,6 @@
             <a href="/givework" class="menu-item {{ 'active' if request.endpoint == 'hire_us' or request.endpoint == 'givework' }}"><i class="fa-solid fa-briefcase w-6 text-center text-indigo-500"></i> <span>Give Work (B2B)</span></a>
             <a href="/menu" class="menu-item {{ 'active' if request.endpoint == 'account' or request.endpoint == 'menu' }}"><i class="fa-solid fa-bars w-6 text-center text-slate-500"></i> <span>Full Menu</span></a>
 
-            <!-- Admin Area -->
             {% if user and user.role == 'admin' %}
             <div class="my-4 border-t border-slate-100"></div>
             <p class="menu-title text-red-400">Administration</p>
