@@ -2,26 +2,17 @@
 {% block content %}
 
 <style>
-    /* Smooth Entry Animation */
     .fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(15px); }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
     /* Custom Modern Cards */
     .hub-card {
-        background: #ffffff;
-        border: 1px solid #E2E8F0;
-        border-radius: 20px;
-        padding: 16px;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        display: flex;
-        flex-direction: column;
-        position: relative;
-        overflow: hidden;
+        background: #ffffff; border: 1px solid #E2E8F0; border-radius: 20px;
+        padding: 16px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex; flex-direction: column; position: relative; overflow: hidden;
     }
     .hub-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.1);
-        border-color: #BFDBFE;
+        transform: translateY(-4px); box-shadow: 0 10px 25px -5px rgba(225, 29, 72, 0.1); border-color: #FECDD3;
     }
 
     /* Shimmer Effect for Premium Cards */
@@ -36,21 +27,47 @@
 
 <div class="max-w-2xl mx-auto space-y-6 fade-in-up pb-8 px-1">
 
-    <!-- ==========================================
-         1. PAGE HEADER (Corporate Minimalist)
-    ========================================== -->
+    <!-- 1. PAGE HEADER -->
     <div class="flex items-center gap-3 mb-2 pt-2 px-1">
-        <div class="h-12 w-12 bg-blue-50 text-blue-600 rounded-[16px] flex items-center justify-center text-xl shadow-sm border border-blue-100 flex-shrink-0">
+        <div class="h-12 w-12 bg-red-50 text-red-600 rounded-[14px] flex items-center justify-center text-xl shadow-sm border border-red-100 flex-shrink-0">
             <i class="fa-solid fa-briefcase"></i>
         </div>
         <div>
-            <h2 class="text-2xl font-black text-slate-800 tracking-tight leading-none">ওয়ার্ক স্টেশন</h2>
-            <p class="text-[10px] text-blue-500 font-bold uppercase tracking-widest mt-1">সব ধরনের কাজ এখানে</p>
+            <h2 class="text-2xl font-black text-slate-800 tracking-tight leading-none">Work Station</h2>
+            <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">Free & Premium Jobs</p>
         </div>
     </div>
 
     <!-- ==========================================
-         2. HIGHLIGHTED SECTION (Elite & Premium)
+         2. FREE & REGULAR TASKS (Top Priority)
+    ========================================== -->
+    <div>
+        <h3 class="font-bold text-slate-800 text-xs uppercase tracking-widest mb-3 px-1 mt-6 flex items-center gap-1.5">
+            <i class="fa-solid fa-bolt text-red-500"></i> Regular Tasks (Free)
+        </h3>
+        <div class="grid grid-cols-2 gap-3">
+            
+            <a href="/tasks" class="hub-card group border-l-4 border-l-indigo-500">
+                <div class="h-10 w-10 bg-indigo-50 text-indigo-600 rounded-[12px] flex items-center justify-center text-lg mb-2 shadow-sm border border-indigo-100 group-hover:scale-110 transition"><i class="fa-solid fa-list-check"></i></div>
+                <div>
+                    <h4 class="font-bold text-slate-800 text-sm">Micro Tasks</h4>
+                    <p class="text-[10px] text-slate-500 mt-0.5 font-medium">Easy Social Actions</p>
+                </div>
+            </a>
+
+            <a href="/play" class="hub-card group border-l-4 border-l-emerald-500">
+                <div class="h-10 w-10 bg-emerald-50 text-emerald-600 rounded-[12px] flex items-center justify-center text-lg mb-2 shadow-sm border border-emerald-100 group-hover:scale-110 transition"><i class="fa-brands fa-google-play"></i></div>
+                <div>
+                    <h4 class="font-bold text-slate-800 text-sm">App Reviews</h4>
+                    <p class="text-[10px] text-slate-500 mt-0.5 font-medium">Install & Rating</p>
+                </div>
+            </a>
+            
+        </div>
+    </div>
+
+    <!-- ==========================================
+         3. HIGHLIGHTED SECTION (Elite & Premium - Middle)
     ========================================== -->
     <div class="grid grid-cols-2 gap-3 mt-4">
         <!-- Elite Plans -->
@@ -59,8 +76,8 @@
             <div class="h-12 w-12 bg-gradient-to-br from-amber-400 to-amber-600 text-white rounded-xl flex items-center justify-center text-xl shadow-md border border-amber-300 relative z-10"><i class="fa-solid fa-gem"></i></div>
             <div class="relative z-10 mt-auto pt-2">
                 <span class="text-[8px] bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded font-black uppercase tracking-widest mb-1.5 inline-block">Best ROI</span>
-                <h4 class="font-black text-white text-base leading-tight">এলিট মেম্বারশিপ</h4>
-                <p class="text-[9px] text-slate-400 mt-1 font-medium">অটোমেটিক ডেইলি প্রফিট</p>
+                <h4 class="font-black text-white text-base leading-tight">Elite Plans</h4>
+                <p class="text-[9px] text-slate-400 mt-1 font-medium">Daily Auto Profit Generation</p>
             </div>
         </a>
 
@@ -70,31 +87,8 @@
             <div class="h-12 w-12 bg-white text-rose-600 rounded-xl flex items-center justify-center text-xl shadow-md border border-rose-100 relative z-10"><i class="fa-solid fa-lock"></i></div>
             <div class="relative z-10 mt-auto pt-2">
                 <span class="text-[8px] bg-white/20 text-white px-2 py-0.5 rounded font-black uppercase tracking-widest mb-1.5 inline-block">Exclusive</span>
-                <h4 class="font-black text-white text-base leading-tight">প্রিমিয়াম ওয়ার্ক</h4>
-                <p class="text-[9px] text-rose-200 mt-1 font-medium">লক করা স্পেশাল কাজ</p>
-            </div>
-        </a>
-    </div>
-
-    <!-- ==========================================
-         3. MAIN TASKS (Top Priority)
-    ========================================== -->
-    <div>
-        <h3 class="font-bold text-slate-800 text-xs uppercase tracking-widest mb-3 px-1 mt-6 flex items-center gap-1.5">
-            <i class="fa-solid fa-list-check text-blue-500"></i> রেগুলার টাস্ক
-        </h3>
-        
-        <!-- Micro Tasks (Most Important) -->
-        <a href="/tasks" class="bg-white p-5 rounded-[24px] shadow-[0_4px_15px_rgba(0,0,0,0.02)] border border-slate-100 flex items-center justify-between group hover:border-blue-300 transition hover:-translate-y-1">
-            <div class="flex items-center gap-4">
-                <div class="h-14 w-14 bg-blue-50 text-blue-600 rounded-[16px] flex items-center justify-center text-2xl shadow-sm border border-blue-100 group-hover:scale-110 transition"><i class="fa-solid fa-layer-group"></i></div>
-                <div>
-                    <h4 class="font-black text-slate-800 text-base">মাইক্রো টাস্ক (Micro Tasks)</h4>
-                    <p class="text-[10px] text-slate-500 mt-0.5 font-medium">ইউটিউব, ফেসবুক ও লিংক ভিজিটের সহজ কাজ</p>
-                </div>
-            </div>
-            <div class="h-8 w-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-blue-600 group-hover:text-white transition shadow-sm">
-                <i class="fa-solid fa-chevron-right text-xs"></i>
+                <h4 class="font-black text-white text-base leading-tight">Premium Work</h4>
+                <p class="text-[9px] text-rose-200 mt-1 font-medium">High Paying Hidden Tasks</p>
             </div>
         </a>
     </div>
@@ -104,43 +98,31 @@
     ========================================== -->
     <div>
         <h3 class="font-bold text-slate-800 text-xs uppercase tracking-widest mb-3 px-1 mt-6 flex items-center gap-1.5">
-            <i class="fa-solid fa-fire text-red-500"></i> একাউন্ট ফার্মিং (বেশি আয়)
+            <i class="fa-solid fa-fire text-red-500"></i> High Pay (Farming)
         </h3>
         <div class="grid grid-cols-2 gap-3">
-            <!-- Gmail Task -->
             <a href="/gmail-tasks" class="hub-card group border-l-4 border-l-red-500">
                 <span class="absolute top-0 right-0 bg-red-500 text-white text-[8px] font-black px-2 py-0.5 rounded-bl-lg uppercase tracking-widest">Hot</span>
-                <div class="h-12 w-12 bg-red-50 text-red-500 rounded-[14px] flex items-center justify-center text-xl mb-3 shadow-sm border border-red-100 group-hover:scale-110 transition"><i class="fa-brands fa-google"></i></div>
+                <div class="h-10 w-10 bg-red-50 text-red-500 rounded-[12px] flex items-center justify-center text-lg mb-2 shadow-sm border border-red-100 group-hover:scale-110 transition"><i class="fa-brands fa-google"></i></div>
                 <div>
-                    <h4 class="font-black text-slate-800 text-sm">জিমেইল ক্রিয়েশন</h4>
-                    <p class="text-[10px] text-slate-500 mt-1 font-medium bg-slate-50 px-2 py-0.5 rounded border border-slate-100 inline-block">৳৫ - ৳১০০</p>
+                    <h4 class="font-bold text-slate-800 text-xs">Gmail Creation</h4>
+                    <p class="text-[9px] text-slate-400 mt-0.5">৳5 - ৳100</p>
                 </div>
             </a>
             
-            <!-- Facebook Task -->
             <a href="/fb-task" class="hub-card group border-l-4 border-l-blue-600">
-                <div class="h-12 w-12 bg-blue-50 text-blue-600 rounded-[14px] flex items-center justify-center text-xl mb-3 shadow-sm border border-blue-100 group-hover:scale-110 transition"><i class="fa-brands fa-facebook-f"></i></div>
+                <div class="h-10 w-10 bg-blue-50 text-blue-600 rounded-[12px] flex items-center justify-center text-lg mb-2 shadow-sm border border-blue-100 group-hover:scale-110 transition"><i class="fa-brands fa-facebook-f"></i></div>
                 <div>
-                    <h4 class="font-black text-slate-800 text-sm">ফেসবুক ফার্মিং</h4>
-                    <p class="text-[10px] text-slate-500 mt-1 font-medium bg-slate-50 px-2 py-0.5 rounded border border-slate-100 inline-block">High Payout</p>
+                    <h4 class="font-bold text-slate-800 text-xs">FB Farming</h4>
+                    <p class="text-[9px] text-slate-400 mt-0.5">Submit & Earn</p>
                 </div>
             </a>
             
-            <!-- Instagram Task -->
             <a href="/ig-task" class="hub-card group border-l-4 border-l-pink-500">
-                <div class="h-12 w-12 bg-pink-50 text-pink-600 rounded-[14px] flex items-center justify-center text-xl mb-3 shadow-sm border border-pink-100 group-hover:scale-110 transition"><i class="fa-brands fa-instagram"></i></div>
+                <div class="h-10 w-10 bg-pink-50 text-pink-600 rounded-[12px] flex items-center justify-center text-lg mb-2 shadow-sm border border-pink-100 group-hover:scale-110 transition"><i class="fa-brands fa-instagram"></i></div>
                 <div>
-                    <h4 class="font-black text-slate-800 text-sm">ইন্সটাগ্রাম ফার্মিং</h4>
-                    <p class="text-[10px] text-slate-500 mt-1 font-medium bg-slate-50 px-2 py-0.5 rounded border border-slate-100 inline-block">High Payout</p>
-                </div>
-            </a>
-
-            <!-- App Reviews -->
-            <a href="/play" class="hub-card group border-l-4 border-l-emerald-500">
-                <div class="h-12 w-12 bg-emerald-50 text-emerald-600 rounded-[14px] flex items-center justify-center text-xl mb-3 shadow-sm border border-emerald-100 group-hover:scale-110 transition"><i class="fa-brands fa-google-play"></i></div>
-                <div>
-                    <h4 class="font-black text-slate-800 text-sm">অ্যাপ রিভিউ</h4>
-                    <p class="text-[10px] text-slate-500 mt-1 font-medium bg-slate-50 px-2 py-0.5 rounded border border-slate-100 inline-block">Installs & Rating</p>
+                    <h4 class="font-bold text-slate-800 text-xs">IG Farming</h4>
+                    <p class="text-[9px] text-slate-400 mt-0.5">Submit & Earn</p>
                 </div>
             </a>
         </div>
@@ -151,67 +133,40 @@
     ========================================== -->
     <div>
         <h3 class="font-bold text-slate-800 text-xs uppercase tracking-widest mb-3 px-1 mt-6 flex items-center gap-1.5">
-            <i class="fa-solid fa-gamepad text-purple-500"></i> মিনি গেমস (সহজ আয়)
+            <i class="fa-solid fa-gamepad text-purple-500"></i> Mini Games
         </h3>
-        <div class="grid grid-cols-2 gap-3">
-            <a href="/captcha" class="bg-white p-4 rounded-[20px] shadow-sm border border-slate-100 flex items-center gap-3 hover:border-teal-300 transition group hover:-translate-y-1">
-                <div class="h-10 w-10 bg-teal-50 text-teal-600 rounded-[12px] flex items-center justify-center text-lg group-hover:scale-110 transition"><i class="fa-solid fa-keyboard"></i></div>
-                <div>
-                    <h4 class="font-bold text-slate-800 text-xs">ক্যাপচা এন্ট্রি</h4>
-                    <p class="text-[9px] text-slate-400 mt-0.5">টাইপ করে আয়</p>
-                </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <a href="/captcha" class="hub-card !p-3 group">
+                <div class="h-8 w-8 bg-teal-50 text-teal-600 rounded-[10px] flex items-center justify-center text-sm mb-1.5 group-hover:scale-110 transition"><i class="fa-solid fa-keyboard"></i></div>
+                <span class="text-[10px] font-bold text-slate-700">Captcha</span>
             </a>
-            <a href="/spin" class="bg-white p-4 rounded-[20px] shadow-sm border border-slate-100 flex items-center gap-3 hover:border-orange-300 transition group hover:-translate-y-1">
-                <div class="h-10 w-10 bg-orange-50 text-orange-500 rounded-[12px] flex items-center justify-center text-lg group-hover:scale-110 transition"><i class="fa-solid fa-dharmachakra"></i></div>
-                <div>
-                    <h4 class="font-bold text-slate-800 text-xs">লাকি স্পিন</h4>
-                    <p class="text-[9px] text-slate-400 mt-0.5">ভাগ্য পরীক্ষা করুন</p>
-                </div>
+            <a href="/spin" class="hub-card !p-3 group">
+                <div class="h-8 w-8 bg-orange-50 text-orange-500 rounded-[10px] flex items-center justify-center text-sm mb-1.5 group-hover:scale-110 transition"><i class="fa-solid fa-dharmachakra"></i></div>
+                <span class="text-[10px] font-bold text-slate-700">Lucky Spin</span>
             </a>
-            <a href="/skatch" class="col-span-2 bg-white p-4 rounded-[20px] shadow-sm border border-slate-100 flex items-center justify-between hover:border-indigo-300 transition group hover:-translate-y-1">
-                <div class="flex items-center gap-3">
-                    <div class="h-10 w-10 bg-indigo-50 text-indigo-500 rounded-[12px] flex items-center justify-center text-lg group-hover:scale-110 transition"><i class="fa-solid fa-ticket"></i></div>
-                    <div>
-                        <h4 class="font-bold text-slate-800 text-xs">স্ক্র্যাচ কার্ড (Scratch)</h4>
-                        <p class="text-[9px] text-slate-400 mt-0.5">কার্ড ঘষে বোনাস নিন</p>
-                    </div>
+            <a href="/skatch" class="col-span-2 sm:col-span-1 hub-card !p-3 group flex items-center justify-between sm:flex-col sm:justify-center">
+                <div class="flex items-center sm:flex-col gap-3 sm:gap-1.5">
+                    <div class="h-8 w-8 bg-indigo-50 text-indigo-500 rounded-[10px] flex items-center justify-center text-sm group-hover:scale-110 transition"><i class="fa-solid fa-ticket"></i></div>
+                    <span class="text-[10px] font-bold text-slate-700">Scratch</span>
                 </div>
-                <span class="text-[10px] bg-indigo-500 text-white font-bold px-3 py-1.5 rounded-lg shadow-sm">Play Now</span>
             </a>
         </div>
     </div>
 
     <!-- ==========================================
-         6. AFFILIATE & NETWORKING
+         6. LEADERSHIP CTA BANNER
     ========================================== -->
-    <a href="/referrals" class="block bg-white p-6 rounded-[24px] shadow-[0_4px_15px_rgba(0,0,0,0.02)] border border-slate-100 mt-8 relative overflow-hidden group hover:border-blue-300 transition duration-300 hover:-translate-y-1">
-        <i class="fa-solid fa-network-wired absolute right-[-10px] bottom-[-20px] text-8xl text-slate-50 opacity-60 group-hover:scale-110 transition duration-500"></i>
-        <div class="flex items-center gap-5 relative z-10">
-            <div class="h-14 w-14 bg-blue-50 text-blue-600 rounded-[16px] flex items-center justify-center text-2xl shadow-sm border border-blue-100 group-hover:bg-blue-600 group-hover:text-white transition">
-                <i class="fa-solid fa-users"></i>
-            </div>
-            <div>
-                <span class="text-[9px] bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded font-black uppercase tracking-widest border border-emerald-100 mb-1.5 inline-block">Bonus System</span>
-                <h3 class="font-black text-slate-800 text-base leading-tight">My Team / Affiliate</h3>
-                <p class="text-[10px] text-slate-500 mt-1 font-medium leading-relaxed max-w-[200px]">আপনার রেফার লিংক শেয়ার করে বন্ধুদের ইনভাইট করুন এবং লাইফটাইম কমিশন পান।</p>
-            </div>
-        </div>
-    </a>
-
-    <!-- ==========================================
-         7. LEADERSHIP CTA BANNER
-    ========================================== -->
-    <a href="/apply-leader" class="block bg-gradient-to-r from-blue-700 to-indigo-900 p-6 sm:p-8 rounded-[24px] shadow-[0_15px_40px_rgba(37,99,235,0.3)] relative overflow-hidden group mt-6 hover:shadow-xl transition-shadow border border-blue-800">
-        <div class="absolute right-0 top-0 w-40 h-40 bg-white opacity-10 rounded-bl-full pointer-events-none group-hover:scale-110 transition-transform duration-700"></div>
+    <a href="/apply-leader" class="block bg-gradient-to-r from-red-600 to-rose-600 p-6 rounded-[24px] shadow-[0_15px_40px_rgba(225,29,72,0.3)] relative overflow-hidden group mt-8 border border-red-500">
+        <div class="absolute right-0 top-0 w-32 h-32 bg-white opacity-10 rounded-bl-full pointer-events-none group-hover:scale-110 transition-transform duration-700"></div>
         <div class="flex items-center justify-between relative z-10">
             <div class="pr-4">
-                <span class="bg-white/20 text-white px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest shadow-sm backdrop-blur-sm border border-white/20 inline-flex items-center gap-1 mb-3">
-                    <i class="fa-solid fa-star text-amber-300"></i> Career Opportunity
+                <span class="bg-white/20 text-white px-2.5 py-1 rounded text-[8px] font-black uppercase tracking-widest shadow-sm backdrop-blur-sm border border-white/20 inline-flex items-center gap-1 mb-2">
+                    <i class="fa-solid fa-star text-yellow-300"></i> Career
                 </span>
-                <h3 class="font-black text-white text-xl sm:text-2xl leading-tight">Become a Leader!</h3>
-                <p class="text-[11px] text-blue-200 mt-2 font-medium leading-relaxed max-w-[200px]">আমাদের অ্যাম্বাসেডর প্রোগ্রামে যুক্ত হয়ে প্রতি ১৫ দিনে <b>৳৭০০০ ফিক্সড স্যালারি</b> বুঝে নিন।</p>
+                <h3 class="font-black text-white text-xl leading-tight">Become an Ambassador!</h3>
+                <p class="text-[11px] text-red-100 mt-1 font-medium leading-relaxed">Join our leadership program and earn <b>৳8000 fixed salary</b> every 15 days.</p>
             </div>
-            <div class="h-14 w-14 bg-white text-blue-600 rounded-full flex items-center justify-center text-xl shadow-lg flex-shrink-0 group-hover:bg-amber-400 group-hover:text-slate-900 transition">
+            <div class="h-12 w-12 bg-white text-red-600 rounded-full flex items-center justify-center shadow-lg flex-shrink-0 group-hover:bg-slate-50 transition">
                 <i class="fa-solid fa-arrow-right"></i>
             </div>
         </div>
