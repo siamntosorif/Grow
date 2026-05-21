@@ -130,20 +130,20 @@
 <body class="flex flex-col min-h-screen">
 
     <!-- ================= 1. SOLID TOP NAVBAR (Fixed Issue) ================= -->
-    <nav class="top-navbar fixed top-0 w-full h-[70px]" style="background: #fff;">
+    <nav class="top-navbar fixed top-0 w-full h-[70px]">
         <div class="max-w-7xl mx-auto px-4 h-full flex justify-between items-center">
             
             <div class="flex items-center gap-3 md:gap-4">
                 <button onclick="toggleSidebar()" class="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-50 border border-slate-200 hover:bg-red-50 text-slate-600 hover:text-red-600 transition shadow-sm">
-                    <i class="fa-solid fa-bars-staggered" style="color: #000;"></i>
+                    <i class="fa-solid fa-bars-staggered"></i>
                 </button>
                 
                 <!-- Clear Brand Name (GrowEarn) -->
                 <a href="/" class="flex items-center gap-2 group">
                     <div class="bg-red-600 text-white h-8 w-8 flex items-center justify-center rounded-[10px] shadow-md group-hover:scale-105 transition">
-                        <i class="fa-solid fa-bolt text-sm" style="color: #fff;"></i>
+                        <i class="fa-solid fa-bolt text-sm"></i>
                     </div>
-                    <span class="text-xl font-black tracking-tight text-slate-900" style="color: red;">Grow<span class="text-red-600" style="color: #000;">Earn</span></span>
+                    <span class="text-xl font-black tracking-tight text-slate-900">Grow<span class="text-red-600">Earn</span></span>
                 </a>
             </div>
 
@@ -153,7 +153,7 @@
                 </button>
                 
                 <a href="/notice" class="h-10 w-10 flex items-center justify-center rounded-xl bg-slate-50 border border-slate-200 hover:bg-slate-100 transition text-slate-500 relative shadow-sm">
-                    <i class="fas fa-bell text-lg" style="color: #000;"></i>
+                    <i class="fa-regular fa-bell text-lg"></i>
                     {% if settings and settings.notice_text %}
                     <span class="absolute top-2.5 right-2.5 h-2 w-2 bg-red-500 rounded-full animate-ping"></span>
                     <span class="absolute top-2.5 right-2.5 h-2 w-2 bg-red-500 rounded-full border border-white"></span>
