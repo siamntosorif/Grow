@@ -6,313 +6,194 @@
     .fade-in-up { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(15px); }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-    /* Custom Red Theme App Layout */
-    .app-header-bg {
-        background: #DC2626; /* Deep Red matching the image */
-        border-bottom-left-radius: 36px;
-        border-bottom-right-radius: 36px;
-        padding-bottom: 80px;
-        margin-top: -80px; /* Pulls it up to cover the safe area */
-        padding-top: 100px;
+    /* Crimson Red Theme Avatar */
+    .red-theme-avatar {
+        background: linear-gradient(135deg, #FF4D4D 0%, #D32F2F 100%);
+        box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3);
         position: relative;
-        z-index: 0;
     }
-
-    .balance-card {
-        background: #ffffff;
-        border-radius: 24px;
-        box-shadow: 0 10px 40px rgba(220, 38, 38, 0.15);
-        margin-top: -60px;
-        position: relative;
-        z-index: 10;
-        padding: 24px;
-    }
-
-    .notice-box {
-        background: #FEF2F2;
-        border: 1px solid #FECDD3;
-        border-radius: 16px;
-        padding: 16px;
-        display: flex;
-        align-items: flex-start;
-        gap: 12px;
-    }
-
-    /* Pill Buttons (Image Style) */
-    .pill-btn {
-        background: #DC2626;
-        color: white;
-        border-radius: 9999px;
-        padding: 14px 20px;
-        font-weight: 800;
-        font-size: 13px;
-        text-transform: uppercase;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
-        transition: transform 0.2s;
-    }
-    .pill-btn:active { transform: scale(0.96); }
     
-    .pill-btn-outline {
-        background: #ffffff;
-        color: #DC2626;
-        border: 2px solid #DC2626;
-        border-radius: 9999px;
-        padding: 14px 20px;
-        font-weight: 800;
-        font-size: 13px;
-        text-transform: uppercase;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        transition: transform 0.2s;
+    /* Image Theme Balance Card (Red Gradient) */
+    .red-balance-card {
+        background: linear-gradient(135deg, #FF0000 0%, #B71C1C 100%);
+        box-shadow: 0 10px 30px rgba(183, 28, 28, 0.2);
+        position: relative;
+        overflow: hidden;
     }
-    .pill-btn-outline:active { transform: scale(0.96); }
-nav{
-    background: #fff;
-}
-    /* Hide Top Navbar for App Feel */
-    .top-navbar { background: transparent !important; border: none !important; box-shadow: none !important; }
-    .top-navbar .text-slate-900, .top-navbar i { color: white !important; }
+    .red-balance-card::before {
+        content: ''; position: absolute; right: -30px; top: -30px;
+        width: 160px; height: 160px;
+        background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+        border-radius: 50%;
+    }
+
+    /* Red Category Grid Cards */
+    .nav-card {
+        background: #ffffff; border: 1.5px solid #F1F5F9; border-radius: 20px;
+        padding: 18px 10px; display: flex; flex-direction: column; align-items: center; text-align: center;
+        gap: 8px; transition: all 0.3s ease;
+    }
+    .nav-card:hover { transform: translateY(-3px); border-color: #FFCDD2; box-shadow: 0 8px 15px rgba(211, 47, 47, 0.05); }
+    
+    /* CTA Button Red Style */
+    .btn-red-action {
+        background: #D32F2F; color: white; transition: all 0.2s;
+    }
+    .btn-red-action:active { transform: scale(0.95); background: #B71C1C; }
 </style>
 
-<div class="fade-in-up pb-8 relative">
+<div class="space-y-5 fade-in-up max-w-2xl mx-auto px-1 pb-8 relative z-10">
 
     <!-- ==========================================
-         1. RED HEADER & PROFILE (Like Image)
+         1. PROFILE HEADER (Red Accents)
     ========================================== -->
-    <div class="app-header-bg px-5">
-        <div class="flex justify-between items-center text-white max-w-2xl mx-auto">
+    <div class="bg-white p-5 rounded-[24px] shadow-sm border border-slate-100 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+            <div class="h-14 w-14 rounded-[18px] red-theme-avatar flex items-center justify-center text-white text-2xl font-black flex-shrink-0">
+                {{ user.email[0] | upper }}
+            </div>
             <div>
-                <p class="text-[12px] font-medium opacity-90">Welcome Back, 👋</p>
-                <h2 class="text-2xl font-black tracking-tight leading-tight">
+                <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-0.5">Welcome Back 👋</p>
+                <h2 class="text-xl font-black text-slate-800 leading-none truncate max-w-[200px]">
                     {{ user.full_name or user.email.split('@')[0] | title }}
                 </h2>
-                {% if user.current_level > 0 %}
-                    <span class="text-[10px] font-bold text-amber-300 mt-1 block"><i class="fa-solid fa-crown"></i> Premium Member</span>
-                {% else %}
-                    <span class="text-[10px] font-bold text-red-200 mt-1 block"><i class="fa-solid fa-shield-check"></i> Verified Member</span>
-                {% endif %}
+                <span class="text-[10px] font-bold text-red-600 mt-1.5 flex items-center gap-1">
+                    <i class="fa-solid fa-circle-check"></i> Verified Member
+                </span>
             </div>
-            <!-- Avatar -->
-            <a href="/account" class="h-14 w-14 rounded-full bg-transparent border-2 border-white/40 flex items-center justify-center text-xl font-bold hover:bg-white/10 transition">
-                {{ user.email[0] | upper }}
+        </div>
+        <a href="/account" class="h-10 w-10 bg-slate-50 rounded-full flex items-center justify-center text-slate-400 border border-slate-100">
+            <i class="fa-solid fa-gear"></i>
+        </a>
+    </div>
+
+    <!-- ==========================================
+         2. RED THEME BALANCE CARD
+    ========================================== -->
+    <div class="red-balance-card rounded-[30px] p-7 text-white shadow-xl">
+        <div class="flex justify-between items-center mb-1">
+            <p class="text-[11px] font-bold text-red-100 flex items-center gap-2 uppercase tracking-widest">
+                <i class="fa-solid fa-wallet"></i> Current Balance
+            </p>
+            <button onclick="toggleBalance()" class="text-red-100 hover:text-white transition">
+                <i id="eyeIcon" class="fa-regular fa-eye"></i>
+            </button>
+        </div>
+
+        <div class="mb-6 border-b border-white/10 pb-6">
+            <h1 class="text-5xl font-black font-mono tracking-tighter">
+                <span class="text-2xl opacity-80">৳</span>
+                <span id="balanceText" data-amount="{{ user.balance }}">{{ user.balance }}</span>
+            </h1>
+            <p class="text-[10px] text-red-100 font-medium mt-2">৳{{ user.today_earning or '0.00' }} / earned today</p>
+        </div>
+
+        <!-- Action Buttons Inside Card -->
+        <div class="grid grid-cols-2 gap-4">
+            <a href="/withdraw" class="bg-white text-red-600 py-3.5 rounded-2xl text-xs font-black uppercase tracking-widest text-center shadow-lg active:scale-95 transition">
+                Withdraw Funds
+            </a>
+            <a href="/income" class="bg-black/20 text-white border border-white/20 py-3.5 rounded-2xl text-xs font-bold uppercase tracking-widest text-center backdrop-blur-sm active:scale-95 transition">
+                History
             </a>
         </div>
     </div>
 
     <!-- ==========================================
-         2. BALANCE CARD (Overlapping Header)
+         3. NOTICE BOX 
     ========================================== -->
-    <div class="max-w-2xl mx-auto px-4">
-        <div class="balance-card">
-            <p class="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1">Current Balance</p>
-            <h1 class="text-4xl font-black text-slate-900 font-mono tracking-tight mb-1">
-                ৳{{ user.balance }}
-            </h1>
-            <p class="text-[11px] font-bold text-slate-500 mb-6">
-                Available Points: <span class="text-emerald-600 font-mono">+৳{{ today_income }} / today</span>
-            </p>
-            
-            <div class="flex gap-3">
-                <a href="/withdraw" class="flex-1 bg-red-600 text-white py-3 rounded-full text-[11px] font-black uppercase tracking-widest text-center shadow-md flex items-center justify-center gap-1.5 active:scale-95 transition">
-                    <i class="fa-solid fa-money-bill-transfer"></i> Withdraw
-                </a>
-                <a href="/income" class="flex-1 bg-white text-slate-700 py-3 rounded-full text-[11px] font-black uppercase tracking-widest text-center border-2 border-slate-200 flex items-center justify-center gap-1.5 active:scale-95 transition">
-                    <i class="fa-solid fa-chart-pie"></i> Income Details
-                </a>
-            </div>
+    {% if settings.notice_text %}
+    <div class="bg-white border border-red-50 p-2 rounded-[20px] flex items-center shadow-sm">
+        <div class="bg-red-600 text-white px-3 py-2 rounded-[14px] text-[10px] font-black flex-shrink-0 shadow-md">
+            NOTICE
         </div>
-    </div>
-
-    <!-- ⚠️ ACTIVATION ALERT -->
-    {% if settings.activation_required and not user.is_active %}
-    <div class="max-w-2xl mx-auto px-4 mt-5">
-        <div class="bg-red-50 border border-red-200 p-4 rounded-2xl flex items-center justify-between shadow-sm">
-            <div class="flex items-center gap-3">
-                <div class="bg-red-100 text-red-600 h-10 w-10 rounded-full flex items-center justify-center text-lg">
-                    <i class="fa-solid fa-lock"></i>
-                </div>
-                <div>
-                    <h3 class="font-bold text-red-700 text-sm">Verify Account</h3>
-                    <p class="text-[10px] text-red-500 font-medium">To unlock tasks</p>
-                </div>
-            </div>
-            <a href="/activate" class="bg-red-600 text-white px-4 py-2 rounded-full text-xs font-bold shadow-md">Verify Now</a>
-        </div>
+        <marquee class="flex-grow text-xs text-slate-600 font-bold mx-3">
+            {{ settings.notice_text }}
+        </marquee>
     </div>
     {% endif %}
 
-    <div class="max-w-2xl mx-auto px-4 mt-6 space-y-5">
+    <!-- ==========================================
+         4. NAVS / TASKS AREA
+    ========================================== -->
+    <div class="pt-2">
+        <h3 class="font-black text-slate-800 text-[11px] uppercase tracking-widest mb-4 px-1 flex items-center gap-2">
+            <i class="fa-solid fa-fire text-red-600"></i> Hot Tasks
+        </h3>
         
-        <!-- ==========================================
-             3. STATIC NOTICE BOARD (No Scroll)
-        ========================================== -->
-        {% if settings.notice_text %}
-        <div class="notice-box">
-            <i class="fa-solid fa-bullhorn text-red-500 text-xl mt-0.5"></i>
-            <div>
-                <h4 class="text-xs font-black text-slate-800 uppercase tracking-widest mb-1">Notice Board</h4>
-                <p class="text-[11px] text-slate-600 font-medium leading-relaxed">
-                    {{ settings.notice_text }}
-                </p>
-            </div>
-        </div>
-        {% endif %}
-
-        <!-- ==========================================
-             4. BIG ACTION BUTTONS (Like Image)
-        ========================================== -->
-        <a href="/tasks" class="pill-btn w-full text-base py-4 shadow-[0_8px_20px_rgba(220,38,38,0.4)]">
-            Start Task 🔥
-        </a>
-
-        <div class="grid grid-cols-2 gap-3">
-            <a href="/watch-ads" class="pill-btn"><i class="fa-solid fa-play"></i> Watch Ads</a>
-            <a href="/spin" class="pill-btn-outline"><i class="fa-solid fa-dharmachakra"></i> Spin & Win</a>
-            <a href="/gmail-tasks" class="pill-btn"><i class="fa-brands fa-google"></i> Gmail Task</a>
-            <a href="/referrals" class="pill-btn-outline flex-col !gap-0 !py-2">
-                <span>Refer & Earn 🎁</span>
-                <span class="text-[9px] text-slate-500 font-medium">৳10 per referral</span>
+        <div class="grid grid-cols-3 gap-3">
+            <a href="/tasks" class="nav-card">
+                <div class="h-12 w-12 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center text-xl"><i class="fa-solid fa-bolt-lightning"></i></div>
+                <span class="text-[11px] font-black text-slate-700">Start Task</span>
+            </a>
+            
+            <a href="/gmail-tasks" class="nav-card">
+                <div class="h-12 w-12 bg-orange-50 text-orange-600 rounded-2xl flex items-center justify-center text-xl"><i class="fa-brands fa-google"></i></div>
+                <span class="text-[11px] font-black text-slate-700">Watch Ads</span>
+            </a>
+            
+            <a href="/work" class="nav-card">
+                <div class="h-12 w-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center text-xl"><i class="fa-solid fa-gamepad"></i></div>
+                <span class="text-[11px] font-black text-slate-700">Spin Win</span>
             </a>
         </div>
-
-        <!-- ==========================================
-             5. APP INFORMATION (Footer Stats)
-        ========================================== -->
-        <div class="pt-6 pb-4">
-            <h3 class="font-black text-slate-800 text-sm mb-4">App Information</h3>
-            <div class="flex justify-between items-center px-2">
-                <div class="flex items-center gap-3">
-                    <div class="h-10 w-10 bg-red-50 text-red-500 rounded-xl flex items-center justify-center text-lg"><i class="fa-regular fa-calendar"></i></div>
-                    <div>
-                        <p class="text-[10px] text-slate-500 font-bold uppercase">Site Age:</p>
-                        <p class="text-xs font-black text-slate-800" id="countdown">Loading...</p>
-                    </div>
-                </div>
-                <div class="flex items-center gap-3">
-                    <div class="h-10 w-10 bg-red-50 text-red-500 rounded-xl flex items-center justify-center text-lg"><i class="fa-solid fa-users"></i></div>
-                    <div>
-                        <p class="text-[10px] text-slate-500 font-bold uppercase">Total Users:</p>
-                        <p class="text-xs font-black text-slate-800">56,000+</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ==========================================
-             6. HIRE US CTA BANNER
-        ========================================== -->
-        <a href="/hire-us" class="block bg-slate-900 p-6 rounded-[24px] shadow-lg relative overflow-hidden group border border-slate-800 mt-4">
-            <div class="absolute right-0 top-0 w-32 h-32 bg-white opacity-5 rounded-bl-full pointer-events-none group-hover:scale-110 transition-transform"></div>
-            <div class="flex items-center justify-between relative z-10">
-                <div>
-                    <span class="bg-red-500/20 text-red-400 border border-red-500/30 px-2.5 py-1 rounded text-[8px] font-black uppercase tracking-widest mb-2 inline-block">B2B Services</span>
-                    <h3 class="font-black text-white text-lg leading-tight">আপনার কাজ আমাদের দিন!</h3>
-                    <p class="text-[10px] text-slate-400 mt-1 font-medium">YouTube, FB or App Promotion at best rates.</p>
-                </div>
-                <div class="h-12 w-12 bg-red-600 text-white rounded-full flex items-center justify-center text-xl shadow-md group-hover:bg-red-500 transition">
-                    <i class="fa-solid fa-arrow-right"></i>
-                </div>
-            </div>
-        </a>
-
     </div>
-</div>
 
-<!-- ==========================================
-     7. DAILY SMART POPUP (3 Times a day)
-========================================== -->
-<div id="dailyPopup" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] hidden flex items-center justify-center px-4 transition-all duration-300 opacity-0">
-    <div class="bg-white w-full max-w-sm rounded-[32px] shadow-2xl overflow-hidden relative transform scale-95 transition-transform duration-300" id="popupContent">
-        
-        <div class="bg-red-600 p-6 text-center relative">
-            <button onclick="closePopup()" class="absolute top-4 right-4 h-8 w-8 bg-white/20 hover:bg-white/40 rounded-full flex items-center justify-center text-white transition-all">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <div class="h-16 w-16 bg-white text-red-600 rounded-[20px] flex items-center justify-center text-3xl mx-auto mb-3 shadow-lg transform rotate-3">
-                <i class="fa-regular fa-circle-question"></i>
-            </div>
-            <h2 class="text-xl font-black text-white tracking-tight">Need Help?</h2>
+    <!-- ==========================================
+         5. CTA BANNER
+    ========================================== -->
+    <a href="/refer" class="block bg-slate-900 p-5 rounded-[24px] relative overflow-hidden group">
+        <div class="absolute right-[-10px] bottom-[-10px] opacity-10 rotate-12">
+            <i class="fa-solid fa-gift text-7xl text-white"></i>
         </div>
+        <div class="relative z-10">
+            <h3 class="font-black text-white text-lg leading-tight">Refer & Earn $2.00</h3>
+            <p class="text-[10px] text-slate-400 mt-1 font-medium">Invite your friends and earn instant rewards!</p>
+        </div>
+    </a>
 
-        <div class="p-6 text-center">
-            <p class="text-sm text-slate-600 font-medium leading-relaxed mb-6">
-                কিভাবে কাজ করবেন বুঝতে পারছেন না? আমাদের ভিডিও গাইড দেখুন অথবা সাপোর্ট টিমের সাথে কথা বলুন।
-            </p>
-
-            <div class="space-y-3">
-                <a href="/tutorial" class="block w-full bg-red-50 text-red-600 border border-red-100 py-3.5 rounded-xl text-sm font-bold hover:bg-red-100 transition flex items-center justify-center gap-2">
-                    <i class="fa-brands fa-youtube text-lg"></i> How to work?
-                </a>
-                <a href="https://t.me/grow_earn" target="_blank" class="block w-full bg-[#2AABEE] text-white py-3.5 rounded-xl text-sm font-bold shadow-md hover:bg-sky-500 transition flex items-center justify-center gap-2">
-                    <i class="fa-brands fa-telegram text-lg"></i> Join Telegram Channel
-                </a>
-                <a href="https://t.me/earndailysite" target="_blank" class="block w-full bg-slate-100 text-slate-600 border border-slate-200 py-3.5 rounded-xl text-sm font-bold hover:bg-slate-200 transition flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-headset"></i> Live Support
-                </a>
+    <!-- ==========================================
+         6. APP INFO (Site Age)
+    ========================================== -->
+    <div class="bg-white p-5 rounded-[24px] border border-slate-100 shadow-sm flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <div class="h-10 w-10 bg-slate-50 text-slate-400 rounded-xl flex items-center justify-center border border-slate-100">
+                <i class="fa-solid fa-clock-rotate-left"></i>
             </div>
+            <div>
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Site Age</p>
+                <p class="text-xs font-bold text-slate-800" id="siteAgeLabel">2 Years 14 Days</p>
+            </div>
+        </div>
+        <div class="text-right">
+            <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Total Users</p>
+            <p class="text-xs font-bold text-red-600">50,000+</p>
         </div>
     </div>
+
 </div>
 
-<!-- SCRIPTS -->
+<!-- Nav Fixed for better experience -->
+<div class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-100 px-6 py-3 flex justify-between items-center z-50 shadow-[0_-5px_20px_rgba(0,0,0,0.05)]">
+    <a href="#" class="flex flex-col items-center gap-1 text-red-600"><i class="fa-solid fa-house"></i><span class="text-[9px] font-bold uppercase">Home</span></a>
+    <a href="#" class="flex flex-col items-center gap-1 text-slate-400"><i class="fa-solid fa-trophy"></i><span class="text-[9px] font-bold uppercase">Leader</span></a>
+    <a href="#" class="flex flex-col items-center gap-1 text-slate-400"><i class="fa-solid fa-wallet"></i><span class="text-[9px] font-bold uppercase">Wallet</span></a>
+    <a href="#" class="flex flex-col items-center gap-1 text-slate-400"><i class="fa-solid fa-user"></i><span class="text-[9px] font-bold uppercase">Profile</span></a>
+</div>
+
 <script>
-    // System Uptime Script (Bengali Style)
-    (function() {
-        function updateSiteAge() {
-            const startDate = new Date("2025-01-01T00:00:00").getTime(); // Set your start date
-            const now = new Date().getTime();
-            const diff = now - startDate;
-
-            if (diff > 0) {
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const months = Math.floor(days / 30);
-                const remainingDays = days % 30;
-                document.getElementById("countdown").innerText = `${months > 0 ? months + ' Months ' : ''}${remainingDays} Days`;
-            }
-        }
-        setInterval(updateSiteAge, 60000);
-        updateSiteAge();
-    })();
-
-    // Daily Popup Logic (Show 3 times a day)
-    document.addEventListener("DOMContentLoaded", () => {
-        const popup = document.getElementById('dailyPopup');
-        const popupContent = document.getElementById('popupContent');
-        const today = new Date().toDateString();
+    // Balance Toggle Logic
+    function toggleBalance() {
+        const balElement = document.getElementById("balanceText");
+        const icon = document.getElementById("eyeIcon");
         
-        let popupData = JSON.parse(localStorage.getItem('earnDailyPopup')) || { date: today, count: 0 };
-
-        // Reset count if it's a new day
-        if(popupData.date !== today) {
-            popupData = { date: today, count: 0 };
+        if (icon.classList.contains("fa-eye")) {
+            balElement.innerText = "******";
+            icon.classList.replace("fa-eye", "fa-eye-slash");
+        } else {
+            balElement.innerText = balElement.getAttribute("data-amount");
+            icon.classList.replace("fa-eye-slash", "fa-eye");
         }
-
-        if (popupData.count < 3) {
-            setTimeout(() => {
-                popup.classList.remove('hidden');
-                setTimeout(() => {
-                    popup.classList.remove('opacity-0');
-                    popupContent.classList.remove('scale-95');
-                }, 10);
-                
-                popupData.count += 1;
-                localStorage.setItem('earnDailyPopup', JSON.stringify(popupData));
-            }, 2000); // Show after 2 seconds
-        }
-    });
-
-    function closePopup() {
-        const popup = document.getElementById('dailyPopup');
-        const popupContent = document.getElementById('popupContent');
-        popup.classList.add('opacity-0');
-        popupContent.classList.add('scale-95');
-        setTimeout(() => popup.classList.add('hidden'), 300);
     }
 </script>
 
